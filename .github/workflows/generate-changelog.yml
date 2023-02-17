@@ -1,0 +1,32 @@
+name: Generate Changelog
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "CHANGELOG.md"
+
+jobs:
+  generate-changelog:
+    name: Generate and Push CHANGELOG.md
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main with full commit history
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Generate changelog with git-cliff
+        uses: orhun/git-cliff-action@v2
+        id: git-cliff
+        env:
+          OUTPUT: CHANGELOG.md
+
+      - name: Commit and push CHANGELOG.md
+        run: |
+          git config --global user.name "automation"
+          git config --global user.email "automation@pixelfreestudio.com"
+          git add CHANGELOG.md
+          git commit -m "Automated CHANGELOG.md update"
+          git push
