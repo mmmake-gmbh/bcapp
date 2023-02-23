@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icons/ic/car-electric</title>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="electric_car_black_24dp">
+            <rect id="Rectangle" x="0" y="0" width="24" height="24"></rect>
+            <g id="Group" transform="translate(3.000000, 1.000000)" fill="#000000" fill-rule="nonzero">
+                <path d="M15.92,1.01 C15.72,0.42 15.16,0 14.5,0 L3.5,0 C2.84,0 2.29,0.42 2.08,1.01 L0,7 L0,15 C0,15.55 0.45,16 1,16 L2,16 C2.55,16 3,15.55 3,15 L3,14 L15,14 L15,15 C15,15.55 15.45,16 16,16 L17,16 C17.55,16 18,15.55 18,15 L18,7 L15.92,1.01 Z M3.5,11 C2.67,11 2,10.33 2,9.5 C2,8.67 2.67,8 3.5,8 C4.33,8 5,8.67 5,9.5 C5,10.33 4.33,11 3.5,11 Z M14.5,11 C13.67,11 13,10.33 13,9.5 C13,8.67 13.67,8 14.5,8 C15.33,8 16,8.67 16,9.5 C16,10.33 15.33,11 14.5,11 Z M2,6 L3.5,1.5 L14.5,1.5 L16,6 L2,6 Z" id="Shape"></path>
+                <polygon id="Path" points="4 19 8 19 8 17 14 20 10 20 10 22"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
