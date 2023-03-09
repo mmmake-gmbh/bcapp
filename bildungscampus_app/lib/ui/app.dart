@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 class MyApp extends StatelessWidget {
   final LocalSettingsDto localSettingsDto;
 
-  MyApp({required this.localSettingsDto});
+  const MyApp({Key? key, required this.localSettingsDto}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
           ),
           fontFamily: 'DINOT Medium',
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          textTheme: TextTheme(
+          textTheme: const TextTheme(
             displayLarge: TextStyle(
               fontFamily: 'DINOT Light',
               color: Colors.white,
@@ -93,7 +93,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        localizationsDelegates: [
+        localizationsDelegates: const [
           S.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,

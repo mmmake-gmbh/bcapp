@@ -5,8 +5,9 @@ import 'package:bildungscampus_app/core/services/weather/weather_service.dart';
 import 'package:bildungscampus_app/locator.dart';
 
 class ApiWeatherService extends WeatherService {
-  WeatherRepository _weatherRepository = locator<WeatherRepository>();
+  final WeatherRepository _weatherRepository = locator<WeatherRepository>();
 
+  @override
   Future<WeatherData> getActualWeather() async {
     WeatherData result;
 

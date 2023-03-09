@@ -1,1 +1,1 @@
-enum TileType { Small, Big, Wide }
+enum TileType { small, big, wide }

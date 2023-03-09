@@ -11,7 +11,8 @@ import 'package:bildungscampus_app/core/viewmodels/parking/parkinglot_viewmodel.
 class ParkingListViewItem extends StatelessWidget {
   final ParkingLotCategory category;
 
-  ParkingListViewItem({required this.category});
+  const ParkingListViewItem({Key? key, required this.category})
+      : super(key: key);
 
   Widget _toggleButton(BuildContext context, String buttonText,
       {Color textColor = Colors.white,
@@ -64,18 +65,16 @@ class ParkingListViewItem extends StatelessWidget {
                         color: AppColors.primaryOneColor,
                       ),
                 ),
-                SizedBox(
-                  height: 8,
-                ),
+                const SizedBox(height: 8),
                 Text(
                   model.parkingLot.street,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: AppColors.parkingCardSubtitleColor,
                   ),
                 ),
                 Text(
                   model.parkingLot.city,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: AppColors.parkingCardSubtitleColor,
                   ),
                 ),
@@ -90,7 +89,7 @@ class ParkingListViewItem extends StatelessWidget {
                   parkingModel: model.parkingLot,
                   textColor: Colors.black87,
                 ),
-              Spacer(),
+              const Spacer(),
               if (!model.isExpanded)
                 Align(
                   alignment: Alignment.bottomRight,
@@ -111,15 +110,13 @@ class ParkingListViewItem extends StatelessWidget {
       children: [
         Text(
           model.parkingLot.priceHeader,
-          style: TextStyle(
+          style: const TextStyle(
             color: AppColors.primaryOneColor,
           ),
         ),
-        SizedBox(
-          height: 8,
-        ),
-        if (model.parkingLot.priceItems.length == 0 &&
-            category == ParkingLotCategory.Students)
+        const SizedBox(height: 8),
+        if (model.parkingLot.priceItems.isEmpty &&
+            category == ParkingLotCategory.students)
           Container(
             height: 80,
             color: AppColors.parkingViewEmptyPriceBgColor,
@@ -136,7 +133,7 @@ class ParkingListViewItem extends StatelessWidget {
                     SvgIcons.info,
                     height: 24,
                     width: 24,
-                    colorFilter: ColorFilter.mode(
+                    colorFilter: const ColorFilter.mode(
                         AppColors.parkingViewEmptyPriceTextColor,
                         BlendMode.srcIn),
                   ),
@@ -160,7 +157,7 @@ class ParkingListViewItem extends StatelessWidget {
             ),
           ),
         Container(
-          color: Color.fromRGBO(250, 250, 250, 1),
+          color: const Color.fromRGBO(250, 250, 250, 1),
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
           child: Column(
             children: [
@@ -181,33 +178,25 @@ class ParkingListViewItem extends StatelessWidget {
                             margin: const EdgeInsets.symmetric(vertical: 6),
                             height: 1,
                             width: double.infinity,
-                            color: Color.fromRGBO(245, 245, 245, 1),
+                            color: const Color.fromRGBO(245, 245, 245, 1),
                           )
                       ]))
                   .toList(),
             ],
           ),
         ),
-        SizedBox(
-          height: 18,
-        ),
+        const SizedBox(height: 18),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TextButton(
-              child: Text(
-                S.of(context).parkinglot_view_google_maps_text,
-                style: TextStyle(
-                  color: AppColors.primaryTwoColor,
-                ),
-              ),
               onPressed: () async {
                 final navigated = await Provider.of<ParkingLotViewModel>(
                         context,
                         listen: false)
                     .navigateTo();
 
-                if (!navigated) {
+                if (!navigated && context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
@@ -224,6 +213,12 @@ class ParkingListViewItem extends StatelessWidget {
                         letterSpacing: 0.3,
                         color: AppColors.primaryTwoColor,
                       )),
+              child: Text(
+                S.of(context).parkinglot_view_google_maps_text,
+                style: const TextStyle(
+                  color: AppColors.primaryTwoColor,
+                ),
+              ),
             ),
             _toggleButton(
               context,
@@ -244,7 +239,7 @@ class ParkingListViewItem extends StatelessWidget {
       child: Card(
         margin: EdgeInsets.zero,
         elevation: 10,
-        shadowColor: Color.fromRGBO(0, 0, 0, 0.25),
+        shadowColor: const Color.fromRGBO(0, 0, 0, 0.25),
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Consumer<ParkingLotViewModel>(

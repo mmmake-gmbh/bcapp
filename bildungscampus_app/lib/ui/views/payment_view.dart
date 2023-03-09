@@ -6,15 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PaymentView extends StatelessWidget {
+  const PaymentView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final url = context.read<AppViewModel>().paymentLink;
     final title =
-        context.read<AppViewModel>().getAppMenuTitle(AppMenuType.Payment) ??
+        context.read<AppViewModel>().getAppMenuTitle(AppMenuType.payment) ??
             S.of(context).payment_view_title_backup;
 
     if (url == null) {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
 
     return SimpleWebViewView(title: title, url: url);

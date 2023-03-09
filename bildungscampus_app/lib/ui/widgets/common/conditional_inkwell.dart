@@ -16,8 +16,8 @@ class ConditionalInkWell extends StatelessWidget {
   Widget build(BuildContext context) {
     return condition
         ? InkWell(
-            child: child,
             onTap: onTap,
+            child: child,
           )
         : child;
   }

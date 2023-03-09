@@ -13,6 +13,8 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class AppDrawer extends StatelessWidget {
+  const AppDrawer({Key? key}) : super(key: key);
+
   bool _isAppMenuItemCurrentRoute(
       ModalRoute<Object?> modalRoute, AppMenu menuItem) {
     final currentRouteName = modalRoute.settings.name ?? '';
@@ -31,24 +33,24 @@ class AppDrawer extends StatelessWidget {
 
     final homeMenu = AppMenu(
       title: S.of(context).home_view_appmenu_title,
-      type: AppMenuType.Home,
+      type: AppMenuType.home,
       navigationPath: AppRouter.homeRoute,
     );
 
     final additionalMenu = [
       AppMenu(
         title: S.of(context).contact_view_appmenu_title,
-        type: AppMenuType.Contact,
+        type: AppMenuType.contact,
         navigationPath: AppRouter.contactRoute,
       ),
       AppMenu(
         title: S.of(context).privacy_view_appmenu_title,
-        type: AppMenuType.Privacy,
+        type: AppMenuType.privacy,
         externalPath: privacyAgreementLink,
       ),
       AppMenu(
         title: S.of(context).termsofuse_view_appmenu_title,
-        type: AppMenuType.Privacy,
+        type: AppMenuType.privacy,
         externalPath: termsOfUseLink,
       ),
     ];
@@ -59,7 +61,7 @@ class AppDrawer extends StatelessWidget {
         child: SafeArea(
           child: ListView(
             padding: EdgeInsets.zero,
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             children: [
               Container(
                 margin: const EdgeInsets.only(left: 15.0, bottom: 28.0),
@@ -97,7 +99,7 @@ class AppDrawer extends StatelessWidget {
                       ),
                     )
                     .toList(),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               ...additionalMenu
                   .map((appMenu) => MenuListTile(
                         appMenu: appMenu,

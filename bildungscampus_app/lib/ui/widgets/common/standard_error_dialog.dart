@@ -3,12 +3,15 @@ import 'package:bildungscampus_app/ui/shared/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class StandardErrorDialog extends StatelessWidget {
+  const StandardErrorDialog({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.center,
       child: Container(
         height: 200,
+        margin: const EdgeInsets.only(bottom: 50, left: 12, right: 12),
         child: Material(
           borderRadius: BorderRadius.circular(5),
           color: AppColors.primaryOneColor,
@@ -19,13 +22,11 @@ class StandardErrorDialog extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.warning,
                         color: Colors.white,
                       ),
-                      SizedBox(
-                        width: 20,
-                      ),
+                      const SizedBox(width: 20),
                       Expanded(
                         child: Text(
                           S.of(context).error_dialog_title,
@@ -36,12 +37,12 @@ class StandardErrorDialog extends StatelessWidget {
                               .copyWith(color: Colors.white),
                         ),
                       ),
-                      SizedBox(width: 5),
+                      const SizedBox(width: 5),
                       InkWell(
                         onTap: () {
                           Navigator.of(context).pop();
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.close,
                           color: Colors.white,
                         ),
@@ -69,7 +70,6 @@ class StandardErrorDialog extends StatelessWidget {
             ),
           ),
         ),
-        margin: EdgeInsets.only(bottom: 50, left: 12, right: 12),
       ),
     );
   }

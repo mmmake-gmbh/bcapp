@@ -32,7 +32,7 @@ class CampusTilesService implements TilesService {
             title: tileModel.title,
             iconPath: SvgIcons.weather,
             weatherData: weatherData,
-            type: TileType.Small,
+            type: TileType.small,
           );
           return vm;
         case 'mensa':
@@ -40,7 +40,7 @@ class CampusTilesService implements TilesService {
             title: tileModel.title,
             iconPath: SvgIcons.mensa,
             weeklyMenu: [], //TODO: Mensa
-            type: TileType.Big,
+            type: TileType.big,
           );
           return vm;
         case 'parking':
@@ -48,7 +48,7 @@ class CampusTilesService implements TilesService {
             title: tileModel.title,
             iconPath: SvgIcons.parkinglot,
             navigationPath: AppRouter.parkingRoute,
-            type: TileType.Big,
+            type: TileType.big,
           );
           return vm;
         case 'booksearch':
@@ -58,7 +58,7 @@ class CampusTilesService implements TilesService {
             description: tileModel.text,
             buttonText: S.of(context).tiles_button_text_more,
             navigationPath: AppRouter.bookSearchRoute,
-            type: TileType.Big,
+            type: TileType.big,
           );
           return vm;
         case 'payment':
@@ -68,7 +68,7 @@ class CampusTilesService implements TilesService {
             description: tileModel.text,
             buttonText: S.of(context).tiles_button_text_more,
             navigationPath: AppRouter.paymentRoute,
-            type: TileType.Big,
+            type: TileType.big,
           );
           return vm;
         case 'timetable':
@@ -78,7 +78,7 @@ class CampusTilesService implements TilesService {
             description: tileModel.text,
             title: tileModel.title,
             iconPath: SvgIcons.bus,
-            type: TileType.Big,
+            type: TileType.big,
           );
           return vm;
         case 'locationmap':
@@ -88,7 +88,7 @@ class CampusTilesService implements TilesService {
             description: tileModel.text,
             title: tileModel.title,
             iconPath: SvgIcons.pin,
-            type: TileType.Wide,
+            type: TileType.wide,
           );
           return vm;
         case 'info':
@@ -98,17 +98,17 @@ class CampusTilesService implements TilesService {
             buttonText: S.of(context).tiles_button_text_more,
             description: tileModel.text,
             navigationPath: AppRouter.homeRoute,
-            type: TileType.Big,
+            type: TileType.big,
           );
           return vm;
         case 'placeholder':
           final vm = EmptyTileViewModel(
-            type: TileType.Small,
+            type: TileType.small,
           );
           return vm;
         default:
           return EmptyTileViewModel(
-            type: TileType.Big,
+            type: TileType.big,
           );
       }
     });

@@ -12,12 +12,12 @@ class OAuthAuthService extends AuthService {
 
     _helper = OAuth2Helper(
       OAuth2Client(
-        authorizeUrl: identityServerUrl + '/connect/authorize',
+        authorizeUrl: '$identityServerUrl/connect/authorize',
         customUriScheme: FlavorConfig.instance!.values.identityScheme,
         redirectUri:
-            FlavorConfig.instance!.values.identityScheme + '://oauth2redirect',
-        tokenUrl: identityServerUrl + '/connect/token',
-        refreshUrl: identityServerUrl + '/connect/token',
+            '${FlavorConfig.instance!.values.identityScheme}://oauth2redirect',
+        tokenUrl: '$identityServerUrl/connect/token',
+        refreshUrl: '$identityServerUrl/connect/token',
       ),
       clientId: FlavorConfig.instance!.values.identityClientId,
       clientSecret: FlavorConfig.instance!.values.identityClientSecret,
@@ -48,6 +48,7 @@ class OAuthAuthService extends AuthService {
     return tknResp;
   }
 
+  @override
   Future<AccessTokenResponse> getAccessToken() async {
     final accessToken = await _getToken();
     return accessToken;

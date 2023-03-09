@@ -7,7 +7,7 @@ import 'package:bildungscampus_app/core/services/interfaces/auth_service.dart';
 import 'package:bildungscampus_app/locator.dart';
 
 abstract class BaseRepository<T> {
-  AuthService _authService = locator<AuthService>();
+  final AuthService _authService = locator<AuthService>();
 
   Future<dynamic> _getJsonContent(String urlPath) async {
     if (!urlPath.startsWith("/")) {
@@ -15,10 +15,15 @@ abstract class BaseRepository<T> {
     }
 
     final url = FlavorConfig.instance!.values.apiGatewayUrl + urlPath;
-    final token = await _authService.getAccessToken();
+    String accessToken = "";
+    if (FlavorConfig.instance!.values.useIdentity) {
+      final token = await _authService.getAccessToken();
+      accessToken = token.accessToken ?? "";
+    }
+
     final response = await http.get(
       Uri.parse(url),
-      headers: {HttpHeaders.authorizationHeader: "Bearer ${token.accessToken}"},
+      headers: {HttpHeaders.authorizationHeader: "Bearer $accessToken"},
     );
 
     final jsonResponse = jsonDecode(utf8.decode(response.bodyBytes));

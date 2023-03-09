@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class ContactView extends StatelessWidget {
+  const ContactView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final model = context.read<AppViewModel>().contactInfo;
@@ -35,7 +37,7 @@ class ContactView extends StatelessWidget {
                           .titleMedium!
                           .copyWith(fontFamily: 'DINOT Bold'),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     Text(
@@ -44,7 +46,7 @@ class ContactView extends StatelessWidget {
                             color: Colors.white,
                           ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 24,
                     ),
                     Text(
@@ -53,7 +55,7 @@ class ContactView extends StatelessWidget {
                             color: Colors.white,
                           ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 24,
                     ),
                     InkWell(
@@ -68,11 +70,13 @@ class ContactView extends StatelessWidget {
                         if (await canLaunchUrlString(url)) {
                           await launchUrlString(url);
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text(S
-                                .of(context)
-                                .contact_view_open_email_failed_message),
-                          ));
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(S
+                                  .of(context)
+                                  .contact_view_open_email_failed_message),
+                            ));
+                          }
                         }
                       },
                       child: Text(
@@ -83,7 +87,7 @@ class ContactView extends StatelessWidget {
                             ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 24,
                     ),
                     Text(
@@ -94,7 +98,7 @@ class ContactView extends StatelessWidget {
                     ),
                   ],
                 )
-              : SizedBox.shrink(),
+              : const SizedBox.shrink(),
         ),
       ),
     );

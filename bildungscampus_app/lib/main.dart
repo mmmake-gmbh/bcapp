@@ -9,14 +9,16 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   FlavorConfig(
-    flavor: Flavor.DEV,
+    flavor: Flavor.dev,
     color: Colors.deepPurpleAccent,
     values: FlavorValues(
-        apiGatewayUrl: "http://localhost:8080",
-        identityServerUrl: "http://localhost",
-        identityClientId: "empty",
-        identityClientSecret: "empty",
-        identityScheme: 'com.schwarzit.bildungscampus.app'),
+      apiGatewayUrl: "http://10.0.2.2:8080",
+      identityServerUrl: "http://localhost",
+      identityClientId: "empty",
+      identityClientSecret: "empty",
+      identityScheme: 'com.schwarzit.bildungscampus.app',
+      useIdentity: false,
+    ),
   );
   setupLocator();
   final settingsService = locator<SettingsService>();

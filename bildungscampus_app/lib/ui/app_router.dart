@@ -27,12 +27,12 @@ class AppRouter {
     switch (settings.name) {
       case initialRoute:
         return MaterialPageRoute(
-          builder: (_) => _setupProvidersAndFlavorBanner(IntroView()),
+          builder: (_) => _setupProvidersAndFlavorBanner(const IntroView()),
           settings: settings,
         );
       case homeRoute:
         return MaterialPageRoute(
-          builder: (_) => _setupProvidersAndFlavorBanner(HomeView()),
+          builder: (_) => _setupProvidersAndFlavorBanner(const HomeView()),
           settings: settings,
         );
       case parkingRoute:
@@ -46,37 +46,39 @@ class AppRouter {
         );
       case privacyRoute:
         return MaterialPageRoute(
-          builder: (_) => _setupProvidersAndFlavorBanner(PrivacyView()),
+          builder: (_) => _setupProvidersAndFlavorBanner(const PrivacyView()),
           settings: settings,
         );
       case timetableRoute:
         return MaterialPageRoute(
-          builder: (_) => _setupProvidersAndFlavorBanner(TimeTableView()),
+          builder: (_) => _setupProvidersAndFlavorBanner(const TimeTableView()),
           settings: settings,
         );
       case locationMapRoute:
         return MaterialPageRoute(
-          builder: (_) => _setupProvidersAndFlavorBanner(LocationMapView()),
+          builder: (_) =>
+              _setupProvidersAndFlavorBanner(const LocationMapView()),
           settings: settings,
         );
       case bookSearchRoute:
         return MaterialPageRoute(
-          builder: (_) => _setupProvidersAndFlavorBanner(BookSearchView()),
+          builder: (_) =>
+              _setupProvidersAndFlavorBanner(const BookSearchView()),
           settings: settings,
         );
       case paymentRoute:
         return MaterialPageRoute(
-          builder: (_) => _setupProvidersAndFlavorBanner(PaymentView()),
+          builder: (_) => _setupProvidersAndFlavorBanner(const PaymentView()),
           settings: settings,
         );
       case contactRoute:
         return MaterialPageRoute(
-          builder: (_) => _setupProvidersAndFlavorBanner(ContactView()),
+          builder: (_) => _setupProvidersAndFlavorBanner(const ContactView()),
           settings: settings,
         );
       default:
         return MaterialPageRoute(
-          builder: (_) => _setupProvidersAndFlavorBanner(HomeView()),
+          builder: (_) => _setupProvidersAndFlavorBanner(const HomeView()),
           settings: settings,
         );
     }

@@ -27,16 +27,16 @@ class ParkingLot {
 
   ParkingLotLight get currentLight {
     if (totalCapacity <= 0) {
-      return ParkingLotLight.None;
+      return ParkingLotLight.none;
     }
 
     final procentualCapacity = availableCapacity / totalCapacity;
     if (procentualCapacity > 0.75) {
-      return ParkingLotLight.Green;
+      return ParkingLotLight.green;
     } else if (procentualCapacity < 0.3) {
-      return ParkingLotLight.Red;
+      return ParkingLotLight.red;
     } else {
-      return ParkingLotLight.Yellow;
+      return ParkingLotLight.yellow;
     }
   }
 
@@ -94,13 +94,13 @@ class ParkingLot {
   static ParkingLotCategory decodeCategory(String value) {
     switch (value) {
       case 'students':
-        return ParkingLotCategory.Students;
+        return ParkingLotCategory.students;
       case 'staff':
-        return ParkingLotCategory.Staff;
+        return ParkingLotCategory.staff;
       case 'guests':
-        return ParkingLotCategory.Guests;
+        return ParkingLotCategory.guests;
       default:
-        return ParkingLotCategory.None;
+        return ParkingLotCategory.none;
     }
   }
 }

@@ -33,8 +33,10 @@ import 'package:bildungscampus_app/ui/shared/app_images.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
 
 class HomeView extends StatefulWidget {
+  const HomeView({Key? key}) : super(key: key);
+
   @override
-  _HomeViewState createState() => _HomeViewState();
+  State<HomeView> createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
@@ -51,13 +53,13 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
       );
 
       switch (tileModel.type) {
-        case TileType.Small:
+        case TileType.small:
           return StaggeredGridTile.count(
               crossAxisCellCount: 2, mainAxisCellCount: 1, child: tileWidget);
-        case TileType.Big:
+        case TileType.big:
           return StaggeredGridTile.count(
               crossAxisCellCount: 2, mainAxisCellCount: 2, child: tileWidget);
-        case TileType.Wide:
+        case TileType.wide:
           return StaggeredGridTile.count(
               crossAxisCellCount: 4, mainAxisCellCount: 2, child: tileWidget);
       }
@@ -66,7 +68,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
 
   Widget _mapTile(BaseStartTileViewModel model, BuildContext context) {
     if (model is WeatherTileViewModel) {
-      final textColor = Colors.white;
+      const textColor = Colors.white;
       return StartTile.withBaseModel(
         model,
         bgColor: AppColors.weatherTileBgColor.withOpacity(0.72),
@@ -92,8 +94,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
         ),
       );
     } else if (model is ParkingTileViewModel) {
-      final Function onTapFunction = () => Navigator.of(context).pushNamed(
-          AppRouter.parkingRoute,
+      onTapFunction() => Navigator.of(context).pushNamed(AppRouter.parkingRoute,
           arguments: model.selectedParkingCategory!.key);
 
       return ChangeNotifierProvider<ParkingTileViewModel>.value(
@@ -125,7 +126,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
         },
       );
     } else if (model is TimetableTileViewModel) {
-      final contentColor = Colors.white;
+      const contentColor = Colors.white;
       return StartTile.withTextContent(
         model,
         bgColor: AppColors.primaryOneColor,
@@ -136,7 +137,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
         },
       );
     } else if (model is LocationMapTileViewModel) {
-      final contentColor = AppColors.primaryOneColor;
+      const contentColor = AppColors.primaryOneColor;
 
       return StartTileExtended.withBaseModel(
         model,
@@ -152,7 +153,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
         ),
       );
     } else if (model is BookSearchTileViewModel) {
-      final contentColor = Colors.white;
+      const contentColor = Colors.white;
       return StartTile.withTextContent(
         model,
         bgColor: AppColors.secondaryTwoColor,
@@ -163,7 +164,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
         },
       );
     } else if (model is PaymentTileViewModel) {
-      final contentColor = Colors.white;
+      const contentColor = Colors.white;
       return StartTile.withTextContent(
         model,
         bgColor: AppColors.campusCardTileBgColor,
@@ -220,7 +221,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
     final appViewModel = context.read<AppViewModel>();
 
     cancelTimer();
-    timer = Timer.periodic(Duration(seconds: 45),
+    timer = Timer.periodic(const Duration(seconds: 45),
         (Timer t) => appViewModel.updateSilently(context));
     appViewModel.updateSilently(context, updateAll: true);
   }
@@ -240,16 +241,16 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
       Future.microtask(() => showDialog(
             context: context,
             builder: (ct) {
-              return StandardErrorDialog();
+              return const StandardErrorDialog();
             },
           ));
     }
 
     return Scaffold(
       appBar: ReusableAppBars.transparentAppBar(),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       extendBodyBehindAppBar: true,
-      body: Container(
+      body: SizedBox(
         height: double.infinity,
         child: Stack(
           children: [
@@ -261,11 +262,11 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
             ),
             Consumer<AppViewModel>(builder: (context, model, child) {
               if (model.isBusy) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
 
               if (model.tiles == null) {
-                return SizedBox.shrink();
+                return const SizedBox.shrink();
               }
 
               return Positioned(
@@ -278,14 +279,14 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     physics: Platform.isIOS
-                        ? AlwaysScrollableScrollPhysics()
-                        : BouncingScrollPhysics(),
+                        ? const AlwaysScrollableScrollPhysics()
+                        : const BouncingScrollPhysics(),
                     child: StaggeredGrid.count(
                       crossAxisCount: 4,
                       axisDirection: AxisDirection.down,
-                      children: _getTiles(model.tiles!, context),
                       mainAxisSpacing: 4.0,
                       crossAxisSpacing: 4.0,
+                      children: _getTiles(model.tiles!, context),
                     ),
                   ),
                 ),

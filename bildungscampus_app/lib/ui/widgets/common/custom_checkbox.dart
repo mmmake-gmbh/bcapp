@@ -5,7 +5,8 @@ class CustomCheckbox extends StatelessWidget {
   final bool value;
   final Function(bool? value) onChanged;
 
-  CustomCheckbox({required this.value, required this.onChanged});
+  const CustomCheckbox({Key? key, required this.value, required this.onChanged})
+      : super(key: key);
 
   Color getCheckboxColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{
@@ -26,7 +27,7 @@ class CustomCheckbox extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
           child: Container(
             height: 24,
             width: 24,
@@ -36,11 +37,11 @@ class CustomCheckbox extends StatelessWidget {
         Transform.scale(
           scale: 1.5,
           child: Checkbox(
-              value: this.value,
-              onChanged: this.onChanged,
+              value: value,
+              onChanged: onChanged,
               fillColor: MaterialStateProperty.resolveWith(getCheckboxColor),
               checkColor: AppColors.primaryOneColor,
-              shape: RoundedRectangleBorder(
+              shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)))),
         )
       ],

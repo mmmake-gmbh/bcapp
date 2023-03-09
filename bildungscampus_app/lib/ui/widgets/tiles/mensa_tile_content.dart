@@ -1,7 +1,7 @@
 import 'package:bildungscampus_app/core/configs/flavor_config.dart';
 import 'package:bildungscampus_app/core/models/mensa/meal.dart';
 import 'package:bildungscampus_app/core/models/common/menu.dart';
-import 'package:bildungscampus_app/core/utils/date_utils.dart' as Utils;
+import 'package:bildungscampus_app/core/utils/date_utils.dart' as utils;
 import 'package:bildungscampus_app/ui/widgets/tiles/carousel_tile_content.dart';
 import 'package:flutter/material.dart';
 
@@ -11,15 +11,16 @@ class MensaTileContent extends StatefulWidget {
   final Color activeTabColor;
   final Color unselectedTabColor;
 
-  MensaTileContent({
+  const MensaTileContent({
+    Key? key,
     required this.weeklyMenu,
     required this.contentColor,
     required this.activeTabColor,
     required this.unselectedTabColor,
-  });
+  }) : super(key: key);
 
   @override
-  _MensaTileContentState createState() => _MensaTileContentState();
+  State<MensaTileContent> createState() => _MensaTileContentState();
 }
 
 class _MensaTileContentState extends State<MensaTileContent>
@@ -35,7 +36,7 @@ class _MensaTileContentState extends State<MensaTileContent>
   }
 
   String _getDayName(int dayOfTheWeek) {
-    final dateString = Utils.DateUtils.getDateOfTheWeek(
+    final dateString = utils.DateUtils.getDateOfTheWeek(
         FlavorConfig.instance!.lang, dayOfTheWeek);
     if (dateString.isEmpty) {
       return dateString;

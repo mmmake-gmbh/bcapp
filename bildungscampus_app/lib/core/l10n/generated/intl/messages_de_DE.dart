@@ -131,6 +131,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "tiles_button_text_more": MessageLookupByLibrary.simpleMessage("MEHR"),
         "tiles_button_text_show":
             MessageLookupByLibrary.simpleMessage("ANZEIGEN"),
+        "tiles_parking_for_students_text":
+            MessageLookupByLibrary.simpleMessage("für Studierende"),
         "timetable_view_title_backup":
             MessageLookupByLibrary.simpleMessage("Abfahrtsmonitor"),
         "weather_above31":

@@ -32,10 +32,10 @@ class ReusableAppBars {
       elevation: 0,
       backgroundColor: Colors.transparent,
       title: Transform.translate(
-        offset: Offset(0, 2),
+        offset: const Offset(0, 2),
         child: Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 20.0,
           ),
@@ -49,10 +49,10 @@ class ReusableAppBars {
   static AppBar standardAppBar(BuildContext context, String title) {
     return AppBar(
       title: Transform.translate(
-        offset: Offset(0, 2),
+        offset: const Offset(0, 2),
         child: Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 20.0,
           ),
@@ -66,7 +66,7 @@ class ReusableAppBars {
   static AppBar extendedAppBar(BuildContext context, String title) {
     final MediaQueryData mediaQueryData = MediaQuery.of(context);
     final double screenWidth = mediaQueryData.size.width;
-    final contentColor = Colors.white;
+    const contentColor = Colors.white;
 
     return AppBar(
       actions: [
@@ -80,13 +80,14 @@ class ReusableAppBars {
         ),
       ],
       bottom: PreferredSize(
-        child: Container(
+        preferredSize: const Size(0, 40.0),
+        child: SizedBox(
           width: screenWidth,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
             child: Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 color: contentColor,
                 fontSize: 21.0,
               ),
@@ -94,9 +95,8 @@ class ReusableAppBars {
             ),
           ),
         ),
-        preferredSize: Size(0, 40.0),
       ),
-      iconTheme: IconThemeData(
+      iconTheme: const IconThemeData(
         color: contentColor,
       ),
     );

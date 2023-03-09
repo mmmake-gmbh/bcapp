@@ -1,10 +1,10 @@
 enum AppMenuType {
-  Home,
-  Parking,
-  TimeTable,
-  LocationMap,
-  Contact,
-  Privacy,
-  BookSearch,
-  Payment
+  home,
+  parking,
+  timeTable,
+  locationMap,
+  contact,
+  privacy,
+  bookSearch,
+  payment
 }

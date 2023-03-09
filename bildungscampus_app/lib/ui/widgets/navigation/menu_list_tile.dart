@@ -10,7 +10,7 @@ class MenuListTile extends StatelessWidget {
   final Color indicatorColor;
   final Function? onTap;
 
-  MenuListTile({
+  const MenuListTile({
     Key? key,
     required this.appMenu,
     required this.textColor,
@@ -33,7 +33,7 @@ class MenuListTile extends StatelessWidget {
               shadows: [
                 Shadow(
                   color: textColor,
-                  offset: Offset(0, -5),
+                  offset: const Offset(0, -5),
                 )
               ],
               height: 1.1875,
@@ -41,7 +41,7 @@ class MenuListTile extends StatelessWidget {
             ),
       ),
       leading: Transform.translate(
-        offset: Offset(5, -5),
+        offset: const Offset(5, -5),
         child: SvgPicture.asset(
           SvgIcons.arrowRight,
           colorFilter: ColorFilter.mode(textColor, BlendMode.srcIn),

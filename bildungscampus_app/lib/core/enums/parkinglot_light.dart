@@ -1,1 +1,1 @@
-enum ParkingLotLight { None, Green, Yellow, Red }
+enum ParkingLotLight { none, green, yellow, red }

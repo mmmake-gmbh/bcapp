@@ -9,9 +9,10 @@ class SimpleWebViewView extends StatefulWidget {
   final String title;
   final String url;
 
-  SimpleWebViewView({required this.title, required this.url});
+  const SimpleWebViewView({Key? key, required this.title, required this.url})
+      : super(key: key);
   @override
-  _SimpleWebViewViewState createState() => _SimpleWebViewViewState();
+  State<SimpleWebViewView> createState() => _SimpleWebViewViewState();
 }
 
 class _SimpleWebViewViewState extends State<SimpleWebViewView> {
@@ -40,11 +41,11 @@ class _SimpleWebViewViewState extends State<SimpleWebViewView> {
             });
           },
           onWebResourceError: (WebResourceError error) {
-            log(error.description);
+            log('web resource error: ${error.description}');
           },
           onNavigationRequest: (NavigationRequest request) {
-            log("req: " + request.url);
-            log("wid: " + widget.url);
+            log('req: ${request.url}');
+            log('wid: ${widget.url}');
             final uri = Uri.parse(widget.url);
             uri.host;
             if (request.url.contains(uri.host)) {
@@ -67,15 +68,15 @@ class _SimpleWebViewViewState extends State<SimpleWebViewView> {
         context,
         widget.title,
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: Stack(
         children: [
           WebViewWidget(key: _key, controller: _controller),
           isLoading
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : SizedBox.shrink(),
+              : const SizedBox.shrink(),
         ],
       ),
     );

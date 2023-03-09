@@ -9,7 +9,8 @@ class TextTileContent extends StatelessWidget {
   final Color buttonTextColor;
   final Function? onTap;
 
-  TextTileContent({
+  const TextTileContent({
+    Key? key,
     required this.text,
     required this.textColor,
     this.textFontSize,
@@ -17,7 +18,7 @@ class TextTileContent extends StatelessWidget {
     required this.buttonText,
     required this.buttonTextColor,
     this.onTap,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +48,10 @@ class TextTileContent extends StatelessWidget {
             height: 0,
             child: TextButton(
               onPressed: onTap as void Function()?,
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.only(top: 10, left: 10),
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
               child: Text(
                 buttonText!,
                 style: Theme.of(context).textTheme.labelLarge!.copyWith(
@@ -55,10 +60,6 @@ class TextTileContent extends StatelessWidget {
                       letterSpacing: 0.1,
                     ),
                 textAlign: TextAlign.right,
-              ),
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.only(top: 10, left: 10),
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               ),
             ),
           ),

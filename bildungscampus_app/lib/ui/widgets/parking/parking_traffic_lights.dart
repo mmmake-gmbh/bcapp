@@ -8,18 +8,19 @@ class ParkingTrafficLights extends StatelessWidget {
   final ParkingLot? parkingModel;
   final Color textColor;
 
-  ParkingTrafficLights({
+  const ParkingTrafficLights({
+    Key? key,
     required this.parkingModel,
     required this.textColor,
-  });
+  }) : super(key: key);
 
   Color _getCircleColor(ParkingLotLight light) {
     switch (light) {
-      case ParkingLotLight.Green:
+      case ParkingLotLight.green:
         return AppColors.parkingLightGreen;
-      case ParkingLotLight.Yellow:
+      case ParkingLotLight.yellow:
         return AppColors.parkingLightYellow;
-      case ParkingLotLight.Red:
+      case ParkingLotLight.red:
         return AppColors.parkingLightRed;
       default:
         return Colors.transparent;
@@ -28,10 +29,8 @@ class ParkingTrafficLights extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (parkingModel!.currentLight == ParkingLotLight.None) {
-      return SizedBox(
-        height: 18,
-      );
+    if (parkingModel!.currentLight == ParkingLotLight.none) {
+      return const SizedBox(height: 18);
     }
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,

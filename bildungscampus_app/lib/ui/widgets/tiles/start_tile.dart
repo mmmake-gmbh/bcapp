@@ -21,7 +21,8 @@ class StartTile extends StatelessWidget {
   final int maxTitleLines;
   final Function? onTap;
 
-  StartTile({
+  const StartTile({
+    Key? key,
     this.tileType,
     this.tileTitle,
     this.iconPath,
@@ -33,7 +34,7 @@ class StartTile extends StatelessWidget {
     required this.isFullTileTap,
     required this.maxTitleLines,
     this.onTap,
-  });
+  }) : super(key: key);
 
   StartTile.withBaseModel(
     BaseStartTileViewModel model, {
@@ -50,7 +51,8 @@ class StartTile extends StatelessWidget {
         titleColor = contentColor,
         backgroundColor = bgColor,
         navigationPath = model.navigationPath,
-        maxTitleLines = model.maxTitleLines;
+        maxTitleLines = model.maxTitleLines,
+        super(key: key);
 
   StartTile.withTextContent(
     TextTileViewModel model, {
@@ -74,14 +76,15 @@ class StartTile extends StatelessWidget {
           buttonTextColor: contentColor,
           textAlignment: TextAlign.center,
           onTap: onTap,
-        );
+        ),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
       color: backgroundColor,
       child: Container(
-        padding: tileType == TileType.Small
+        padding: tileType == TileType.small
             ? const EdgeInsets.symmetric(vertical: 4.0, horizontal: 10)
             : const EdgeInsets.all(8),
         width: double.infinity,
@@ -100,7 +103,7 @@ class StartTile extends StatelessWidget {
                       SvgPicture.asset(
                         SvgIcons.arrowRight,
                         colorFilter:
-                            ColorFilter.mode(this.titleColor, BlendMode.srcIn),
+                            ColorFilter.mode(titleColor, BlendMode.srcIn),
                         height: 13.0,
                         width: 12.0,
                       ),
@@ -113,7 +116,7 @@ class StartTile extends StatelessWidget {
                                 .textTheme
                                 .titleSmall!
                                 .copyWith(
-                                  color: this.titleColor,
+                                  color: titleColor,
                                   height: 1.2,
                                   letterSpacing: 0.1,
                                 ),
@@ -127,7 +130,9 @@ class StartTile extends StatelessWidget {
                           height: 22.0,
                           width: 22.0,
                           colorFilter: ColorFilter.mode(
-                              this.titleColor, BlendMode.srcIn),
+                            titleColor,
+                            BlendMode.srcIn,
+                          ),
                         )
                     ],
                   ),

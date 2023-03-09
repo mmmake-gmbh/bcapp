@@ -12,7 +12,8 @@ class LocationMapTileContent extends StatelessWidget {
   final Color buttonTextColor;
   final Function? onTap;
 
-  LocationMapTileContent({
+  const LocationMapTileContent({
+    Key? key,
     required this.text,
     required this.textColor,
     this.textFontSize,
@@ -20,10 +21,11 @@ class LocationMapTileContent extends StatelessWidget {
     required this.buttonText,
     required this.buttonTextColor,
     this.onTap,
-  });
+  }) : super(key: key);
 
   LocationMapTileContent.withModel(
     TextTileViewModel model, {
+    Key? key,
     required Color contentColor,
     this.textFontSize = 16.0,
     this.textAlignment = TextAlign.left,
@@ -31,7 +33,8 @@ class LocationMapTileContent extends StatelessWidget {
   })  : text = model.description,
         buttonText = model.buttonText,
         textColor = contentColor,
-        buttonTextColor = contentColor;
+        buttonTextColor = contentColor,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,15 +56,13 @@ class LocationMapTileContent extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: SvgPicture.asset(
                           SvgIcons.map,
-                          colorFilter:
-                              ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                          colorFilter: const ColorFilter.mode(
+                              Colors.white, BlendMode.srcIn),
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: 16,
-                  ),
+                  const SizedBox(width: 16),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(right: 20),
@@ -90,16 +91,16 @@ class LocationMapTileContent extends StatelessWidget {
             height: 0,
             child: TextButton(
               onPressed: onTap as void Function()?,
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.only(top: 10, left: 10),
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
               child: Text(
                 buttonText!,
                 style: TextStyle(
                   color: buttonTextColor,
                 ),
                 textAlign: TextAlign.right,
-              ),
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.only(top: 10, left: 10),
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               ),
             ),
           ),

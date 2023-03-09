@@ -14,6 +14,7 @@ class LocalSettingsService implements SettingsService {
     _prefs ??= await SharedPreferences.getInstance();
   }
 
+  @override
   Future<LocalSettingsDto> loadSettings() async {
     await initPrefs();
     final termsOfUse = _prefs!.containsKey(_termsOfUseKey)
@@ -31,16 +32,19 @@ class LocalSettingsService implements SettingsService {
         hideIntro: hideIntro ?? false);
   }
 
+  @override
   Future<void> setTermsOfUse(bool state) async {
     await initPrefs();
     await _prefs?.setBool(_termsOfUseKey, state);
   }
 
+  @override
   Future<void> setPrivacyAgreement(bool state) async {
     await initPrefs();
     await _prefs?.setBool(_privacyAgreementKey, state);
   }
 
+  @override
   Future<void> setHideIntro(bool state) async {
     await initPrefs();
     await _prefs?.setBool(_hideIntroKey, state);

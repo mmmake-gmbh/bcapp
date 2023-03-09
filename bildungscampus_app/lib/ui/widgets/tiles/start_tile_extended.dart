@@ -16,7 +16,8 @@ class StartTileExtended extends StatelessWidget {
   final bool isFullTileTap;
   final int maxTitleLines;
 
-  StartTileExtended({
+  const StartTileExtended({
+    Key? key,
     this.tileType,
     this.tileTitle,
     required this.titleColor,
@@ -25,7 +26,7 @@ class StartTileExtended extends StatelessWidget {
     this.navigationPath = "",
     required this.isFullTileTap,
     required this.maxTitleLines,
-  });
+  }) : super(key: key);
 
   StartTileExtended.withBaseModel(
     BaseStartTileViewModel model, {
@@ -39,7 +40,8 @@ class StartTileExtended extends StatelessWidget {
         titleColor = contentColor,
         backgroundColor = bgColor,
         navigationPath = model.navigationPath,
-        maxTitleLines = model.maxTitleLines;
+        maxTitleLines = model.maxTitleLines,
+        super(key: key);
 
   void _onTap(BuildContext context) {
     if (navigationPath!.isNotEmpty) {
@@ -60,8 +62,7 @@ class StartTileExtended extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 2.0),
                 child: SvgPicture.asset(
                   SvgIcons.arrowRight,
-                  colorFilter:
-                      ColorFilter.mode(this.titleColor, BlendMode.srcIn),
+                  colorFilter: ColorFilter.mode(titleColor, BlendMode.srcIn),
                   height: 13.0,
                   width: 12.0,
                 ),
@@ -74,7 +75,7 @@ class StartTileExtended extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium!
-                        .copyWith(color: this.titleColor, letterSpacing: 0.09),
+                        .copyWith(color: titleColor, letterSpacing: 0.09),
                     maxLines: maxTitleLines,
                   ),
                 ),

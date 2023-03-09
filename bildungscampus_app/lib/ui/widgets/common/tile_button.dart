@@ -13,7 +13,8 @@ class TileButton extends StatelessWidget {
   final Color bgColor;
   final Function(BuildContext context)? onTap;
 
-  TileButton({
+  const TileButton({
+    Key? key,
     required this.title,
     required this.contentColor,
     this.svgIcon,
@@ -22,7 +23,7 @@ class TileButton extends StatelessWidget {
     this.width = 100,
     this.bgColor = Colors.white,
     this.onTap,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,7 @@ class TileButton extends StatelessWidget {
                   child: SvgPicture.asset(
                     titleIcon != null ? titleIcon! : SvgIcons.arrowRight,
                     colorFilter:
-                        ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                        const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                     height: 12.0,
                     width: 12.0,
                   ),

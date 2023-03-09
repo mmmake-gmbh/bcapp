@@ -6,15 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LocationMapView extends StatelessWidget {
+  const LocationMapView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final url =
         Provider.of<AppViewModel>(context, listen: false).locationMapLink;
     final title = Provider.of<AppViewModel>(context, listen: false)
-            .getAppMenuTitle(AppMenuType.LocationMap) ??
+            .getAppMenuTitle(AppMenuType.locationMap) ??
         S.of(context).map_view_title_backup;
     if (url == null) {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
     return SimpleWebViewView(title: title, url: url);
   }

@@ -11,13 +11,14 @@ class ParkingTileContent extends StatelessWidget {
   final Color buttonTextColor;
   final Function? onTap;
 
-  ParkingTileContent({
+  const ParkingTileContent({
+    Key? key,
     required this.parkingCategories,
     required this.contentColor,
     required this.buttonText,
     required this.buttonTextColor,
     this.onTap,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class ParkingTileContent extends StatelessWidget {
           return Center(
             child: Text(
               model.value,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16.0,
                 color: Colors.white,
               ),
@@ -53,6 +54,10 @@ class ParkingTileContent extends StatelessWidget {
           height: 0,
           child: TextButton(
             onPressed: onTap as void Function()?,
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.only(top: 10, left: 10),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
             child: Text(
               buttonText!,
               style: Theme.of(context).textTheme.labelLarge!.copyWith(
@@ -61,10 +66,6 @@ class ParkingTileContent extends StatelessWidget {
                     letterSpacing: 0.1,
                   ),
               textAlign: TextAlign.right,
-            ),
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.only(top: 10, left: 10),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
           ),
         ),

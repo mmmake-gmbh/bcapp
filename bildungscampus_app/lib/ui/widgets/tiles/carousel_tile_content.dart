@@ -8,16 +8,17 @@ class CarouselTileContent<T> extends StatefulWidget {
   final Widget Function(BuildContext context, T model) builder;
   final Function(int newIndex)? onSlideChange;
 
-  CarouselTileContent({
+  const CarouselTileContent({
+    Key? key,
     required this.items,
     required this.contentColor,
     required this.onSlideTap,
     required this.builder,
     this.onSlideChange,
-  });
+  }) : super(key: key);
 
   @override
-  _CarouselTileContentState<T> createState() => _CarouselTileContentState<T>();
+  State<CarouselTileContent<T>> createState() => _CarouselTileContentState<T>();
 }
 
 class _CarouselTileContentState<T> extends State<CarouselTileContent<T>> {

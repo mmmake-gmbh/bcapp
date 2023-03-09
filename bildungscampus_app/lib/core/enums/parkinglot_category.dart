@@ -1,1 +1,1 @@
-enum ParkingLotCategory { None, Students, Staff, Guests }
+enum ParkingLotCategory { none, students, staff, guests }

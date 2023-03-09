@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:bildungscampus_app/core/models/parking/parkinglot.dart';
@@ -36,14 +37,14 @@ class ParkingLotViewModel extends ChangeNotifier {
       uri = fallbackUri;
     }
 
-    print(query);
-    print(uri);
+    log('query: $query');
+    log('uri: $uri');
 
     if (await canLaunchUrlString(uri)) {
       return launchUrlString(uri);
     }
 
-    print(fallbackUri);
+    log('fallbackUri: $fallbackUri');
 
     if (await canLaunchUrlString(fallbackUri)) {
       return launchUrlString(fallbackUri);

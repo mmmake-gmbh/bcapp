@@ -9,10 +9,15 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class PrivacyView extends StatelessWidget {
+  const PrivacyView({Key? key}) : super(key: key);
+
   void _formButtonPressed(BuildContext context) async {
     await Provider.of<PrivacyViewModel>(context, listen: false).acceptTerms();
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil(AppRouter.homeRoute, (route) => false);
+
+    if (context.mounted) {
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(AppRouter.homeRoute, (route) => false);
+    }
   }
 
   @override
@@ -29,16 +34,14 @@ class PrivacyView extends StatelessWidget {
                 Provider.of<PrivacyViewModel>(context, listen: false).load(),
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
               return Consumer<PrivacyViewModel>(
                 builder: (context, viewmodel, child) => Column(
                   children: [
-                    SizedBox(
-                      height: 40,
-                    ),
+                    const SizedBox(height: 40),
                     Text(
                       S.of(context).privacy_view_headline_text,
                       style: Theme.of(context).textTheme.titleLarge,
@@ -94,9 +97,7 @@ class PrivacyView extends StatelessWidget {
                               )
                             ],
                           ),
-                          SizedBox(
-                            height: 60,
-                          ),
+                          const SizedBox(height: 60),
                           Row(
                             children: [
                               CustomCheckbox(
@@ -157,9 +158,6 @@ class PrivacyView extends StatelessWidget {
                         onPressed: (!viewmodel.formValid)
                             ? null
                             : () => _formButtonPressed(context),
-                        child: Text(
-                          S.of(context).privacy_view_accept_button_text,
-                        ),
                         style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.primaryTwoColor,
                                 textStyle:
@@ -168,25 +166,28 @@ class PrivacyView extends StatelessWidget {
                           backgroundColor:
                               MaterialStateProperty.resolveWith<Color>(
                             (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.disabled))
+                              if (states.contains(MaterialState.disabled)) {
                                 return AppColors.disabledButtonBgColor;
+                              }
                               return AppColors.primaryTwoColor;
                             },
                           ),
                           foregroundColor:
                               MaterialStateProperty.resolveWith<Color>(
                             (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.disabled))
+                              if (states.contains(MaterialState.disabled)) {
                                 return AppColors.disabledButtonTextColor;
+                              }
                               return Colors.white;
                             },
                           ),
                         ),
+                        child: Text(
+                          S.of(context).privacy_view_accept_button_text,
+                        ),
                       ),
                     ),
-                    SizedBox(
-                      height: 80,
-                    ),
+                    const SizedBox(height: 80),
                   ],
                 ),
               );

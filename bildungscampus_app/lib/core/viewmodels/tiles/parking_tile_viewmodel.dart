@@ -3,9 +3,12 @@ import 'package:bildungscampus_app/core/viewmodels/tiles/base_start_tile_viewmod
 
 class ParkingTileViewModel extends BaseStartTileViewModel {
   final List<MapEntry<ParkingLotCategory, String>> parkingCategories = [
-    MapEntry(ParkingLotCategory.Students, 'für Studierende'),
-    MapEntry(ParkingLotCategory.Staff, 'für Beschäftigte'),
-    MapEntry(ParkingLotCategory.Guests, 'für Besucher:innen'),
+    const MapEntry(ParkingLotCategory.students,
+        'für Studierende'), //TODO: Move to the View
+    const MapEntry(
+        ParkingLotCategory.staff, 'für Beschäftigte'), //TODO: Move to the View
+    const MapEntry(ParkingLotCategory.guests,
+        'für Besucher:innen'), //TODO: Move to the View
   ];
   int _selectedIndex = 0;
 

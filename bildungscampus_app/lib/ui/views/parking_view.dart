@@ -16,10 +16,10 @@ import 'package:url_launcher/url_launcher_string.dart';
 class ParkingView extends StatefulWidget {
   final ParkingLotCategory? preselectedCategory;
 
-  ParkingView({this.preselectedCategory});
+  const ParkingView({Key? key, this.preselectedCategory}) : super(key: key);
 
   @override
-  _ParkingViewState createState() => _ParkingViewState();
+  State<ParkingView> createState() => _ParkingViewState();
 }
 
 class _ParkingViewState extends State<ParkingView>
@@ -90,9 +90,9 @@ class _ParkingViewState extends State<ParkingView>
     var initialIndex = 0;
 
     if (widget.preselectedCategory != null) {
-      initialIndex = widget.preselectedCategory == ParkingLotCategory.Students
+      initialIndex = widget.preselectedCategory == ParkingLotCategory.students
           ? 0
-          : (widget.preselectedCategory == ParkingLotCategory.Staff ? 1 : 2);
+          : (widget.preselectedCategory == ParkingLotCategory.staff ? 1 : 2);
     }
 
     _tabController =
@@ -102,14 +102,14 @@ class _ParkingViewState extends State<ParkingView>
   @override
   Widget build(BuildContext context) {
     final title = Provider.of<AppViewModel>(context, listen: false)
-            .getAppMenuTitle(AppMenuType.Parking) ??
+            .getAppMenuTitle(AppMenuType.parking) ??
         S.of(context).parking_view_title_backup;
 
     return DefaultTabController(
         length: 3,
         child: Scaffold(
           appBar: ReusableAppBars.standardAppBar(context, title),
-          drawer: AppDrawer(),
+          drawer: const AppDrawer(),
           body: Column(
             children: [
               Stack(
@@ -117,7 +117,7 @@ class _ParkingViewState extends State<ParkingView>
                 alignment: Alignment.bottomCenter,
                 children: [
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
                             color: AppColors.parkingViewBorderColor,
@@ -128,13 +128,13 @@ class _ParkingViewState extends State<ParkingView>
                   TabBar(
                     controller: _tabController,
                     labelPadding: const EdgeInsets.all(0),
-                    labelColor: Color.fromRGBO(0, 0, 0, 0.87),
-                    labelStyle: TextStyle(
+                    labelColor: const Color.fromRGBO(0, 0, 0, 0.87),
+                    labelStyle: const TextStyle(
                       fontSize: 14.0,
                       fontFamily: 'DINOT Medium',
                     ),
                     indicatorColor: AppColors.primaryTwoColor,
-                    unselectedLabelColor: Color.fromRGBO(0, 0, 0, 0.54),
+                    unselectedLabelColor: const Color.fromRGBO(0, 0, 0, 0.54),
                     tabs: [
                       Tab(
                         text: S
@@ -169,7 +169,7 @@ class _ParkingViewState extends State<ParkingView>
                       Consumer<AppViewModel>(
                         builder: (context, model, child) {
                           if (model.isBusy) {
-                            return Expanded(
+                            return const Expanded(
                               child: Center(child: CircularProgressIndicator()),
                             );
                           }
@@ -178,11 +178,11 @@ class _ParkingViewState extends State<ParkingView>
                               controller: _tabController,
                               children: [
                                 createParkingTabListView(
-                                    model, ParkingLotCategory.Students),
+                                    model, ParkingLotCategory.students),
                                 createParkingTabListView(
-                                    model, ParkingLotCategory.Staff),
+                                    model, ParkingLotCategory.staff),
                                 createParkingTabListView(
-                                    model, ParkingLotCategory.Guests),
+                                    model, ParkingLotCategory.guests),
                               ],
                             ),
                           );

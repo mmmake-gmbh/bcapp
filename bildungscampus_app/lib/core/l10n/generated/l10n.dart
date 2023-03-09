@@ -719,6 +719,16 @@ class S {
       args: [],
     );
   }
+
+  /// `für Studierende`
+  String get tiles_parking_for_students_text {
+    return Intl.message(
+      'für Studierende',
+      name: 'tiles_parking_for_students_text',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

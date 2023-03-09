@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../utils/string_utils.dart';
 
-enum Flavor { DEV, PRODUCTION }
+enum Flavor { dev, production }
 
 class FlavorValues {
   //Add other flavor specific values, e.g database name, service Urls
@@ -10,6 +10,7 @@ class FlavorValues {
   final String identityClientId;
   final String identityClientSecret;
   final String identityScheme;
+  final bool useIdentity;
 
   FlavorValues({
     required this.apiGatewayUrl,
@@ -17,6 +18,7 @@ class FlavorValues {
     required this.identityClientId,
     required this.identityClientSecret,
     required this.identityScheme,
+    required this.useIdentity,
   });
 }
 
@@ -51,6 +53,6 @@ class FlavorConfig {
   FlavorConfig._internal(
       this.flavor, this.name, this.color, this.values, this.lang);
 
-  static bool isProduction() => _instance!.flavor == Flavor.PRODUCTION;
-  static bool isDevelopment() => _instance!.flavor == Flavor.DEV;
+  static bool isProduction() => _instance!.flavor == Flavor.production;
+  static bool isDevelopment() => _instance!.flavor == Flavor.dev;
 }

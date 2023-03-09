@@ -1,1 +1,1 @@
-enum ViewState { Ready, Busy, Error, Initial }
+enum ViewState { ready, busy, error, initial }

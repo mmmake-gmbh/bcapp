@@ -186,7 +186,7 @@ class WeatherSensorSensorEnumTypeTransformer {
   const WeatherSensorSensorEnumTypeTransformer._();
 
   factory WeatherSensorSensorEnumTypeTransformer() =>
-      _instance ??= WeatherSensorSensorEnumTypeTransformer._();
+      _instance ??= const WeatherSensorSensorEnumTypeTransformer._();
 
   String encode(WeatherSensorSensorEnum data) => data.value;
 

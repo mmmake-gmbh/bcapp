@@ -9,10 +9,11 @@ class WeatherTileContent extends StatelessWidget {
   final WeatherData? model;
   final Color textColor;
 
-  WeatherTileContent({
+  const WeatherTileContent({
+    Key? key,
     required this.model,
     required this.textColor,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,8 @@ class WeatherTileContent extends StatelessWidget {
           children: [
             SvgPicture.asset(
               SvgIcons.arrowRight,
-              colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
+              colorFilter:
+                  const ColorFilter.mode(Colors.white, BlendMode.srcIn),
               height: 13.0,
               width: 12.0,
             ),
@@ -56,16 +58,19 @@ class WeatherTileContent extends StatelessWidget {
                         children: [
                           SvgPicture.asset(
                             SvgIcons.weather,
-                            colorFilter:
-                                ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                            colorFilter: const ColorFilter.mode(
+                                Colors.white, BlendMode.srcIn),
                             height: 30.0,
                             width: 30.0,
                           ),
-                          Text(
-                            '${model!.value.round()} ${model!.unit}',
-                            style: TextStyle(
-                              color: textColor,
-                              fontSize: 26.0,
+                          Expanded(
+                            child: AutoSizeText(
+                              '${model!.value.round()} ${model!.unit}',
+                              style: TextStyle(
+                                color: textColor,
+                                fontSize: 26.0,
+                              ),
+                              maxLines: 1,
                             ),
                           ),
                         ],

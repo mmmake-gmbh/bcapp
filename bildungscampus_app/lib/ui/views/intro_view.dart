@@ -13,8 +13,10 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../core/l10n/generated/l10n.dart';
 
 class IntroView extends StatefulWidget {
+  const IntroView({Key? key}) : super(key: key);
+
   @override
-  _InitialViewState createState() => _InitialViewState();
+  State<IntroView> createState() => _InitialViewState();
 }
 
 class _InitialViewState extends State<IntroView> {
@@ -23,7 +25,7 @@ class _InitialViewState extends State<IntroView> {
   late List<Intro> _introPages;
 
   String _getButtonText() {
-    if (_introPages.length > 0 && _currentIndex == _introPages.length - 1) {
+    if (_introPages.isNotEmpty && _currentIndex == _introPages.length - 1) {
       return S.of(context).intro_view_stop_intro;
     }
 
@@ -57,9 +59,7 @@ class _InitialViewState extends State<IntroView> {
         child: SafeArea(
           child: Column(
             children: [
-              SizedBox(
-                height: 40,
-              ),
+              const SizedBox(height: 40),
               Expanded(
                 child: CarouselSlider.builder(
                     carouselController: _controller,
@@ -83,9 +83,7 @@ class _InitialViewState extends State<IntroView> {
                                 textAlign: TextAlign.center,
                               ),
                               if (page.subtitle.isNotEmpty)
-                                SizedBox(
-                                  height: 10,
-                                ),
+                                const SizedBox(height: 10),
                               if (page.subtitle.isNotEmpty)
                                 Text(
                                   page.subtitle,
@@ -100,9 +98,7 @@ class _InitialViewState extends State<IntroView> {
                                 ),
                             ],
                           ),
-                          SizedBox(
-                            height: 30,
-                          ),
+                          const SizedBox(height: 30),
                           Expanded(
                             child: Column(children: [
                               if (page.imageTitle.isNotEmpty)
@@ -128,9 +124,7 @@ class _InitialViewState extends State<IntroView> {
                       },
                     )),
               ),
-              SizedBox(
-                height: 30,
-              ),
+              const SizedBox(height: 30),
               SizedBox(
                 width: double.infinity,
                 height: 48,
@@ -141,6 +135,12 @@ class _InitialViewState extends State<IntroView> {
                     onPressed: () {
                       Navigator.pushNamed(context, AppRouter.privacyRoute);
                     },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primaryTwoColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6), // <-- Radius
+                      ),
+                    ),
                     child: Text(
                       _getButtonText(),
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -148,18 +148,10 @@ class _InitialViewState extends State<IntroView> {
                             fontSize: 18.0,
                           ),
                     ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primaryTwoColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6), // <-- Radius
-                      ),
-                    ),
                   ),
                 ),
               ),
-              SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
@@ -202,9 +194,7 @@ class _InitialViewState extends State<IntroView> {
                           text: S.of(context).intro_view_term_of_use_part5),
                     ]),
               ),
-              SizedBox(
-                height: 35,
-              ),
+              const SizedBox(height: 35),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: Iterable<int>.generate(_introPages.length)
@@ -230,9 +220,7 @@ class _InitialViewState extends State<IntroView> {
                   );
                 }).toList(),
               ),
-              SizedBox(
-                height: 40,
-              ),
+              const SizedBox(height: 40),
             ],
           ),
         ),

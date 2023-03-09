@@ -27,9 +27,10 @@ class AppViewModel extends BaseViewModel {
   static const String bookSearchKey = 'Buchsuche';
   static const String paymentKey = 'CampusCard';
 
-  AppContentRepository _contentRepository = locator<AppContentRepository>();
-  WeatherService _weatherService = locator<WeatherService>();
-  TilesService _tilesService = locator<TilesService>();
+  final AppContentRepository _contentRepository =
+      locator<AppContentRepository>();
+  final WeatherService _weatherService = locator<WeatherService>();
+  final TilesService _tilesService = locator<TilesService>();
 
   List<BaseViewModel>? _tiles;
   List<AppMenu>? _mainMenu;
@@ -54,22 +55,24 @@ class AppViewModel extends BaseViewModel {
   String? get paymentLink => _externalLinkByKey(paymentKey);
 
   Future<void> load(BuildContext context) async {
-    setState(ViewState.Busy);
+    setState(ViewState.busy);
     try {
       final content = await _contentRepository.getAll();
       final weather = await _weatherService.getActualWeather();
 
-      updateAppContent(
-        content: content,
-        weather: weather,
-        updateAll: true,
-        context: context,
-      );
+      if (context.mounted) {
+        updateAppContent(
+          content: content,
+          weather: weather,
+          updateAll: true,
+          context: context,
+        );
 
-      setState(ViewState.Ready);
+        setState(ViewState.ready);
+      }
     } catch (e) {
-      print(e);
-      setState(ViewState.Error);
+      log('error during content load', error: e);
+      setState(ViewState.error);
     }
   }
 
@@ -79,16 +82,19 @@ class AppViewModel extends BaseViewModel {
     try {
       final content = await _contentRepository.getAll();
       final weather = await _weatherService.getActualWeather();
-      updateAppContent(
-        content: content,
-        weather: weather,
-        updateAll: updateAll,
-        context: context,
-      );
 
-      notifyListeners();
+      if (context.mounted) {
+        updateAppContent(
+          content: content,
+          weather: weather,
+          updateAll: updateAll,
+          context: context,
+        );
+
+        notifyListeners();
+      }
     } catch (e) {
-      print(e);
+      log('error during silently content load', error: e);
     }
   }
 
@@ -143,37 +149,37 @@ class AppViewModel extends BaseViewModel {
       case 'parking':
         return AppMenu(
           title: model.menuTitle,
-          type: AppMenuType.Parking,
+          type: AppMenuType.parking,
           navigationPath: AppRouter.parkingRoute,
         );
       case 'timetable':
         return AppMenu(
           title: model.menuTitle,
-          type: AppMenuType.TimeTable,
+          type: AppMenuType.timeTable,
           navigationPath: AppRouter.timetableRoute,
         );
       case 'locationmap':
         return AppMenu(
           title: model.menuTitle,
-          type: AppMenuType.LocationMap,
+          type: AppMenuType.locationMap,
           navigationPath: AppRouter.locationMapRoute,
         );
       case 'booksearch':
         return AppMenu(
           title: model.menuTitle,
-          type: AppMenuType.BookSearch,
+          type: AppMenuType.bookSearch,
           navigationPath: AppRouter.bookSearchRoute,
         );
       case 'payment':
         return AppMenu(
           title: model.menuTitle,
-          type: AppMenuType.Payment,
+          type: AppMenuType.payment,
           navigationPath: AppRouter.paymentRoute,
         );
       default:
         return AppMenu(
           title: model.menuTitle,
-          type: AppMenuType.Home,
+          type: AppMenuType.home,
           navigationPath: AppRouter.homeRoute,
         );
     }
