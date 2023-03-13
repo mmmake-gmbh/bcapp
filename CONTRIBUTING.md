@@ -113,46 +113,26 @@ Enhancement suggestions are tracked as [GitHub issues](/issues).
 
 This section guides you through submitting your first code contribution. Following these guidelines will help maintainers to check the quality of code faster.
 
-#### Installing flutter on your environment
-
-Please follow the instructions on the flutter.dev page to configure your local system: [flutter quick start](https://docs.flutter.dev/get-started/install)
-
-NOTE: If you are using the new Apple silicon (M1/M1Pro/M1Max or M2/M2Pro/M2Max). Be aware that you could have problems with compiling the app. Please follow the instructions which are shown in the logs.
-
-Like:
-Error: To set up CocoaPods for ARM macOS, run:
-  sudo gem uninstall ffi && sudo gem install ffi -- --enable-libffi-alloc
-
-#### Installing additional flutter plugins
-
-Depending on the IDE which are you want to use please install following Flutter Intl plugins:
-- [Android Studio & IntelliJ](https://docs.flutter.dev/get-started/install)
-- [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=localizely.flutter-intl)
 
 #### Backend contributions
 
 The backend part of the project is not available as open source project. But to make it possible to work on the app we created the OpenApi schema which represent every backend api currently available for use in the app.
 
-You can find the OpenApi schema here: "\api-schema\schema.json".
+You can find the OpenApi schema here: `\api-schema\schema.json`. You are also allowed to play with the Open API scheme on your own.
 
-Additionally we also prepared some mock server which you can use to run it locally.
-
-To start the local mock server you need to do the following:
-
-1. Install [Docker Desktop](https://www.docker.com/get-started/)
-2. Navigate to the "\api-schema" folder
-3. Run the following command: "docker-compose up -d"
-4. The Mock server will be running on the port localhost:8080. You also will have access to the Swagger UI from the following url: localhost:8081/swagger
-
-You are also allowed to play with the Open API scheme on your own.
+Additionally we also prepared some mock server which you can use to run it locally. (See [Readme](https://github.com/camao-tec/bcapp/blob/main/README.md))
 
 Small note: Please use the fakerJS attributes to generate mock data. More info [here](https://github.com/jormaechea/open-api-mocker#x-faker) and [here](https://v6.fakerjs.dev/guide/).
 
-Every backend change will be evaluated by the core project team. We are not closed for any open source backend component, but it need to be evaluated and accepted by the core project team.
+We are not closed for any open source backend components, but they need to be evaluated and accepted by the core project team.
 
 #### App contributions
 
-
+You are welcomed to contribute in any way on the flutter part. There are only a few things to have in mind while you are doing some changes:
+- Please check the structure of the project first, to be sure that your code is in the right place
+- We are using standard linting settings for this project, so please run "flutter analyze" before you create a pull request
+- Make sure that every string that should be localized is localized (Make sure you have installed `localizely` plugin)
+- We are using the Provider pattern to handle the state. So please visit the [provider docs](https://github.com/rrousselGit/provider)
 
 ### Improving The Documentation
 
@@ -160,9 +140,9 @@ Every backend change will be evaluated by the core project team. We are not clos
 ## Styleguides
 ### Commit Messages
 
+In the project we are using the Conventional Commits, please visit the following page to get more info: [www.conventionalcommits.org](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ## Join The Project Team
-
 
 
 ## Attribution
