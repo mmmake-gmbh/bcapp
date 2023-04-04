@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icons/ic/pin</title>
+    <defs>
+        <filter color-interpolation-filters="auto" id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.000000 0 0 0 0 0.000000 0 0 0 0 0.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>        
+    </defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/ic/pin">
+            <g id="sync_problem_black_24dp">
+                <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+            </g>
+            <g filter="url(#filter-1)" id="Group-7">
+                <g transform="translate(4.000000, 1.000000)">
+                    <g id="Group-3">
+                        <mask id="mask-3" fill="white">
+                            <polygon id="path-2" points="0 0 16 0 16 21.9994 0 21.9994"></polygon>
+                        </mask>
+                        <g id="Clip-2"></g>
+                        <path d="M8,1.9544 C4.714,1.9544 2.04,4.5844 2.04,7.8184 C2.04,11.5504 6.236,16.9114 8,18.9984 C9.764,16.9114 13.96,11.5504 13.96,7.8184 C13.96,4.5844 11.286,1.9544 8,1.9544 L8,1.9544 Z M8,21.9994 L7.235,21.1694 C6.94,20.8494 0,13.2564 0,7.8184 C0,3.5074 3.589,-0.0006 8,-0.0006 C12.411,-0.0006 16,3.5074 16,7.8184 C16,13.2564 9.06,20.8494 8.765,21.1694 L8,21.9994 Z" id="Fill-1" fill="#11C1B0" mask="url(#mask-3)"></path>
+                    </g>
+                    <g id="Group-6" transform="translate(6.000000, 5.744000)">
+                        <mask id="mask-5" fill="white">
+                            <path d="M0,2.001 C0,3.104 0.897,4.001 2,4.001 L2,4.001 C3.104,4.001 4,3.104 4,2.001 L4,2.001 C4,0.897 3.104,0 2,0 L2,0 C0.897,0 0,0.897 0,2.001 L0,2.001 Z" id="path-4"></path>
+                        </mask>
+                        <g id="Clip-5"></g>
+                        <polygon id="Fill-4" fill="#11C1B0" mask="url(#mask-5)" points="-1 5 5 5 5 -1 -1 -1"></polygon>
+                    </g>
+                </g>
+            </g>
+            <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+        </g>
+    </g>
+</svg>

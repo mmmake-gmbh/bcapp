@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icons/ic/building</title>
+    <defs>
+        <filter color-interpolation-filters="auto" id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.000000 0 0 0 0 0.000000 0 0 0 0 0.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group">
+            <g filter="url(#filter-1)" id="Group-18">
+                <g transform="translate(3.000000, 2.000000)">
+                    <g id="Group-11" stroke="#000000">
+                        <polyline id="Stroke-1" stroke-linecap="round" stroke-linejoin="round" points="6.16924242 10.4827654 6.16924242 1.25146886 10.9998485 0 17.2727273 2.46474736 17.2727273 20 0 20 0 11.6323933 5.32767677 10.3065022 10.9998485 11.4933412"></polyline>
+                        <line x1="5.25417172" y1="19.7827066" x2="5.25417172" y2="10.4319428" id="Stroke-3" stroke-linecap="round" stroke-linejoin="round"></line>
+                        <line x1="4.18777273" y1="15.5147865" x2="0.897318182" y2="15.5147865" id="Stroke-5"></line>
+                        <line x1="4.18777273" y1="17.6129064" x2="0.897318182" y2="17.6129064" id="Stroke-7"></line>
+                        <line x1="4.18777273" y1="13.416177" x2="0.897318182" y2="13.416177" id="Stroke-9"></line>
+                    </g>
+                    <line x1="10" y1="6.81818182" x2="7.27272727" y2="6.81818182" id="Stroke-12" stroke="#000000"></line>
+                    <line x1="10" y1="9.54545455" x2="7.27272727" y2="9.54545455" id="Stroke-13" stroke="#000000"></line>
+                    <line x1="10" y1="5" x2="7.27272727" y2="5" id="Stroke-14" stroke="#000000"></line>
+                    <line x1="10" y1="3.18181818" x2="7.27272727" y2="3.18181818" id="Stroke-15" stroke="#000000"></line>
+                    <line x1="11.3636364" y1="0" x2="11.3636364" y2="20" id="Stroke-16" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"></line>
+                </g>
+            </g>
+            <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+        </g>
+    </g>
+</svg>

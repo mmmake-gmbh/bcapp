@@ -1,0 +1,518 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Bildungs Campus API",
+        "version": "1.0.0",
+        "description": "Schema for Bildungs Campus Api Gateway"
+    },
+    "servers": [{
+            "url": "http://localhost:8080",
+            "description": "Development server"
+        }
+    ],
+    "paths": {
+        "/weather": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "x-count": 5,
+                                    "items": {
+                                        "$ref": "#/components/schemas/WeatherSensor"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Return all sensors from campus"
+                    }
+                }
+            }
+        },
+        "/parking/campus-parkplatz-ost": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ParkingLot"
+                                }
+                            }
+                        },
+                        "description": "Return information about Parkplatz Ost parking lot"
+                    }
+                }
+            }
+        },
+        "/parking/campus-parkhaus-ost": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ParkingLot"
+                                }
+                            }
+                        },
+                        "description": "Return information about Parkhaus Ost parking lot"
+                    }
+                }
+            }
+        },
+        "/parking/campus-parkhaus-mitte": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ParkingLot"
+                                }
+                            }
+                        },
+                        "description": "Return information about Parkhaus Mitte parking lot"
+                    }
+                }
+            }
+        },
+        "/parking-details/{parkingNumber}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ParkingLot"
+                                }
+                            }
+                        },
+                        "description": "Return the parking lot information from the path parameter"
+                    }
+                }
+            },
+            "parameters": [{
+                    "examples": {
+                        "Parkplatz Ost": {
+                            "value": "51"
+                        }
+                    },
+                    "name": "parkingNumber",
+                    "description": "Parkig lot number which should be returned",
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/parking-info/GetAllParkingLots": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "x-count": 5,
+                                    "items": {
+                                        "$ref": "#/components/schemas/ParkingLot"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Return information about all parking lots"
+                    }
+                }
+            }
+        },
+        "/content-info/GetAll": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Content"
+                                }
+                            }
+                        },
+                        "description": "Return content information's like tiles, campus info, parking lot information's without parking lot numbers"
+                    }
+                }
+            }
+        },
+        "/content": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Content"
+                                }
+                            }
+                        },
+                        "description": "Return content information's like tiles, campus info, parking lot information's with parking lot numbers"
+                    }
+                }
+            }
+        },
+        "/parking": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ParkingLot"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Return all parking lot information's with parking lot numbers"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Content": {
+                "title": "Root Type for Content",
+                "description": "Content for the tiles and additional information's ",
+                "type": "object",
+                "properties": {
+                    "tiles": {
+                        "type": "array",
+                        "x-count": 8,
+                        "items": {
+                            "$ref": "#/components/schemas/TileConfig"
+                        }
+                    },
+                    "parkingLots": {
+                        "type": "array",
+                        "x-count": 5,
+                        "items": {
+                            "$ref": "#/components/schemas/ParkingLot"
+                        }
+                    },
+                    "campusInfos": {
+                        "$ref": "#/components/schemas/CampusInfo",
+                        "properties": {
+                            "title": {
+                                "type": "string"
+                            },
+                            "pubDate": {
+                                "format": "date-time",
+                                "type": "string"
+                            },
+                            "longText": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "contactInfos": {
+                        "$ref": "#/components/schemas/ContactInfo",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "street": {
+                                "type": "string"
+                            },
+                            "city": {
+                                "type": "string"
+                            },
+                            "phone": {
+                                "type": "string"
+                            },
+                            "email": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "externalLinks": {
+                        "type": "array",
+                        "x-count": 4,
+                        "items": {
+                            "$ref": "#/components/schemas/ExternalLink"
+                        }
+                    },
+                    "downloadTimeStamp": {
+                        "type": "string",
+                        "x-faker": "time.recent(\"date\")"
+                    }
+                }                
+            },
+            "TileConfig": {
+                "title": "Root Type for TileConfig",
+                "description": "Tiles configuration",
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "x-faker": "random.arrayElement([\"weather\", \"parking\", \"timetable\", \"info\", \"placeholder\", \"placeholder_big\"])"
+                    },
+                    "title": {
+                        "type": "string",
+                        "x-faker": "lorem.word"
+                    },
+                    "showInMenu": {
+                        "type": "boolean",
+                        "x-faker": "datatype.boolean"
+                    },
+                    "menuTitle": {
+                        "type": "string",
+                        "x-faker": "lorem.word"
+                    },
+                    "menuOrder": {
+                        "format": "int32",
+                        "type": "integer",
+                        "x-faker": "datatype.number({\"min\": 0, \"max\": 20})"
+                    },
+                    "visible": {
+                        "type": "boolean",
+                        "x-faker": "datatype.boolean"
+                    },
+                    "text": {
+                        "type": "string",
+                        "x-faker": "lorem.word"
+                    }
+                }
+            },
+            "PriceItem": {
+                "title": "Root Type for PriceItem",
+                "description": "Price item information's",
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "title": "per hour",
+                    "description": "1,50 Euro"
+                }
+            },
+            "ParkingLot": {
+                "title": "Root Type for ParkingLot",
+                "description": "Information's about parking lot",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int32",
+                        "type": "integer",
+                        "x-faker": "datatype.number({\"min\":1, \"max\":100})"
+                    },
+                    "carParkNo": {
+                        "format": "int32",
+                        "type": "integer",
+                        "x-faker": "datatype.number({\"min\":50, \"max\":100})"
+                    },
+                    "title": {
+                        "type": "string",
+                        "x-faker": "lorem.word"
+                    },
+                    "subTitle": {
+                        "type": "string",
+                        "x-faker": "lorem.word"
+                    },
+                    "categories": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "x-faker": "random.arrayElement([\"students\", \"staff\", \"guests\"])"
+                        }
+                    },
+                    "street": {
+                        "type": "string",
+                        "x-faker": "address.streetName"
+                    },
+                    "city": {
+                        "type": "string",
+                        "x-faker": "address.cityName"
+                    },
+                    "openingHours": {
+                        "type": "string",
+                        "x-faker": "From {{time.recent(\"abbr\")}} to {{time.recent(\"abbr\")}}"
+                    },
+                    "priceHeader": {
+                        "type": "string",
+                        "x-faker": "lorem.word"
+                    },
+                    "priceItems": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PriceItem"
+                        }
+                    },
+                    "totalCapacity": {
+                        "format": "int32",
+                        "type": "integer",
+                        "x-faker": "datatype.number({\"min\":100, \"max\":200})"
+                    },
+                    "usedCapacity": {
+                        "format": "int32",
+                        "type": "integer",
+                        "x-faker": "datatype.number({\"min\":1, \"max\":100})"
+                    }
+                }
+            },
+            "CampusInfo": {
+                "title": "Root Type for CampusInfo",
+                "description": "Campus info tile information's",
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "x-faker": "lorem.word"
+                    },
+                    "pubDate": {
+                        "format": "date-time",
+                        "type": "string",
+                        "x-faker": "date.recent"
+                    },
+                    "longText": {
+                        "type": "string",
+                        "x-faker": "lorem.paragraphs(2)"
+                    }
+                }
+            },
+            "ContactInfo": {
+                "title": "Root Type for ContactInfo",
+                "description": "Contact information's for contact page",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "x-faker": "company.companyName"
+                    },
+                    "street": {
+                        "type": "string",
+                        "x-faker": "address.streetName"
+                    },
+                    "city": {
+                        "type": "string",
+                        "x-faker": "address.cityName"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "x-faker": "phone.phoneNumber(\"+49 91 ### ## ##\")"
+                    },
+                    "email": {
+                        "type": "string",
+                        "x-faker": "internet.email"
+                    },
+                    "description": {
+                        "type": "string",
+                        "x-faker": "lorem.paragraphs(2)"
+                    }
+                }
+            },
+            "ExternalLink": {
+                "title": "Root Type for ExternalLink",
+                "description": "Information's about external links",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "x-faker": "random.arrayElement([\"Lageplan\", \"CampusCard\", \"Buchsuche\", \"Abfahrtsmonitor\", \"Zeag\", \"CampusRad\", \"Privacy\", \"TermsOfUse\"])"
+                    },
+                    "link": {
+                        "type": "string",
+                        "x-faker": "internet.url"
+                    }
+                }
+            },
+            "WeatherSensor": {
+                "title": "Root Type for WeatherSensor",
+                "description": "Information's from the weather sensor",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int32",
+                        "type": "integer",
+                        "x-faker": "datatype.number({\"min\":1, \"max\":100})"
+                    },
+                    "location": {
+                        "$ref": "#/components/schemas/Location",
+                        "properties": {
+                            "altitude": {
+                                "format": "int32",
+                                "type": "integer",
+                                "x-faker": "datatype.float({\"min\":10, \"max\":100, \"precision\":0.01})"
+                            },
+                            "latitude": {
+                                "format": "double",
+                                "type": "number",
+                                "x-faker": "datatype.float({\"min\":10, \"max\":100, \"precision\":0.01})"
+                            },
+                            "longitude": {
+                                "format": "double",
+                                "type": "number",
+                                "x-faker": "datatype.float({\"min\":10, \"max\":100, \"precision\":0.01})"
+                            }
+                        }
+                    },
+                    "name": {
+                        "type": "string",
+                        "x-faker": "lorem.word"
+                    },
+                    "sensor": {
+                        "type": "string",
+                        "x-faker": "random.arrayElement([\"temperature\", \"rain\", \"sun\"])"
+                    },
+                    "timestamp": {
+                        "format": "date-time",
+                        "type": "string",
+                        "x-faker": "date.recent"
+                    },
+                    "unit": {
+                        "type": "string",
+                        "x-faker": "lorem.word"
+                    },
+                    "value": {
+                        "format": "double",
+                        "type": "number",
+                        "x-faker": "datatype.float({\"min\":-50, \"max\":50, \"precision\":0.1})"
+                    }
+                }
+            },
+            "Location": {
+                "title": "Root Type for Location",
+                "description": "Location information's",
+                "type": "object",
+                "properties": {
+                    "altitude": {
+                        "format": "int32",
+                        "type": "integer",
+                        "x-faker": "datatype.float({\"min\":10, \"max\":100, \"precision\":0.01})"
+                    },
+                    "latitude": {
+                        "format": "double",
+                        "type": "number",
+                        "x-faker": "datatype.float({\"min\":10, \"max\":100, \"precision\":0.01})"
+                    },
+                    "longitude": {
+                        "format": "double",
+                        "type": "number",
+                        "x-faker": "datatype.float({\"min\":10, \"max\":100, \"precision\":0.01})"
+                    }
+                }
+            }
+        }
+    }
+}

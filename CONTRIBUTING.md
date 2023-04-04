@@ -111,6 +111,28 @@ Enhancement suggestions are tracked as [GitHub issues](/issues).
 
 ### Your First Code Contribution
 
+This section guides you through submitting your first code contribution. Following these guidelines will help maintainers to check the quality of code faster.
+
+
+#### Backend contributions
+
+The backend part of the project is not available as open source project. But to make it possible to work on the app we created the OpenApi schema which represent every backend api currently available for use in the app.
+
+You can find the OpenApi schema here: `\api-schema\schema.json`. You are also allowed to play with the Open API scheme on your own.
+
+Additionally we also prepared some mock server which you can use to run it locally. (See [Readme](https://github.com/camao-tec/bcapp/blob/main/README.md))
+
+Small note: Please use the fakerJS attributes to generate mock data. More info [here](https://github.com/jormaechea/open-api-mocker#x-faker) and [here](https://v6.fakerjs.dev/guide/).
+
+We are not closed for any open source backend components, but they need to be evaluated and accepted by the core project team.
+
+#### App contributions
+
+You are welcomed to contribute in any way on the flutter part. There are only a few things to have in mind while you are doing some changes:
+- Please check the structure of the project first, to be sure that your code is in the right place
+- We are using standard linting settings for this project, so please run "flutter analyze" before you create a pull request
+- Make sure that every string that should be localized is localized (Make sure you have installed `localizely` plugin)
+- We are using the Provider pattern to handle the state. So please visit the [provider docs](https://github.com/rrousselGit/provider)
 
 ### Improving The Documentation
 
@@ -118,9 +140,9 @@ Enhancement suggestions are tracked as [GitHub issues](/issues).
 ## Styleguides
 ### Commit Messages
 
+In the project we are using the Conventional Commits, please visit the following page to get more info: [www.conventionalcommits.org](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ## Join The Project Team
-
 
 
 ## Attribution

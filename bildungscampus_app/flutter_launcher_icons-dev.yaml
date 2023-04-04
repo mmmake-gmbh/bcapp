@@ -1,0 +1,5 @@
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/appicon/app_scs_dev.png"
+  remove_alpha_ios: true
