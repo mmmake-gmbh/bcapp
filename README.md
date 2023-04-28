@@ -1,12 +1,15 @@
-# Bildungs Campus App
-This is an official app of the Bildungscampus Heilbronn. This project aims to provide the opportunity to contribute in the development of the Bildungscampus App (to create new features and solve issues). The app was originally developed by camao-tec but it is now open source, meaning it can be developed by students for students. We try to keep your data safe, so we only use the non-personalized data. 
+# App "Mein Bildungscampus"
+This is the official app of the Bildungscampus der Dieter Schwarz Stiftung in Heilbronn. The project aims to provide the opportunity to contribute in the development of the Bildungscampus App: Firstly to create new features making life easier on campus – and secondly to solve issues. Let's work together to make campus life easier for everyone!. 
+The app was originally developed by camao-tec, but it is now open source, meaning that it can be developed by students for students. To keep your data safe, we only use the non-personalized data. 
 For more information, see our Privacy Policy and Terms of Use and Code of Conduct.
 
 You can find the app in the stores here:
 
-[![Available on the App Store](https://cl.ly/WouG/Download_on_the_App_Store_Badge_US-UK_135x40.svg)](https://apps.apple.com/app/id1571668921)
+&nbsp;&nbsp;[![Available on the App Store](https://cl.ly/WouG/Download_on_the_App_Store_Badge_US-UK_135x40.svg)](https://apps.apple.com/app/id1571668921)
 
-<a href='https://play.google.com/store/apps/details?id=com.schwarz.bildungscampus.application'><img alt='Available on the Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height='60px'/></a>
+<a href='https://play.google.com/store/apps/details?id=com.schwarz.bildungscampus.application'>
+    <img alt='Available on the Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height='60px'/>
+</a>
 
 
 # Documentation
