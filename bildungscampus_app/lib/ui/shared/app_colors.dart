@@ -29,13 +29,24 @@ class AppColors {
 
   static const Color mainTextColor = Color.fromARGB(255, 77, 77, 77);
 
-  static const Color weatherTileBgColor = Color.fromARGB(255, 75, 140, 180);
-  static const Color campusCardTileBgColor = weatherTileBgColor;
+  static const Color settingBgColor = Color.fromARGB(255, 244, 247, 249);
+  static const Color settingListTileTitleColor =
+      Color.fromARGB(255, 28, 27, 31);
+  static const Color settingListTileSeparatorColor =
+      Color.fromARGB(255, 202, 196, 208);
+
+  static const Color weatherTileBgColor = Color.fromARGB(255, 234, 242, 246);
+  static const Color weatherTileTextColor = Color.fromARGB(255, 59, 59, 59);
+  static const Color weatherIconColor = settingListTileTitleColor;
+  static const Color campusCardTileBgColor = Color.fromARGB(255, 5, 162, 155);
   static const Color campusTileBgColor = Color.fromARGB(255, 226, 233, 242);
   static const Color campusTileTitleColor = Color.fromARGB(255, 226, 233, 242);
   static const Color campusTileContentColor = mainTextColor;
+  static const Color parkingTileBgColor = Color.fromARGB(255, 143, 170, 197);
+  static const Color timetableTileBgColor = parkingTileBgColor;
+  static const Color welcomeTileTextBgColor = Color.fromARGB(255, 27, 61, 106);
 
-  static const Color locationMapBgColor = Color.fromARGB(255, 230, 239, 244);
+  static const Color drawerMenuTileUnderlineColor = parkingTileBgColor;
 
   static const Color parkingCardSubtitleColor = Color.fromRGBO(0, 0, 0, 0.54);
   static const Color parkingCardOpeningHoursColor =
@@ -62,4 +73,6 @@ class AppColors {
   static const Color disabledButtonBgColor = checkBoxBgColor;
   static const Color disabledButtonTextColor =
       Color.fromARGB(255, 158, 158, 158);
+
+  static const Color homeAppBarColor = Color.fromARGB(255, 73, 69, 79);
 }

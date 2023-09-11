@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bildungscampus_app/core/enums/app_menu_type.dart';
 import 'package:bildungscampus_app/core/enums/parkinglot_category.dart';
+import 'package:bildungscampus_app/core/enums/tile_type.dart';
 import 'package:bildungscampus_app/core/enums/viewstate.dart';
 import 'package:bildungscampus_app/core/models/common/app_menu.dart';
 import 'package:bildungscampus_app/core/models/info/campus_info.dart';
@@ -14,8 +15,10 @@ import 'package:bildungscampus_app/core/repositories/startscreen/app_content_rep
 import 'package:bildungscampus_app/core/services/startscreen/tiles_service.dart';
 import 'package:bildungscampus_app/core/services/weather/weather_service.dart';
 import 'package:bildungscampus_app/core/viewmodels/parking/parkinglot_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/tiles/empty_tile_viewmodel.dart';
 import 'package:bildungscampus_app/locator.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'base_viewmodel.dart';
 
@@ -24,8 +27,11 @@ class AppViewModel extends BaseViewModel {
   static const String timeTableLinkKey = 'Abfahrtsmonitor';
   static const String campusRadLinkKey = 'CampusRad';
   static const String zeagLinkKey = 'Zeag';
-  static const String bookSearchKey = 'Buchsuche';
+  static const String bookSearchLinkKey = 'Buchsuche';
   static const String paymentKey = 'CampusCard';
+  static const String accountSettingLinkKey = 'Benutzerkonto';
+  static const String sessionsSettingLinkKey = 'Anmeldungen';
+  static const String campusCardSettingLinkKey = 'CampusCardSetting';
 
   final AppContentRepository _contentRepository =
       locator<AppContentRepository>();
@@ -51,8 +57,12 @@ class AppViewModel extends BaseViewModel {
   String? get timeTableLink => _externalLinkByKey(timeTableLinkKey);
   String? get campusRadLink => _externalLinkByKey(campusRadLinkKey);
   String? get zaegLink => _externalLinkByKey(zeagLinkKey);
-  String? get bookSearchLink => _externalLinkByKey(bookSearchKey);
+  String? get bookSearchLink => _externalLinkByKey(bookSearchLinkKey);
   String? get paymentLink => _externalLinkByKey(paymentKey);
+  String? get accountSettingLink => _externalLinkByKey(accountSettingLinkKey);
+  String? get sessionsSettingLink => _externalLinkByKey(sessionsSettingLinkKey);
+  String? get campusCardSettingLink =>
+      _externalLinkByKey(campusCardSettingLinkKey);
 
   Future<void> load(BuildContext context) async {
     setState(ViewState.busy);
@@ -109,7 +119,13 @@ class AppViewModel extends BaseViewModel {
         .map((model) => ParkingLotViewModel(parkingLot: model))
         .toList();
     if (updateAll) {
-      _tiles = _tilesService.createViewModels(content, weather, context);
+      _tiles = _tilesService
+          .createViewModels(content, weather, context)
+          .whereNot(
+            (tile) => tile is EmptyTileViewModel && tile.type == TileType.big,
+          )
+          .toList(); //TODO: Check if this is ok
+      _tiles?.removeRange(0, 2); //TODO: REMOVE THIS LATER
 
       final menu = content.tiles.where((tile) => tile.showInMenu).toList();
       menu.sort((a, b) => a.menuOrder.compareTo(b.menuOrder));

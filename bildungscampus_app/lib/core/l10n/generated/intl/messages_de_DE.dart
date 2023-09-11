@@ -35,8 +35,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Leider ist beim Verbinden der App etwas schiefgelaufen. Bitte prüfe die Internetverbindung und versuche es erneut."),
         "error_dialog_title": MessageLookupByLibrary.simpleMessage("Uups!"),
         "home_view_appmenu_title": MessageLookupByLibrary.simpleMessage("Home"),
+        "home_view_setting_button_tooltip":
+            MessageLookupByLibrary.simpleMessage("Profile"),
         "home_view_tiles_weather_title":
-            MessageLookupByLibrary.simpleMessage("Campus Wetter"),
+            MessageLookupByLibrary.simpleMessage("Bildungscampus Wetter"),
         "intro_booksearch_subtitle": MessageLookupByLibrary.simpleMessage(
             "Im Online-Katalog der Bibliothek LIV findest du viele verschiedene Medien zur Ansicht und Ausleihe."),
         "intro_booksearch_title": MessageLookupByLibrary.simpleMessage(
@@ -75,6 +77,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Datenschutzerklärung"),
         "intro_view_term_of_use_part5":
             MessageLookupByLibrary.simpleMessage(" akzeptiert."),
+        "login_tile_button_text": MessageLookupByLibrary.simpleMessage("Login"),
+        "login_tile_text": MessageLookupByLibrary.simpleMessage(
+            "Jetzt einloggen und auf die Inhalte zugreifen"),
+        "login_tile_title": MessageLookupByLibrary.simpleMessage("CampusLogin"),
         "map_view_title_backup":
             MessageLookupByLibrary.simpleMessage("Lageplan"),
         "maps_building15_name":
@@ -126,6 +132,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ich akzeptiere die "),
         "privacy_view_terms_of_use_text_part2":
             MessageLookupByLibrary.simpleMessage("Nutzungsbedingungen"),
+        "setting_view_account_setting":
+            MessageLookupByLibrary.simpleMessage("Benutzerkonto verwalten"),
+        "setting_view_campus_card_setting":
+            MessageLookupByLibrary.simpleMessage("CampusCard verwalten"),
+        "setting_view_logout_setting":
+            MessageLookupByLibrary.simpleMessage("Abmelden"),
+        "setting_view_logout_unsuccessful":
+            MessageLookupByLibrary.simpleMessage(
+                "Abmelden fehlgeschlagen. Bitte versuche es erneut!"),
+        "setting_view_sessions_setting":
+            MessageLookupByLibrary.simpleMessage("Anmeldungen verwalten"),
+        "setting_view_title":
+            MessageLookupByLibrary.simpleMessage("Kontoeinstellungen"),
         "termsofuse_view_appmenu_title":
             MessageLookupByLibrary.simpleMessage("Nutzungsbedingungen"),
         "tiles_button_text_more": MessageLookupByLibrary.simpleMessage("MEHR"),
@@ -154,6 +173,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "weather_under1":
             MessageLookupByLibrary.simpleMessage("Heute eiskalte"),
         "weather_under1_raining":
-            MessageLookupByLibrary.simpleMessage("Heute ungemütlich-kalte")
+            MessageLookupByLibrary.simpleMessage("Heute ungemütlich-kalte"),
+        "welcome_tile_hello": MessageLookupByLibrary.simpleMessage("Hallo,")
       };
 }

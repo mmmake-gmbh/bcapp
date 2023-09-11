@@ -1,4 +1,6 @@
+import 'package:bildungscampus_app/ui/shared/svg_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class TextTileContent extends StatelessWidget {
   final String? text;
@@ -32,35 +34,27 @@ class TextTileContent extends StatelessWidget {
               textAlign: textAlignment,
               maxLines: 4,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     color: textColor,
                     fontSize: textFontSize,
                     letterSpacing: 0.09,
-                    height: 1.1875,
+                    height: 1.33,
                   ),
             ),
           ),
         ),
         Align(
           alignment: Alignment.topRight,
-          child: ButtonTheme(
-            minWidth: 0,
-            height: 0,
-            child: TextButton(
-              onPressed: onTap as void Function()?,
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.only(top: 10, left: 10),
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              ),
-              child: Text(
-                buttonText!,
-                style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                      color: buttonTextColor,
-                      height: 1.2,
-                      letterSpacing: 0.1,
-                    ),
-                textAlign: TextAlign.right,
-              ),
+          child: IconButton(
+            onPressed: onTap as void Function()?,
+            alignment: Alignment.bottomRight,
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(),
+            icon: SvgPicture.asset(
+              SvgIcons.arrowRight,
+              colorFilter: ColorFilter.mode(textColor, BlendMode.srcIn),
+              height: 16.0,
+              width: 16.0,
             ),
           ),
         ),

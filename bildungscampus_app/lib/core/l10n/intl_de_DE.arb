@@ -63,8 +63,19 @@
   "parkinglot_view_google_maps_error_text": "We cannot open maps app!",
   "parkinglot_view_tile_collapse_button_text": "weniger",
   "parkinglot_view_traffic_lights_free_slots_text": "FREI",
-  "home_view_tiles_weather_title": "Campus Wetter",
+  "home_view_tiles_weather_title": "Bildungscampus Wetter",
   "error_dialog_title": "Uups!",
   "error_dialog_text": "Leider ist beim Verbinden der App etwas schiefgelaufen. Bitte prüfe die Internetverbindung und versuche es erneut.",
-  "tiles_parking_for_students_text": "für Studierende"
+  "tiles_parking_for_students_text": "für Studierende",
+  "welcome_tile_hello": "Hallo,",
+  "setting_view_logout_unsuccessful": "Abmelden fehlgeschlagen. Bitte versuche es erneut!",
+  "setting_view_account_setting": "Benutzerkonto verwalten",
+  "setting_view_sessions_setting": "Anmeldungen verwalten",
+  "setting_view_campus_card_setting": "CampusCard verwalten",
+  "setting_view_logout_setting": "Abmelden",
+  "setting_view_title": "Kontoeinstellungen",
+  "login_tile_title": "CampusLogin",
+  "login_tile_text": "Jetzt einloggen und auf die Inhalte zugreifen",
+  "login_tile_button_text": "Login",
+  "home_view_setting_button_tooltip": "Profile"
 }

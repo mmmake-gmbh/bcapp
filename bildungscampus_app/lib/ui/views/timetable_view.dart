@@ -17,6 +17,10 @@ class TimeTableView extends StatelessWidget {
     if (url == null) {
       return const SizedBox.shrink();
     }
-    return SimpleWebViewView(title: title, url: url);
+    return SimpleWebViewView(
+      title: title,
+      url: url,
+      headers: const {},
+    );
   }
 }

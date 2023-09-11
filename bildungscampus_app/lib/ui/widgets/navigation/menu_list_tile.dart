@@ -22,14 +22,15 @@ class MenuListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      minLeadingWidth: 10,
+      minLeadingWidth: 28,
       title: Text(
         appMenu.title,
         style: Theme.of(context).textTheme.titleMedium!.copyWith(
               color: Colors.transparent,
               decoration: TextDecoration.underline,
               decorationColor: isActive ? indicatorColor : Colors.transparent,
-              decorationThickness: 2.0,
+              fontFamily: isActive ? 'DINOT Bold' : 'DINOT Light',
+              decorationThickness: 1.5,
               shadows: [
                 Shadow(
                   color: textColor,
@@ -40,14 +41,11 @@ class MenuListTile extends StatelessWidget {
               letterSpacing: 0.09,
             ),
       ),
-      leading: Transform.translate(
-        offset: const Offset(5, -5),
-        child: SvgPicture.asset(
-          SvgIcons.arrowRight,
-          colorFilter: ColorFilter.mode(textColor, BlendMode.srcIn),
-          height: 20.0,
-          width: 19.0,
-        ),
+      leading: SvgPicture.asset(
+        SvgIcons.arrowRight,
+        colorFilter: ColorFilter.mode(textColor, BlendMode.srcIn),
+        height: 16.0,
+        width: 16.0,
       ),
       onTap: () {
         onTap?.call();

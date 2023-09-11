@@ -8,8 +8,15 @@ import 'package:webview_flutter/webview_flutter.dart';
 class SimpleWebViewView extends StatefulWidget {
   final String title;
   final String url;
+  final Map<String, String> headers;
+  final String? additionalUrl;
 
-  const SimpleWebViewView({Key? key, required this.title, required this.url})
+  const SimpleWebViewView(
+      {Key? key,
+      required this.title,
+      required this.url,
+      required this.headers,
+      this.additionalUrl})
       : super(key: key);
   @override
   State<SimpleWebViewView> createState() => _SimpleWebViewViewState();
@@ -23,6 +30,8 @@ class _SimpleWebViewViewState extends State<SimpleWebViewView> {
   @override
   void initState() {
     super.initState();
+
+    log("headers: ${widget.headers}");
 
     _controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -48,7 +57,10 @@ class _SimpleWebViewViewState extends State<SimpleWebViewView> {
             log('wid: ${widget.url}');
             final uri = Uri.parse(widget.url);
             uri.host;
-            if (request.url.contains(uri.host)) {
+            if (request.url.contains(uri.host) ||
+                (widget.additionalUrl != null &&
+                    request.url
+                        .contains(Uri.parse(widget.additionalUrl!).host))) {
               log("navigated");
 
               return NavigationDecision.navigate;
@@ -58,7 +70,7 @@ class _SimpleWebViewViewState extends State<SimpleWebViewView> {
           },
         ),
       )
-      ..loadRequest(Uri.parse(widget.url));
+      ..loadRequest(Uri.parse(widget.url), headers: widget.headers);
   }
 
   @override

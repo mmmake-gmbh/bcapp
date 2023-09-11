@@ -26,7 +26,6 @@ class FlavorConfig {
   final Flavor flavor;
   final String name;
   final Color color;
-  final Locale lang;
   final FlavorValues values;
   static FlavorConfig? _instance;
 
@@ -38,20 +37,17 @@ class FlavorConfig {
     required Flavor flavor,
     Color color = Colors.blue,
     required FlavorValues values,
-    Locale lang = const Locale('de', 'DE'),
   }) {
     _instance ??= FlavorConfig._internal(
       flavor,
       StringUtils.enumName(flavor.toString()),
       color,
       values,
-      lang,
     );
     return _instance!;
   }
 
-  FlavorConfig._internal(
-      this.flavor, this.name, this.color, this.values, this.lang);
+  FlavorConfig._internal(this.flavor, this.name, this.color, this.values);
 
   static bool isProduction() => _instance!.flavor == Flavor.production;
   static bool isDevelopment() => _instance!.flavor == Flavor.dev;

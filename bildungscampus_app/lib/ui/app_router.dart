@@ -2,8 +2,10 @@ import 'package:bildungscampus_app/core/enums/parkinglot_category.dart';
 import 'package:bildungscampus_app/ui/views/book_search_view.dart';
 import 'package:bildungscampus_app/ui/views/contact_view.dart';
 import 'package:bildungscampus_app/ui/views/location_map_view.dart';
+import 'package:bildungscampus_app/ui/views/login_view.dart';
 import 'package:bildungscampus_app/ui/views/payment_view.dart';
 import 'package:bildungscampus_app/ui/views/privacy_view.dart';
+import 'package:bildungscampus_app/ui/views/setting_view.dart';
 import 'package:bildungscampus_app/ui/views/timetable_view.dart';
 import 'package:flutter/material.dart';
 import 'package:bildungscampus_app/ui/views/intro_view.dart';
@@ -22,6 +24,8 @@ class AppRouter {
   static const String bookSearchRoute = "/booksearch";
   static const String paymentRoute = "/payment";
   static const String contactRoute = "/contact";
+  static const String loginRoute = "/login";
+  static const String settingRoute = "/setting";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -74,6 +78,16 @@ class AppRouter {
       case contactRoute:
         return MaterialPageRoute(
           builder: (_) => _setupProvidersAndFlavorBanner(const ContactView()),
+          settings: settings,
+        );
+      case loginRoute:
+        return MaterialPageRoute(
+          builder: (_) => _setupProvidersAndFlavorBanner(const LoginView()),
+          settings: settings,
+        );
+      case settingRoute:
+        return MaterialPageRoute(
+          builder: (_) => _setupProvidersAndFlavorBanner(const SettingView()),
           settings: settings,
         );
       default:

@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:bildungscampus_app/core/enums/app_menu_type.dart';
 import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
-import 'package:bildungscampus_app/ui/views/simple_webview_view.dart';
+import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
+import 'package:bildungscampus_app/ui/views/login_webview_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,10 +18,26 @@ class PaymentView extends StatelessWidget {
         context.read<AppViewModel>().getAppMenuTitle(AppMenuType.payment) ??
             S.of(context).payment_view_title_backup;
 
-    if (url == null) {
+    final userViewModel = context.read<UserViewModel>();
+    Cookie? ssoCookie =
+        userViewModel.ssoCookie != null || userViewModel.ssoCookie!.isNotEmpty
+            ? Cookie.fromSetCookieValue(userViewModel.ssoCookie!)
+            : null;
+    Cookie? ssoCookie2 =
+        userViewModel.ssoCookie != null || userViewModel.ssoCookie!.isNotEmpty
+            ? Cookie.fromSetCookieValue(userViewModel.ssoCookie!)
+            : null;
+
+    ssoCookie2?.name = "cidaas_rl";
+
+    if (url == null || ssoCookie == null) {
       return const SizedBox.shrink();
     }
 
-    return SimpleWebViewView(title: title, url: url);
+    return LoginWebViewView(
+      title: title,
+      url: url,
+      headers: {'cookie': '$ssoCookie;$ssoCookie2'},
+    );
   }
 }

@@ -2,11 +2,11 @@ import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class WeatherData {
-  double value;
-  String unit;
-  bool isRaining;
+  final double value;
+  final String unit;
+  final bool isRaining;
 
-  WeatherData({
+  const WeatherData({
     required this.value,
     required this.unit,
     this.isRaining = false,

@@ -1,3 +1,4 @@
+import 'package:bildungscampus_app/ui/shared/svg_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
@@ -60,6 +61,48 @@ class ReusableAppBars {
         ),
       ),
       titleSpacing: 0,
+    );
+  }
+
+  static AppBar lightAppBarWithLogo(BuildContext context,
+      {required List<Widget> actions,
+      required GlobalKey<ScaffoldState> scaffoldKey}) {
+    return AppBar(
+      backgroundColor: Colors.white,
+      toolbarOpacity: 0.9,
+      title: SvgPicture.asset(
+        SvgIcons.logo,
+        height: 32,
+        alignment: Alignment.center,
+      ),
+      actions: actions,
+      iconTheme: const IconThemeData(
+        color: AppColors.homeAppBarColor,
+      ),
+    );
+  }
+
+  static AppBar lightAppBarWithText(BuildContext context,
+      {required String title}) {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: Colors.white,
+      toolbarOpacity: 0.9,
+      title: Transform.translate(
+        offset: const Offset(0, 2),
+        child: Text(
+          title,
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall!
+              .copyWith(fontSize: 16.0, color: AppColors.homeAppBarColor),
+          textAlign: TextAlign.left,
+        ),
+      ),
+      titleSpacing: 0,
+      iconTheme: const IconThemeData(
+        color: AppColors.homeAppBarColor,
+      ),
     );
   }
 

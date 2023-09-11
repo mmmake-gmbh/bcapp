@@ -1,4 +1,6 @@
 class SvgIcons {
+  static const String accountCircleFilled =
+      'assets/icons/account-circle-filled.svg';
   static const String alert = 'assets/icons/alert.svg';
   static const String arExplore = 'assets/icons/ar-explore.svg';
   static const String arNearMe = 'assets/icons/ar-near-me.svg';
@@ -17,6 +19,7 @@ class SvgIcons {
   static const String freetime = 'assets/icons/freetime.svg';
   static const String info = 'assets/icons/info.svg';
   static const String learn = 'assets/icons/learn.svg';
+  static const String logo = 'assets/icons/logo.svg';
   static const String mensa = 'assets/icons/mensa.svg';
   static const String map = 'assets/icons/map.svg';
   static const String parkinglot = 'assets/icons/parkinglot.svg';
@@ -25,5 +28,8 @@ class SvgIcons {
   static const String school = 'assets/icons/school.svg';
   static const String train = 'assets/icons/train.svg';
   static const String tram = 'assets/icons/tram.svg';
-  static const String weather = 'assets/icons/weather.svg';
+  static const String ungroup = 'assets/icons/ungroup.svg';
+  static const String weatherSonny = 'assets/icons/weather_sonny.svg';
+  static const String weatherRainy = 'assets/icons/weather_rainy.svg';
+  static const String weatherSnowy = 'assets/icons/weather_snowy.svg';
 }

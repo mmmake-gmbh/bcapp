@@ -25,7 +25,7 @@ class ApiWeatherService extends WeatherService {
         isRaining: rain.value == 1,
       );
     } catch (error) {
-      result = WeatherData(
+      result = const WeatherData(
         value: 0,
         unit: '',
       );

@@ -8,11 +8,15 @@ import 'package:bildungscampus_app/core/viewmodels/tiles/booksearch_tile_viewmod
 import 'package:bildungscampus_app/core/viewmodels/tiles/locationmap_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/payment_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/timetable_tile_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
 import 'package:bildungscampus_app/ui/widgets/common/standard_error_dialog.dart';
-import 'package:bildungscampus_app/ui/widgets/tiles/locationmap_tile_content.dart';
-import 'package:bildungscampus_app/ui/widgets/tiles/start_tile_extended.dart';
+import 'package:bildungscampus_app/ui/widgets/navigation/reusable_appbars.dart';
+import 'package:bildungscampus_app/ui/widgets/tiles/text_tile_content.dart';
+import 'package:bildungscampus_app/ui/widgets/tiles/welcome_tile.dart';
+import 'package:cidaas_flutter_sdk/cidaas_flutter_sdk.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -24,13 +28,14 @@ import 'package:bildungscampus_app/core/viewmodels/tiles/parking_tile_viewmodel.
 import 'package:bildungscampus_app/core/viewmodels/tiles/weather_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
 import 'package:bildungscampus_app/ui/widgets/navigation/app_drawer.dart';
-import 'package:bildungscampus_app/ui/widgets/navigation/reusable_appbars.dart';
 import 'package:bildungscampus_app/ui/widgets/tiles/start_tile.dart';
 import 'package:bildungscampus_app/ui/widgets/tiles/mensa_tile_content.dart';
 import 'package:bildungscampus_app/ui/widgets/tiles/parking_tile_content.dart';
 import 'package:bildungscampus_app/ui/widgets/tiles/weather_tile_content.dart';
 import 'package:bildungscampus_app/ui/shared/app_images.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
+
+import '../shared/svg_icons.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -43,9 +48,22 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
   bool previewStateHasError = false;
   Timer? timer;
 
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   List<StaggeredGridTile> _getTiles(
       List<BaseViewModel> tiles, BuildContext context) {
-    return tiles.map((model) {
+    final newTiles = [...tiles];
+
+    newTiles.insert(
+        0,
+        BaseStartTileViewModel(
+            title: 'welcome',
+            iconPath: 'iconPath',
+            navigationPath: 'navigationPath',
+            type: TileType.wideSmall,
+            maxTitleLines: 2)); //TODO: Move this to the json config
+
+    return newTiles.map((model) {
       final tileModel = model as BaseStartTileViewModel;
       final tileWidget = _mapTile(
         tileModel,
@@ -62,18 +80,23 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
         case TileType.wide:
           return StaggeredGridTile.count(
               crossAxisCellCount: 4, mainAxisCellCount: 2, child: tileWidget);
+        case TileType.wideSmall:
+          return StaggeredGridTile.count(
+              crossAxisCellCount: 4, mainAxisCellCount: 1, child: tileWidget);
       }
     }).toList();
   }
 
   Widget _mapTile(BaseStartTileViewModel model, BuildContext context) {
     if (model is WeatherTileViewModel) {
-      const textColor = Colors.white;
+      const textColor = AppColors.weatherTileTextColor;
       return StartTile.withBaseModel(
         model,
-        bgColor: AppColors.weatherTileBgColor.withOpacity(0.72),
+        bgColor: AppColors.weatherTileBgColor.withOpacity(0.85),
         showHeader: false,
         isFullTileTap: false,
+        padding:
+            const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0, bottom: 0.0),
         child: Consumer<AppViewModel>(
           builder: (ctx, appModel, _) => WeatherTileContent(
             model: appModel.currentWeather,
@@ -101,7 +124,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
         value: model,
         builder: (ctx, child) => StartTile.withBaseModel(
           model,
-          bgColor: AppColors.primaryOneColor,
+          bgColor: AppColors.parkingTileBgColor,
           isFullTileTap: false,
           onTap: onTapFunction,
           child: Consumer<ParkingTileViewModel>(
@@ -129,7 +152,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
       const contentColor = Colors.white;
       return StartTile.withTextContent(
         model,
-        bgColor: AppColors.primaryOneColor,
+        bgColor: AppColors.timetableTileBgColor,
         contentColor: contentColor,
         isFullTileTap: true,
         onTap: () {
@@ -137,42 +160,68 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
         },
       );
     } else if (model is LocationMapTileViewModel) {
-      const contentColor = AppColors.primaryOneColor;
+      const contentColor = Colors.white;
 
-      return StartTileExtended.withBaseModel(
+      return StartTile.withTextContent(
         model,
         contentColor: contentColor,
-        bgColor: AppColors.locationMapBgColor,
+        bgColor: AppColors.primaryTwoColor,
         isFullTileTap: true,
-        child: LocationMapTileContent.withModel(
-          model,
-          contentColor: contentColor,
-          onTap: () {
-            Navigator.of(context).pushNamed(model.navigationPath);
-          },
-        ),
+        onTap: () {
+          Navigator.of(context).pushNamed(model.navigationPath);
+        },
       );
     } else if (model is BookSearchTileViewModel) {
       const contentColor = Colors.white;
       return StartTile.withTextContent(
         model,
-        bgColor: AppColors.secondaryTwoColor,
+        bgColor: AppColors.primaryTwoColor,
         contentColor: contentColor,
         isFullTileTap: true,
         onTap: () {
           Navigator.of(context).pushNamed(model.navigationPath);
         },
       );
+    } else if (model.title == 'welcome') {
+      final args = ModalRoute.of(context)!.settings.arguments as TokenEntity?;
+      return WelcomeTile(firstLogin: args?.ssoCookie != null);
     } else if (model is PaymentTileViewModel) {
       const contentColor = Colors.white;
-      return StartTile.withTextContent(
-        model,
-        bgColor: AppColors.campusCardTileBgColor,
-        contentColor: contentColor,
-        isFullTileTap: true,
-        onTap: () {
-          Navigator.of(context).pushNamed(model.navigationPath);
-        },
+
+      return Consumer<UserViewModel>(
+        builder: ((context, userViewModel, _) {
+          if (userViewModel.isLogged) {
+            return StartTile.withTextContent(
+              model,
+              bgColor: AppColors.campusCardTileBgColor,
+              contentColor: contentColor,
+              isFullTileTap: true,
+              onTap: () {
+                Navigator.of(context).pushNamed(model.navigationPath);
+              },
+            );
+          }
+
+          return StartTile(
+            titleColor: Colors.white,
+            tileTitle: S.of(context).login_tile_title,
+            iconPath: SvgIcons.pin,
+            isFullTileTap: true,
+            maxTitleLines: 1,
+            backgroundColor: AppColors.primaryOneColor,
+            child: TextTileContent(
+              textColor: Colors.white,
+              text: S.of(context).login_tile_text,
+              textAlignment: TextAlign.center,
+              buttonText: S.of(context).login_tile_button_text,
+              buttonTextColor: Colors.white,
+            ),
+            onTap: () {
+              final navigator = Navigator.of(context);
+              navigator.pushNamed('/login');
+            },
+          );
+        }),
       );
     }
     return Container();
@@ -223,7 +272,6 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
     cancelTimer();
     timer = Timer.periodic(const Duration(seconds: 45),
         (Timer t) => appViewModel.updateSilently(context));
-    appViewModel.updateSilently(context, updateAll: true);
   }
 
   void cancelTimer() {
@@ -247,52 +295,81 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
     }
 
     return Scaffold(
-      appBar: ReusableAppBars.transparentAppBar(),
+      key: scaffoldKey,
+      appBar: ReusableAppBars.lightAppBarWithLogo(
+        context,
+        scaffoldKey: scaffoldKey,
+        actions: [
+          IconButton(
+            icon: SvgPicture.asset(
+              SvgIcons.accountCircleFilled,
+              height: 32,
+              alignment: Alignment.center,
+              colorFilter: const ColorFilter.mode(
+                  AppColors.homeAppBarColor, BlendMode.srcIn),
+            ),
+            tooltip: S.of(context).home_view_setting_button_tooltip,
+            onPressed: () {
+              final isLogged = context.read<UserViewModel>().isLogged;
+
+              final route =
+                  isLogged ? AppRouter.settingRoute : AppRouter.loginRoute;
+              Navigator.of(context).pushNamed(route);
+            },
+          ),
+        ],
+      ),
       drawer: const AppDrawer(),
       extendBodyBehindAppBar: true,
-      body: SizedBox(
-        height: double.infinity,
-        child: Stack(
-          children: [
-            Image.asset(
-              AppImages.startScreen,
-              height: 340,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-            Consumer<AppViewModel>(builder: (context, model, child) {
-              if (model.isBusy) {
-                return const Center(child: CircularProgressIndicator());
-              }
+      body: SafeArea(
+        child: SizedBox(
+          height: double.infinity,
+          child: Stack(
+            children: [
+              Image.asset(
+                AppImages.startScreen,
+                height: 350,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+              Consumer<AppViewModel>(builder: (context, model, child) {
+                if (model.isBusy) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
-              if (model.tiles == null) {
-                return const SizedBox.shrink();
-              }
+                if (model.tiles == null) {
+                  return const SizedBox.shrink();
+                }
 
-              return Positioned(
-                left: 0,
-                bottom: 0,
-                right: 0,
-                top: 0,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    physics: Platform.isIOS
-                        ? const AlwaysScrollableScrollPhysics()
-                        : const BouncingScrollPhysics(),
-                    child: StaggeredGrid.count(
-                      crossAxisCount: 4,
-                      axisDirection: AxisDirection.down,
-                      mainAxisSpacing: 4.0,
-                      crossAxisSpacing: 4.0,
-                      children: _getTiles(model.tiles!, context),
+                return Positioned(
+                  left: 0,
+                  bottom: 0,
+                  right: 0,
+                  top: 0,
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                      left: 12.0,
+                      right: 12.0,
+                      top: 50,
+                    ),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      physics: Platform.isIOS
+                          ? const AlwaysScrollableScrollPhysics()
+                          : const BouncingScrollPhysics(),
+                      child: StaggeredGrid.count(
+                        crossAxisCount: 4,
+                        axisDirection: AxisDirection.down,
+                        mainAxisSpacing: 16.0,
+                        crossAxisSpacing: 16.0,
+                        children: _getTiles(model.tiles!, context),
+                      ),
                     ),
                   ),
-                ),
-              );
-            }),
-          ],
+                );
+              }),
+            ],
+          ),
         ),
       ),
     );

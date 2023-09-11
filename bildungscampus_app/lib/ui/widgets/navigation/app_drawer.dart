@@ -3,6 +3,7 @@ import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/models/common/app_menu.dart';
 import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/privacy_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
 import 'package:bildungscampus_app/ui/shared/app_images.dart';
@@ -19,6 +20,19 @@ class AppDrawer extends StatelessWidget {
       ModalRoute<Object?> modalRoute, AppMenu menuItem) {
     final currentRouteName = modalRoute.settings.name ?? '';
     return menuItem.navigationPath == currentRouteName;
+  }
+
+  Future<void> saveSelectedLocale(BuildContext context, String lang) async {
+    final allLocales =
+        context.findAncestorWidgetOfExactType<MaterialApp>()?.supportedLocales;
+    final userViewModel = context.read<UserViewModel>();
+
+    final selectedLocale =
+        allLocales?.firstWhere((element) => element.languageCode == lang);
+
+    if (selectedLocale != null) {
+      await userViewModel.saveLanguage(selectedLocale);
+    }
   }
 
   @override
@@ -72,7 +86,7 @@ class AppDrawer extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: SvgPicture.asset(
                       AppImages.logoWhite,
-                      height: 46.0,
+                      height: 35.0,
                     ),
                   ),
                 ),
@@ -80,7 +94,7 @@ class AppDrawer extends StatelessWidget {
               MenuListTile(
                 appMenu: homeMenu,
                 textColor: AppColors.primaryOneTextColor,
-                indicatorColor: AppColors.primaryTwoColor,
+                indicatorColor: AppColors.drawerMenuTileUnderlineColor,
                 onTap: () => Navigator.pushNamed(context, AppRouter.homeRoute),
                 isActive:
                     _isAppMenuItemCurrentRoute(currentModalRoute!, homeMenu),
@@ -91,7 +105,7 @@ class AppDrawer extends StatelessWidget {
                       (appMenu) => MenuListTile(
                         appMenu: appMenu,
                         textColor: AppColors.primaryOneTextColor,
-                        indicatorColor: AppColors.primaryTwoColor,
+                        indicatorColor: AppColors.drawerMenuTileUnderlineColor,
                         onTap: () => Navigator.pushNamed(
                             context, appMenu.navigationPath!),
                         isActive: _isAppMenuItemCurrentRoute(
@@ -99,11 +113,18 @@ class AppDrawer extends StatelessWidget {
                       ),
                     )
                     .toList(),
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
+              Container(
+                height: 1,
+                width: double.infinity,
+                color: Colors.white,
+                margin: const EdgeInsets.symmetric(horizontal: 16),
+              ),
+              const SizedBox(height: 20),
               ...additionalMenu
                   .map((appMenu) => MenuListTile(
                         appMenu: appMenu,
-                        textColor: AppColors.primaryTwoLightColor,
+                        textColor: AppColors.drawerMenuTileUnderlineColor,
                         indicatorColor: Colors.white,
                         isActive: _isAppMenuItemCurrentRoute(
                             currentModalRoute, appMenu),
@@ -118,6 +139,66 @@ class AppDrawer extends StatelessWidget {
                         },
                       ))
                   .toList(),
+              Consumer<UserViewModel>(
+                builder: (context, userViewModel, child) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    children: [
+                      InkWell(
+                        onTap: () async {
+                          await saveSelectedLocale(context, 'de');
+                        },
+                        child: Text(
+                          'DE',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                  fontFamily: Localizations.localeOf(context)
+                                              .languageCode ==
+                                          'de'
+                                      ? 'DINOT Bold'
+                                      : 'DINOT Light',
+                                  color:
+                                      AppColors.drawerMenuTileUnderlineColor),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          '|',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                  fontFamily: 'DINOT Bold',
+                                  color:
+                                      AppColors.drawerMenuTileUnderlineColor),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          await saveSelectedLocale(context, 'en');
+                        },
+                        child: Text(
+                          'EN',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                  fontFamily: Localizations.localeOf(context)
+                                              .languageCode ==
+                                          'en'
+                                      ? 'DINOT Bold'
+                                      : 'DINOT Light',
+                                  color:
+                                      AppColors.drawerMenuTileUnderlineColor),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
             ],
           ),
         ),

@@ -690,10 +690,10 @@ class S {
     );
   }
 
-  /// `Campus Wetter`
+  /// `Bildungscampus Wetter`
   String get home_view_tiles_weather_title {
     return Intl.message(
-      'Campus Wetter',
+      'Bildungscampus Wetter',
       name: 'home_view_tiles_weather_title',
       desc: '',
       args: [],
@@ -725,6 +725,116 @@ class S {
     return Intl.message(
       'für Studierende',
       name: 'tiles_parking_for_students_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hallo,`
+  String get welcome_tile_hello {
+    return Intl.message(
+      'Hallo,',
+      name: 'welcome_tile_hello',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Abmelden fehlgeschlagen. Bitte versuche es erneut!`
+  String get setting_view_logout_unsuccessful {
+    return Intl.message(
+      'Abmelden fehlgeschlagen. Bitte versuche es erneut!',
+      name: 'setting_view_logout_unsuccessful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Benutzerkonto verwalten`
+  String get setting_view_account_setting {
+    return Intl.message(
+      'Benutzerkonto verwalten',
+      name: 'setting_view_account_setting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Anmeldungen verwalten`
+  String get setting_view_sessions_setting {
+    return Intl.message(
+      'Anmeldungen verwalten',
+      name: 'setting_view_sessions_setting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CampusCard verwalten`
+  String get setting_view_campus_card_setting {
+    return Intl.message(
+      'CampusCard verwalten',
+      name: 'setting_view_campus_card_setting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Abmelden`
+  String get setting_view_logout_setting {
+    return Intl.message(
+      'Abmelden',
+      name: 'setting_view_logout_setting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Kontoeinstellungen`
+  String get setting_view_title {
+    return Intl.message(
+      'Kontoeinstellungen',
+      name: 'setting_view_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CampusLogin`
+  String get login_tile_title {
+    return Intl.message(
+      'CampusLogin',
+      name: 'login_tile_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Jetzt einloggen und auf die Inhalte zugreifen`
+  String get login_tile_text {
+    return Intl.message(
+      'Jetzt einloggen und auf die Inhalte zugreifen',
+      name: 'login_tile_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get login_tile_button_text {
+    return Intl.message(
+      'Login',
+      name: 'login_tile_button_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile`
+  String get home_view_setting_button_tooltip {
+    return Intl.message(
+      'Profile',
+      name: 'home_view_setting_button_tooltip',
       desc: '',
       args: [],
     );

@@ -1,4 +1,3 @@
-import 'package:bildungscampus_app/core/configs/flavor_config.dart';
 import 'package:bildungscampus_app/core/models/mensa/meal.dart';
 import 'package:bildungscampus_app/core/models/common/menu.dart';
 import 'package:bildungscampus_app/core/utils/date_utils.dart' as utils;
@@ -35,9 +34,10 @@ class _MensaTileContentState extends State<MensaTileContent>
         TabController(length: widget.weeklyMenu.length, vsync: this);
   }
 
-  String _getDayName(int dayOfTheWeek) {
-    final dateString = utils.DateUtils.getDateOfTheWeek(
-        FlavorConfig.instance!.lang, dayOfTheWeek);
+  String _getDayName(BuildContext context, int dayOfTheWeek) {
+    final currentLocale = Localizations.localeOf(context);
+    final dateString =
+        utils.DateUtils.getDateOfTheWeek(currentLocale, dayOfTheWeek);
     if (dateString.isEmpty) {
       return dateString;
     }
@@ -84,7 +84,7 @@ class _MensaTileContentState extends State<MensaTileContent>
           controller: _tabController,
           tabs: widget.weeklyMenu.map((menu) {
             return Text(
-              _getDayName(menu.dayOfTheWeek),
+              _getDayName(context, menu.dayOfTheWeek),
               style: const TextStyle(fontSize: 14.0),
             );
           }).toList(),

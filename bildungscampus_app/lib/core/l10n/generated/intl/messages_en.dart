@@ -23,137 +23,155 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "booksearch_view_title_backup":
-            MessageLookupByLibrary.simpleMessage("Buchsuche"),
+            MessageLookupByLibrary.simpleMessage("Book Search"),
         "contact_view_appmenu_title":
-            MessageLookupByLibrary.simpleMessage("Impressum"),
+            MessageLookupByLibrary.simpleMessage("Legal Notice"),
         "contact_view_open_email_failed_message":
             MessageLookupByLibrary.simpleMessage(
-                "Wir können die \${model.email} nicht in anderen App öffnen."),
+                "We cannot open the \${model.email} in another app."),
         "contact_view_title_backup":
-            MessageLookupByLibrary.simpleMessage("Kontakt"),
+            MessageLookupByLibrary.simpleMessage("Contact"),
         "error_dialog_text": MessageLookupByLibrary.simpleMessage(
-            "Leider ist beim Verbinden der App etwas schiefgelaufen. Bitte prüfe die Internetverbindung und versuche es erneut."),
-        "error_dialog_title": MessageLookupByLibrary.simpleMessage("Uups!"),
+            "Unfortunately, something went wrong while connecting the app. Please check the internet connection and try again."),
+        "error_dialog_title": MessageLookupByLibrary.simpleMessage("Oops!"),
         "home_view_appmenu_title": MessageLookupByLibrary.simpleMessage("Home"),
+        "home_view_setting_button_tooltip":
+            MessageLookupByLibrary.simpleMessage("Profile"),
         "home_view_tiles_weather_title":
-            MessageLookupByLibrary.simpleMessage("Campus Wetter"),
+            MessageLookupByLibrary.simpleMessage("Campus Weather"),
         "intro_booksearch_subtitle": MessageLookupByLibrary.simpleMessage(
-            "Im Online-Katalog der Bibliothek LIV findest du viele verschiedene Medien zur Ansicht und Ausleihe."),
+            "The LIV Library\'s online catalog offers a diverse selection of media available for viewing and borrowing."),
         "intro_booksearch_title": MessageLookupByLibrary.simpleMessage(
-            "Wo finde ich die passende Literatur für die nächste Hausarbeit?"),
+            "Where can I find the right literature for the next term paper?"),
         "intro_map_subtitle": MessageLookupByLibrary.simpleMessage(
-            "Auf dem Lageplan sind Gebäude, Institutionen, Parkmöglichkeiten, Gastronomie, Services und Veranstaltungsbereiche verortet."),
+            "The site map displays the locations of buildings, institutions, parking facilities, catering, services, and event locations."),
         "intro_map_title": MessageLookupByLibrary.simpleMessage(
-            "Wie finde ich mich auf dem Campus zurecht? "),
+            "How do I find my way around campus?"),
         "intro_overview2_title": MessageLookupByLibrary.simpleMessage(
-            "\"Mein Bildungscampus\" — der digitale Campus an einem Ort und jederzeit griffbereit:"),
+            "\"Mein Bildungscampus\" — the digital campus at your fingertips:"),
         "intro_overview_title": MessageLookupByLibrary.simpleMessage(
-            "\"Mein Bildungscampus\" — der digitale Campus an einem Ort und jederzeit griffbereit:"),
+            "\"Mein Bildungscampus\" — the digital campus at your fingertips:"),
         "intro_parkinglot_subtitle": MessageLookupByLibrary.simpleMessage(
-            "Die Auslastung der Parkplätze wird dir hier in Echtzeit angegeben."),
+            "Real-time parking occupancy is displayed here."),
         "intro_parkinglot_title": MessageLookupByLibrary.simpleMessage(
-            "An den Campus fahren oder Alternativen planen?"),
+            "Driving to campus or exploring alternative options?"),
         "intro_payment_subtitle": MessageLookupByLibrary.simpleMessage(
-            "Über das PaymentPortal lässt sich die CampusCard komfortabel online verwalten und aufladen \\u2014 immer und überall nur einen Klick entfernt."),
+            "The CampusCard can be conveniently managed and topped up online through the PaymentPortal \\u2014 just one click away, anytime and anywhere."),
         "intro_payment_title": MessageLookupByLibrary.simpleMessage(
-            "Wie kann ich meine CampusCard aufladen?"),
+            "How can I top up my CampusCard?"),
         "intro_timetable_subtitle": MessageLookupByLibrary.simpleMessage(
-            "Mit dem Abfahrtsmonitor erreichst du auf die Minute genau alle Abfahrten von Bus und Bahn rund um den Bildungscampus."),
+            "With the departure board, you can reach all bus and train departures around the educational campus down to the minute."),
         "intro_timetable_title":
-            MessageLookupByLibrary.simpleMessage("Wann fährt der nächste Bus?"),
+            MessageLookupByLibrary.simpleMessage("When is the next bus?"),
         "intro_view_skip_intro":
-            MessageLookupByLibrary.simpleMessage("Intro überspringen"),
+            MessageLookupByLibrary.simpleMessage("Skip intro"),
         "intro_view_stop_intro":
-            MessageLookupByLibrary.simpleMessage("Intro beenden"),
-        "intro_view_term_of_use_part1": MessageLookupByLibrary.simpleMessage(
-            "Mit der Nutzung der App werden die "),
+            MessageLookupByLibrary.simpleMessage("End intro"),
+        "intro_view_term_of_use_part1":
+            MessageLookupByLibrary.simpleMessage("By using the app, the "),
         "intro_view_term_of_use_part2":
-            MessageLookupByLibrary.simpleMessage("Nutzungsbedingungen"),
+            MessageLookupByLibrary.simpleMessage("Terms of Use"),
         "intro_view_term_of_use_part3":
-            MessageLookupByLibrary.simpleMessage(" und die "),
+            MessageLookupByLibrary.simpleMessage(" and "),
         "intro_view_term_of_use_part4":
-            MessageLookupByLibrary.simpleMessage("Datenschutzerklärung"),
+            MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "intro_view_term_of_use_part5":
-            MessageLookupByLibrary.simpleMessage(" akzeptiert."),
+            MessageLookupByLibrary.simpleMessage(" are accepted."),
+        "login_tile_button_text": MessageLookupByLibrary.simpleMessage("Login"),
+        "login_tile_text": MessageLookupByLibrary.simpleMessage(
+            "Jetzt einloggen und auf die Inhalte zugreifen"),
+        "login_tile_title": MessageLookupByLibrary.simpleMessage("CampusLogin"),
         "map_view_title_backup":
-            MessageLookupByLibrary.simpleMessage("Lageplan"),
-        "maps_building15_name":
-            MessageLookupByLibrary.simpleMessage("Bibliothek"),
+            MessageLookupByLibrary.simpleMessage("Site Map"),
+        "maps_building15_name": MessageLookupByLibrary.simpleMessage("Library"),
         "maps_building6_name": MessageLookupByLibrary.simpleMessage("Aula"),
         "maps_building8_name": MessageLookupByLibrary.simpleMessage("Mensa"),
         "parking_view_categories_guests":
-            MessageLookupByLibrary.simpleMessage("Besucher:innen"),
+            MessageLookupByLibrary.simpleMessage("Guests"),
         "parking_view_categories_staff":
-            MessageLookupByLibrary.simpleMessage("Beschäftigte"),
+            MessageLookupByLibrary.simpleMessage("Employees"),
         "parking_view_categories_students":
-            MessageLookupByLibrary.simpleMessage("Studierende"),
+            MessageLookupByLibrary.simpleMessage("Students"),
         "parking_view_tiles_campus_rad_title":
             MessageLookupByLibrary.simpleMessage("Campus Rad"),
         "parking_view_tiles_timetable_title":
-            MessageLookupByLibrary.simpleMessage("Abfahrts­monitor"),
+            MessageLookupByLibrary.simpleMessage("Departure Board"),
         "parking_view_tiles_zaeg_title":
             MessageLookupByLibrary.simpleMessage("ZEAG Carsharing"),
         "parking_view_title_backup":
-            MessageLookupByLibrary.simpleMessage("Parken am Campus"),
+            MessageLookupByLibrary.simpleMessage("Campus Parking"),
         "parkinglot_view_google_maps_error_text":
             MessageLookupByLibrary.simpleMessage("We cannot open maps app!"),
         "parkinglot_view_google_maps_text":
             MessageLookupByLibrary.simpleMessage("Google Maps"),
         "parkinglot_view_students_category_description_text":
             MessageLookupByLibrary.simpleMessage(
-                "Für Bildungscampus Studierende mit CampusCard ist das Parken hier bis einschließlich August 2021 kostenfrei."),
+                "Students of Bildungscampus with a CampusCard can park here for free until and including August 2021."),
         "parkinglot_view_tile_collapse_button_text":
-            MessageLookupByLibrary.simpleMessage("weniger"),
+            MessageLookupByLibrary.simpleMessage("Collapse"),
         "parkinglot_view_tile_expand_button_text":
             MessageLookupByLibrary.simpleMessage("Details"),
         "parkinglot_view_traffic_lights_free_slots_text":
-            MessageLookupByLibrary.simpleMessage("FREI"),
+            MessageLookupByLibrary.simpleMessage("FREE"),
         "payment_view_title_backup":
             MessageLookupByLibrary.simpleMessage("CampusCard PaymentPortal"),
         "privacy_view_accept_button_text":
-            MessageLookupByLibrary.simpleMessage("Los geht\'s"),
+            MessageLookupByLibrary.simpleMessage("Let’s go"),
         "privacy_view_appmenu_title":
-            MessageLookupByLibrary.simpleMessage("Datenschutz"),
+            MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "privacy_view_headline_text": MessageLookupByLibrary.simpleMessage(
-            "Nutzungsbedingungen & Datenschutzerklärung"),
+            "Terms of Use & Privacy Policy"),
         "privacy_view_privacy_agreement_text_part1":
-            MessageLookupByLibrary.simpleMessage("Ich habe die "),
+            MessageLookupByLibrary.simpleMessage(
+                "I have read and understood the "),
         "privacy_view_privacy_agreement_text_part2":
-            MessageLookupByLibrary.simpleMessage("Datenschutzerklärung"),
+            MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "privacy_view_privacy_agreement_text_part3":
-            MessageLookupByLibrary.simpleMessage(" gelesen und verstanden"),
+            MessageLookupByLibrary.simpleMessage(""),
         "privacy_view_terms_of_use_text_part1":
-            MessageLookupByLibrary.simpleMessage("Ich akzeptiere die "),
+            MessageLookupByLibrary.simpleMessage("I accept the "),
         "privacy_view_terms_of_use_text_part2":
-            MessageLookupByLibrary.simpleMessage("Nutzungsbedingungen"),
+            MessageLookupByLibrary.simpleMessage("Terms of Use"),
+        "setting_view_account_setting":
+            MessageLookupByLibrary.simpleMessage("Manage your user account"),
+        "setting_view_campus_card_setting":
+            MessageLookupByLibrary.simpleMessage("Manage CampusCard"),
+        "setting_view_logout_setting":
+            MessageLookupByLibrary.simpleMessage("Logout"),
+        "setting_view_logout_unsuccessful":
+            MessageLookupByLibrary.simpleMessage(
+                "Log out unsuccessful. Please try again!"),
+        "setting_view_sessions_setting":
+            MessageLookupByLibrary.simpleMessage("Manage your sessions"),
+        "setting_view_title":
+            MessageLookupByLibrary.simpleMessage("Account settings"),
         "termsofuse_view_appmenu_title":
-            MessageLookupByLibrary.simpleMessage("Nutzungsbedingungen"),
-        "tiles_button_text_more": MessageLookupByLibrary.simpleMessage("MEHR"),
-        "tiles_button_text_show":
-            MessageLookupByLibrary.simpleMessage("ANZEIGEN"),
+            MessageLookupByLibrary.simpleMessage("Terms of Use"),
+        "tiles_button_text_more": MessageLookupByLibrary.simpleMessage("MORE"),
+        "tiles_button_text_show": MessageLookupByLibrary.simpleMessage("SHOW"),
         "tiles_parking_for_students_text":
-            MessageLookupByLibrary.simpleMessage("für Studierende"),
+            MessageLookupByLibrary.simpleMessage("for students"),
         "timetable_view_title_backup":
-            MessageLookupByLibrary.simpleMessage("Abfahrtsmonitor"),
+            MessageLookupByLibrary.simpleMessage("Departure Board"),
         "weather_above31":
-            MessageLookupByLibrary.simpleMessage("Heute tropische"),
+            MessageLookupByLibrary.simpleMessage("Today scorching"),
         "weather_above31_raining":
-            MessageLookupByLibrary.simpleMessage("Heute schwül-warme"),
+            MessageLookupByLibrary.simpleMessage("Today sweltering"),
         "weather_between11and1":
-            MessageLookupByLibrary.simpleMessage("Heute coole"),
+            MessageLookupByLibrary.simpleMessage("Today cool"),
         "weather_between11and1_raining":
-            MessageLookupByLibrary.simpleMessage("Heute klamm-kühle"),
+            MessageLookupByLibrary.simpleMessage("Today chilly"),
         "weather_between21and11":
-            MessageLookupByLibrary.simpleMessage("Heute milde"),
+            MessageLookupByLibrary.simpleMessage("Today mild"),
         "weather_between21and11_raining":
-            MessageLookupByLibrary.simpleMessage("Heute nass-milde"),
+            MessageLookupByLibrary.simpleMessage("Today humid"),
         "weather_between31and21":
-            MessageLookupByLibrary.simpleMessage("Heute sommerliche"),
+            MessageLookupByLibrary.simpleMessage("Today sunny"),
         "weather_between31and21_raining":
-            MessageLookupByLibrary.simpleMessage("Heute feucht-fröhliche"),
-        "weather_under1":
-            MessageLookupByLibrary.simpleMessage("Heute eiskalte"),
+            MessageLookupByLibrary.simpleMessage("Today muggy"),
+        "weather_under1": MessageLookupByLibrary.simpleMessage("Today cold"),
         "weather_under1_raining":
-            MessageLookupByLibrary.simpleMessage("Heute ungemütlich-kalte")
+            MessageLookupByLibrary.simpleMessage("Today freezing"),
+        "welcome_tile_hello": MessageLookupByLibrary.simpleMessage("Hello,")
       };
 }

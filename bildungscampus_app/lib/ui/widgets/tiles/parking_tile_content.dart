@@ -1,5 +1,7 @@
 import 'package:bildungscampus_app/core/enums/parkinglot_category.dart';
+import 'package:bildungscampus_app/ui/shared/svg_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/parking_tile_viewmodel.dart';
 import 'package:bildungscampus_app/ui/widgets/tiles/carousel_tile_content.dart';
@@ -30,10 +32,10 @@ class ParkingTileContent extends StatelessWidget {
           return Center(
             child: Text(
               model.value,
-              style: const TextStyle(
-                fontSize: 16.0,
-                color: Colors.white,
-              ),
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    color: contentColor,
+                    height: 1.33,
+                  ),
               textAlign: TextAlign.center,
             ),
           );
@@ -49,24 +51,16 @@ class ParkingTileContent extends StatelessWidget {
       ),
       Align(
         alignment: Alignment.topRight,
-        child: ButtonTheme(
-          minWidth: 0,
-          height: 0,
-          child: TextButton(
-            onPressed: onTap as void Function()?,
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.only(top: 10, left: 10),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            child: Text(
-              buttonText!,
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: buttonTextColor,
-                    height: 1.2,
-                    letterSpacing: 0.1,
-                  ),
-              textAlign: TextAlign.right,
-            ),
+        child: IconButton(
+          onPressed: onTap as void Function()?,
+          alignment: Alignment.bottomRight,
+          padding: EdgeInsets.zero,
+          constraints: const BoxConstraints(),
+          icon: SvgPicture.asset(
+            SvgIcons.arrowRight,
+            colorFilter: ColorFilter.mode(contentColor, BlendMode.srcIn),
+            height: 16.0,
+            width: 16.0,
           ),
         ),
       ),

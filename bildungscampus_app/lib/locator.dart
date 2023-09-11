@@ -2,6 +2,9 @@ import 'package:bildungscampus_app/core/repositories/startscreen/api_app_content
 import 'package:bildungscampus_app/core/repositories/startscreen/app_content_repository.dart';
 import 'package:bildungscampus_app/core/services/weather/api_weather_service.dart';
 import 'package:bildungscampus_app/core/services/weather/weather_service.dart';
+import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
+import 'package:cidaas_flutter_sdk/cidaas_flutter_sdk.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
@@ -21,7 +24,10 @@ import 'package:bildungscampus_app/core/services/startscreen/tiles_service.dart'
 
 GetIt locator = GetIt.instance;
 
-void setupLocator() {
+void setupLocator(
+    {required FlutterSecureStorage secureStorage,
+    required CidaasConfig cidaasConfig,
+    required OpenIdConfiguration openIdConfig}) {
   locator.registerLazySingleton<TilesService>(() => CampusTilesService());
   locator.registerLazySingleton<AuthService>(() => OAuthAuthService());
   locator.registerLazySingleton<SettingsService>(() => LocalSettingsService());
@@ -33,4 +39,10 @@ void setupLocator() {
   locator.registerLazySingleton<WeatherService>(() => ApiWeatherService());
   locator.registerLazySingleton(() => AppViewModel());
   locator.registerLazySingleton<PrivacyViewModel>(() => PrivacyViewModel());
+  locator.registerSingleton(() => secureStorage);
+  locator.registerSingleton(CidaasLoginProvider(
+      securityStorage: secureStorage,
+      cidaasConf: cidaasConfig,
+      openIdConfiguration: openIdConfig));
+  locator.registerLazySingleton(() => UserViewModel(secureStorage));
 }

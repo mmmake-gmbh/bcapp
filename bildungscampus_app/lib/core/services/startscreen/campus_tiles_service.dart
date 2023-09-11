@@ -30,7 +30,6 @@ class CampusTilesService implements TilesService {
         case 'weather':
           final vm = WeatherTileViewModel(
             title: tileModel.title,
-            iconPath: SvgIcons.weather,
             weatherData: weatherData,
             type: TileType.small,
           );

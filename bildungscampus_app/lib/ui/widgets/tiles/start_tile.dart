@@ -6,7 +6,6 @@ import 'package:bildungscampus_app/ui/widgets/tiles/text_tile_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:bildungscampus_app/core/enums/tile_type.dart';
-import 'package:bildungscampus_app/ui/shared/svg_icons.dart';
 
 class StartTile extends StatelessWidget {
   final TileType? tileType;
@@ -20,6 +19,7 @@ class StartTile extends StatelessWidget {
   final bool isFullTileTap;
   final int maxTitleLines;
   final Function? onTap;
+  final EdgeInsetsGeometry? padding;
 
   const StartTile({
     Key? key,
@@ -33,6 +33,7 @@ class StartTile extends StatelessWidget {
     this.navigationPath = "",
     required this.isFullTileTap,
     required this.maxTitleLines,
+    this.padding,
     this.onTap,
   }) : super(key: key);
 
@@ -44,6 +45,7 @@ class StartTile extends StatelessWidget {
     this.showHeader = true,
     required this.isFullTileTap,
     required this.child,
+    this.padding,
     this.onTap,
   })  : tileType = model.type,
         tileTitle = model.title,
@@ -61,6 +63,7 @@ class StartTile extends StatelessWidget {
     required Color bgColor,
     this.showHeader = true,
     required this.isFullTileTap,
+    this.padding,
     this.onTap,
   })  : tileType = model.type,
         tileTitle = model.title,
@@ -82,11 +85,13 @@ class StartTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
       color: backgroundColor,
       child: Container(
-        padding: tileType == TileType.small
-            ? const EdgeInsets.symmetric(vertical: 4.0, horizontal: 10)
-            : const EdgeInsets.all(8),
+        padding: padding ??
+            const EdgeInsets.only(top: 8, left: 12, right: 12, bottom: 12),
         width: double.infinity,
         child: ConditionalInkWell(
           condition: isFullTileTap,
@@ -100,40 +105,36 @@ class StartTile extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SvgPicture.asset(
-                        SvgIcons.arrowRight,
-                        colorFilter:
-                            ColorFilter.mode(titleColor, BlendMode.srcIn),
-                        height: 13.0,
-                        width: 12.0,
-                      ),
+                      if (iconPath?.isNotEmpty ?? false)
+                        Transform.translate(
+                          offset: const Offset(0, 6),
+                          child: SvgPicture.asset(
+                            iconPath!,
+                            height: 16.0,
+                            width: 16.0,
+                            colorFilter: ColorFilter.mode(
+                              titleColor,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                        ),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 4.0),
+                          padding: const EdgeInsets.only(left: 8.0),
                           child: AutoSizeText(
                             tileTitle ?? '',
                             style: Theme.of(context)
                                 .textTheme
-                                .titleSmall!
+                                .titleMedium!
                                 .copyWith(
+                                  fontFamily: 'DINOT Bold',
                                   color: titleColor,
-                                  height: 1.2,
-                                  letterSpacing: 0.1,
+                                  height: 1.5,
                                 ),
                             maxLines: maxTitleLines,
                           ),
                         ),
                       ),
-                      if (iconPath?.isNotEmpty ?? false)
-                        SvgPicture.asset(
-                          iconPath!,
-                          height: 22.0,
-                          width: 22.0,
-                          colorFilter: ColorFilter.mode(
-                            titleColor,
-                            BlendMode.srcIn,
-                          ),
-                        )
                     ],
                   ),
                 ),

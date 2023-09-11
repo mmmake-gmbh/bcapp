@@ -1,10 +1,10 @@
 import 'package:bildungscampus_app/core/models/common/local_settings_dto.dart';
 import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/privacy_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:bildungscampus_app/core/configs/flavor_config.dart';
 import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
@@ -13,7 +13,10 @@ import 'package:provider/provider.dart';
 class MyApp extends StatelessWidget {
   final LocalSettingsDto localSettingsDto;
 
-  const MyApp({Key? key, required this.localSettingsDto}) : super(key: key);
+  const MyApp({
+    Key? key,
+    required this.localSettingsDto,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +31,11 @@ class MyApp extends StatelessWidget {
               privacyViewModel!.updateExternalLinks(appViewModel.externalLinks);
               return privacyViewModel;
             }),
+        ChangeNotifierProvider<UserViewModel>(
+          create: (ctx) => locator<UserViewModel>(),
+        ),
       ],
-      child: MaterialApp(
+      builder: (context, child) => MaterialApp(
         title: 'Mein Bildungscampus',
         theme: ThemeData(
           brightness: Brightness.light,
@@ -100,7 +106,7 @@ class MyApp extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: S.delegate.supportedLocales,
-        locale: FlavorConfig.instance!.lang,
+        locale: context.select<UserViewModel, Locale?>((x) => x.locale),
         initialRoute: localSettingsDto.hideIntro
             ? AppRouter.homeRoute
             : AppRouter.initialRoute,

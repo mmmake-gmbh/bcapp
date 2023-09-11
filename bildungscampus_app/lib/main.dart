@@ -1,9 +1,13 @@
+//import 'dart:convert';
+
 import 'package:bildungscampus_app/core/services/interfaces/settings_service.dart';
+import 'package:cidaas_flutter_sdk/cidaas_flutter_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:bildungscampus_app/core/configs/flavor_config.dart';
 import 'package:bildungscampus_app/ui/app.dart';
 import 'package:bildungscampus_app/locator.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +30,10 @@ void main() async {
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
-    runApp(MyApp(localSettingsDto: localSettings));
+    runApp(
+      MyApp(
+        localSettingsDto: localSettings,
+      ),
+    );
   });
 }
