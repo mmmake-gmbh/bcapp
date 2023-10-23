@@ -1,5 +1,7 @@
 import 'package:bildungscampus_app/core/repositories/startscreen/api_app_content_repository.dart';
 import 'package:bildungscampus_app/core/repositories/startscreen/app_content_repository.dart';
+import 'package:bildungscampus_app/core/services/drawer/campus_menu_service.dart';
+import 'package:bildungscampus_app/core/services/drawer/menu_service.dart';
 import 'package:bildungscampus_app/core/services/weather/api_weather_service.dart';
 import 'package:bildungscampus_app/core/services/weather/weather_service.dart';
 import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
@@ -29,6 +31,7 @@ void setupLocator(
     required CidaasConfig cidaasConfig,
     required OpenIdConfiguration openIdConfig}) {
   locator.registerLazySingleton<TilesService>(() => CampusTilesService());
+  locator.registerLazySingleton<MenuService>(() => CampusMenuService());
   locator.registerLazySingleton<AuthService>(() => OAuthAuthService());
   locator.registerLazySingleton<SettingsService>(() => LocalSettingsService());
   locator
@@ -37,12 +40,12 @@ void setupLocator(
   locator.registerLazySingleton<AppContentRepository>(
       () => ApiAppContentRepository());
   locator.registerLazySingleton<WeatherService>(() => ApiWeatherService());
-  locator.registerLazySingleton(() => AppViewModel());
   locator.registerLazySingleton<PrivacyViewModel>(() => PrivacyViewModel());
   locator.registerSingleton(() => secureStorage);
   locator.registerSingleton(CidaasLoginProvider(
       securityStorage: secureStorage,
       cidaasConf: cidaasConfig,
       openIdConfiguration: openIdConfig));
+  locator.registerLazySingleton(() => AppViewModel(secureStorage));
   locator.registerLazySingleton(() => UserViewModel(secureStorage));
 }

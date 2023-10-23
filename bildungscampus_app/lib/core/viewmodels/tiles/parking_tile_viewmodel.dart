@@ -1,31 +1,26 @@
 import 'package:bildungscampus_app/core/enums/parkinglot_category.dart';
+import 'package:bildungscampus_app/core/enums/user_type.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/base_start_tile_viewmodel.dart';
 
 class ParkingTileViewModel extends BaseStartTileViewModel {
-  final List<MapEntry<ParkingLotCategory, String>> parkingCategories = [
-    const MapEntry(ParkingLotCategory.students,
-        'für Studierende'), //TODO: Move to the View
-    const MapEntry(
-        ParkingLotCategory.staff, 'für Beschäftigte'), //TODO: Move to the View
-    const MapEntry(ParkingLotCategory.guests,
-        'für Besucher:innen'), //TODO: Move to the View
+  final List<ParkingLotCategory> parkingCategories = [
+    ParkingLotCategory.students,
+    ParkingLotCategory.staff,
+    ParkingLotCategory.guests,
   ];
   int _selectedIndex = 0;
 
-  MapEntry<ParkingLotCategory, String>? get selectedParkingCategory =>
+  ParkingLotCategory? get selectedParkingCategory =>
       parkingCategories[_selectedIndex];
 
   ParkingTileViewModel({
-    required title,
-    required iconPath,
-    required navigationPath,
-    required type,
-  }) : super(
-            title: title,
-            iconPath: iconPath,
-            navigationPath: navigationPath,
-            type: type,
-            maxTitleLines: 2);
+    required super.title,
+    required super.iconPath,
+    required super.navigationPath,
+    required super.type,
+    required super.featureType,
+    required super.featureInfo,
+  }) : super(maxTitleLines: 2, allowedUserType: UserType.notLoggedIn);
 
   void updateSelectedParkinglot(int newIndex) {
     if (_selectedIndex != newIndex &&

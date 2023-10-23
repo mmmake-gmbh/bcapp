@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:bildungscampus_app/core/enums/feature_type.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
+import 'package:bildungscampus_app/ui/views/feature_view.dart';
 import 'package:bildungscampus_app/ui/widgets/navigation/app_drawer.dart';
 import 'package:bildungscampus_app/ui/widgets/navigation/reusable_appbars.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +12,16 @@ class LoginWebViewView extends StatefulWidget {
   final String title;
   final String url;
   final Map<String, String> headers;
+  final FeatureType featureType;
+  final bool showDrawer;
 
   const LoginWebViewView(
-      {Key? key, required this.title, required this.url, required this.headers})
+      {Key? key,
+      required this.title,
+      required this.url,
+      required this.headers,
+      required this.featureType,
+      this.showDrawer = true})
       : super(key: key);
   @override
   State<LoginWebViewView> createState() => _LoginWebViewViewState();
@@ -84,8 +93,9 @@ class _LoginWebViewViewState extends State<LoginWebViewView> {
         context,
         widget.title,
       ),
-      drawer: const AppDrawer(),
-      body: Stack(
+      drawer: widget.showDrawer ? const AppDrawer() : null,
+      body: FeatureView(
+        featureType: widget.featureType,
         children: [
           WebViewWidget(key: _key, controller: _controller),
           isLoading

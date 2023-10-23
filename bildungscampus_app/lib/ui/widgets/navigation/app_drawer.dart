@@ -1,4 +1,5 @@
-import 'package:bildungscampus_app/core/enums/app_menu_type.dart';
+import 'package:bildungscampus_app/core/enums/feature_type.dart';
+import 'package:bildungscampus_app/core/enums/user_type.dart';
 import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/models/common/app_menu.dart';
 import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
@@ -40,32 +41,43 @@ class AppDrawer extends StatelessWidget {
     final currentModalRoute = ModalRoute.of(context);
 
     final mainMenu = context.select((AppViewModel model) => model.mainMenu);
+
     final privacyAgreementLink =
         context.select((PrivacyViewModel model) => model.privacyAgreementLink);
     final termsOfUseLink =
         context.select((PrivacyViewModel model) => model.termsOfUseLink);
 
+    final locale = context.select((UserViewModel model) => model.locale);
+
     final homeMenu = AppMenu(
-      title: S.of(context).home_view_appmenu_title,
-      type: AppMenuType.home,
+      title: [],
+      simpleTitle: S.of(context).home_view_appmenu_title,
+      type: FeatureType.home,
       navigationPath: AppRouter.homeRoute,
+      allowedUserType: UserType.notLoggedIn,
     );
 
     final additionalMenu = [
       AppMenu(
-        title: S.of(context).contact_view_appmenu_title,
-        type: AppMenuType.contact,
+        title: [],
+        simpleTitle: S.of(context).contact_view_appmenu_title,
+        type: FeatureType.contact,
         navigationPath: AppRouter.contactRoute,
+        allowedUserType: UserType.notLoggedIn,
       ),
       AppMenu(
-        title: S.of(context).privacy_view_appmenu_title,
-        type: AppMenuType.privacy,
+        title: [],
+        simpleTitle: S.of(context).privacy_view_appmenu_title,
+        type: FeatureType.privacy,
         externalPath: privacyAgreementLink,
+        allowedUserType: UserType.notLoggedIn,
       ),
       AppMenu(
-        title: S.of(context).termsofuse_view_appmenu_title,
-        type: AppMenuType.privacy,
+        title: [],
+        simpleTitle: S.of(context).termsofuse_view_appmenu_title,
+        type: FeatureType.privacy,
         externalPath: termsOfUseLink,
+        allowedUserType: UserType.notLoggedIn,
       ),
     ];
 
@@ -93,6 +105,7 @@ class AppDrawer extends StatelessWidget {
               ),
               MenuListTile(
                 appMenu: homeMenu,
+                locale: locale,
                 textColor: AppColors.primaryOneTextColor,
                 indicatorColor: AppColors.drawerMenuTileUnderlineColor,
                 onTap: () => Navigator.pushNamed(context, AppRouter.homeRoute),
@@ -104,6 +117,7 @@ class AppDrawer extends StatelessWidget {
                     .map(
                       (appMenu) => MenuListTile(
                         appMenu: appMenu,
+                        locale: locale,
                         textColor: AppColors.primaryOneTextColor,
                         indicatorColor: AppColors.drawerMenuTileUnderlineColor,
                         onTap: () => Navigator.pushNamed(
@@ -124,6 +138,7 @@ class AppDrawer extends StatelessWidget {
               ...additionalMenu
                   .map((appMenu) => MenuListTile(
                         appMenu: appMenu,
+                        locale: locale,
                         textColor: AppColors.drawerMenuTileUnderlineColor,
                         indicatorColor: Colors.white,
                         isActive: _isAppMenuItemCurrentRoute(

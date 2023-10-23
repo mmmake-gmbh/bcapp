@@ -1,20 +1,15 @@
+import 'package:bildungscampus_app/core/enums/user_type.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/text_tile_viewmodel.dart';
 
 class TimetableTileViewModel extends TextTileViewModel {
   TimetableTileViewModel({
-    description,
-    required buttonText,
-    required navigationPath,
-    required title,
-    required iconPath,
-    required type,
-  }) : super(
-          description: description,
-          buttonText: buttonText,
-          navigationPath: navigationPath,
-          title: title,
-          iconPath: iconPath,
-          type: type,
-          maxTitleLines: 2,
-        );
+    required super.description,
+    required super.buttonText,
+    required super.navigationPath,
+    required super.title,
+    required super.iconPath,
+    required super.type,
+    required super.featureType,
+    required super.featureInfo,
+  }) : super(maxTitleLines: 2, allowedUserType: UserType.notLoggedIn);
 }

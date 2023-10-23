@@ -20,23 +20,31 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'de_DE';
 
+  static String m0(email) =>
+      "Wir können die ${email} nicht in anderen App öffnen.";
+
+  static String m1(url) => "Wir können die \$url nicht in anderen App öffnen.";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "booksearch_view_title_backup":
             MessageLookupByLibrary.simpleMessage("Buchsuche"),
         "contact_view_appmenu_title":
             MessageLookupByLibrary.simpleMessage("Impressum"),
-        "contact_view_open_email_failed_message":
-            MessageLookupByLibrary.simpleMessage(
-                "Wir können die \${model.email} nicht in anderen App öffnen."),
+        "contact_view_open_email_failed_message": m0,
         "contact_view_title_backup":
             MessageLookupByLibrary.simpleMessage("Kontakt"),
         "error_dialog_text": MessageLookupByLibrary.simpleMessage(
             "Leider ist beim Verbinden der App etwas schiefgelaufen. Bitte prüfe die Internetverbindung und versuche es erneut."),
         "error_dialog_title": MessageLookupByLibrary.simpleMessage("Uups!"),
+        "fourtytwo_view_button_text":
+            MessageLookupByLibrary.simpleMessage("One more thing..."),
+        "fourtytwo_view_snackbar_text": m1,
+        "fourtytwo_view_text": MessageLookupByLibrary.simpleMessage(
+            "Bist du ein Student mit einer Leidenschaft für das Programmieren und die Zusammenarbeit? \n\nDie Teilnahme am BildungsCampus App Open-Source-Projekt auf GitHub, das darauf abzielt, die Campus-Erfahrungen von Studenten zu verbessern, ist eine großartige Gelegenheit, deine Fähigkeiten zu schärfen, von erfahrenen Entwicklern zu lernen und zu einem bedeutsamen Projekt beizutragen, das von Menschen an dem Campus genutzt wird. \n\nMach mit, gestalte Veränderungen und sei Teil von etwas Besonderem!"),
         "home_view_appmenu_title": MessageLookupByLibrary.simpleMessage("Home"),
         "home_view_setting_button_tooltip":
-            MessageLookupByLibrary.simpleMessage("Profile"),
+            MessageLookupByLibrary.simpleMessage("Profil"),
         "home_view_tiles_weather_title":
             MessageLookupByLibrary.simpleMessage("Bildungscampus Wetter"),
         "intro_booksearch_subtitle": MessageLookupByLibrary.simpleMessage(
@@ -81,6 +89,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "login_tile_text": MessageLookupByLibrary.simpleMessage(
             "Jetzt einloggen und auf die Inhalte zugreifen"),
         "login_tile_title": MessageLookupByLibrary.simpleMessage("CampusLogin"),
+        "login_view_title": MessageLookupByLibrary.simpleMessage("Login"),
         "map_view_title_backup":
             MessageLookupByLibrary.simpleMessage("Lageplan"),
         "maps_building15_name":
@@ -132,6 +141,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ich akzeptiere die "),
         "privacy_view_terms_of_use_text_part2":
             MessageLookupByLibrary.simpleMessage("Nutzungsbedingungen"),
+        "privacy_view_tile_appendix":
+            MessageLookupByLibrary.simpleMessage("für"),
         "setting_view_account_setting":
             MessageLookupByLibrary.simpleMessage("Benutzerkonto verwalten"),
         "setting_view_campus_card_setting":

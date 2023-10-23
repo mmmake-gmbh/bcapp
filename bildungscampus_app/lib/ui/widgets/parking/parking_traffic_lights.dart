@@ -5,7 +5,7 @@ import 'package:bildungscampus_app/core/enums/parkinglot_light.dart';
 import 'package:bildungscampus_app/core/models/parking/parkinglot.dart';
 
 class ParkingTrafficLights extends StatelessWidget {
-  final ParkingLot? parkingModel;
+  final ParkingLotV2? parkingModel;
   final Color textColor;
 
   const ParkingTrafficLights({

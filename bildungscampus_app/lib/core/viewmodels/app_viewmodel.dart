@@ -1,25 +1,30 @@
 import 'dart:developer';
 
-import 'package:bildungscampus_app/core/enums/app_menu_type.dart';
+import 'package:bildungscampus_app/core/enums/feature_type.dart';
 import 'package:bildungscampus_app/core/enums/parkinglot_category.dart';
-import 'package:bildungscampus_app/core/enums/tile_type.dart';
 import 'package:bildungscampus_app/core/enums/viewstate.dart';
 import 'package:bildungscampus_app/core/models/common/app_menu.dart';
+import 'package:bildungscampus_app/core/models/common/feature_info.dart';
+import 'package:bildungscampus_app/core/models/common/localized_text.dart';
 import 'package:bildungscampus_app/core/models/info/campus_info.dart';
 import 'package:bildungscampus_app/core/models/info/contact_info.dart';
 import 'package:bildungscampus_app/core/models/info/external_link.dart';
 import 'package:bildungscampus_app/core/models/startscreen/app_content.dart';
-import 'package:bildungscampus_app/core/models/startscreen/tile.dart';
 import 'package:bildungscampus_app/core/models/weather/weather_data.dart';
 import 'package:bildungscampus_app/core/repositories/startscreen/app_content_repository.dart';
+import 'package:bildungscampus_app/core/services/drawer/menu_service.dart';
 import 'package:bildungscampus_app/core/services/startscreen/tiles_service.dart';
 import 'package:bildungscampus_app/core/services/weather/weather_service.dart';
+import 'package:bildungscampus_app/core/utils/string_utils.dart';
+import 'package:bildungscampus_app/core/utils/user_type_utils.dart';
 import 'package:bildungscampus_app/core/viewmodels/parking/parkinglot_viewmodel.dart';
-import 'package:bildungscampus_app/core/viewmodels/tiles/empty_tile_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/tiles/base_start_tile_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/locator.dart';
-import 'package:bildungscampus_app/ui/app_router.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:provider/provider.dart';
 import 'base_viewmodel.dart';
 
 class AppViewModel extends BaseViewModel {
@@ -32,26 +37,34 @@ class AppViewModel extends BaseViewModel {
   static const String accountSettingLinkKey = 'Benutzerkonto';
   static const String sessionsSettingLinkKey = 'Anmeldungen';
   static const String campusCardSettingLinkKey = 'CampusCardSetting';
+  static const String gitHubLinkKey = 'GitHub';
 
   final AppContentRepository _contentRepository =
       locator<AppContentRepository>();
   final WeatherService _weatherService = locator<WeatherService>();
   final TilesService _tilesService = locator<TilesService>();
+  final MenuService _menuService = locator<MenuService>();
+  late FlutterSecureStorage _secureStorage;
 
-  List<BaseViewModel>? _tiles;
+  List<BaseStartTileViewModel>? _tiles;
   List<AppMenu>? _mainMenu;
   List<ParkingLotViewModel>? _parkingLots;
-  ContactInfo? _contactInfo;
-  CampusInfo? _campusInfo;
+  ContactInfoV2? _contactInfo;
+  CampusInfoV2? _campusInfo;
   List<ExternalLink>? _externalLinks;
   WeatherData? _currentWeather;
+  FeatureInfo? _overallFeatureInfo;
 
-  List<BaseViewModel>? get tiles => _tiles;
+  List<BaseStartTileViewModel>? get tiles => _tiles;
   List<AppMenu>? get mainMenu => _mainMenu;
-  ContactInfo? get contactInfo => _contactInfo;
-  CampusInfo? get campusInfo => _campusInfo;
+  ContactInfoV2? get contactInfo => _contactInfo;
+  CampusInfoV2? get campusInfo => _campusInfo;
   List<ExternalLink>? get externalLinks => _externalLinks;
   WeatherData? get currentWeather => _currentWeather;
+  FeatureInfo get overallFeatureInfo =>
+      _overallFeatureInfo ??
+      FeatureInfo(
+          slides: [], version: "", isActive: false, date: DateTime.now());
 
   String? get locationMapLink => _externalLinkByKey(locationMapKey);
   String? get timeTableLink => _externalLinkByKey(timeTableLinkKey);
@@ -63,10 +76,16 @@ class AppViewModel extends BaseViewModel {
   String? get sessionsSettingLink => _externalLinkByKey(sessionsSettingLinkKey);
   String? get campusCardSettingLink =>
       _externalLinkByKey(campusCardSettingLinkKey);
+  String? get gitHubLink => _externalLinkByKey(gitHubLinkKey);
+
+  AppViewModel(FlutterSecureStorage storage) {
+    _secureStorage = storage;
+  }
 
   Future<void> load(BuildContext context) async {
     setState(ViewState.busy);
     try {
+      final user = context.read<UserViewModel>();
       final content = await _contentRepository.getAll();
       final weather = await _weatherService.getActualWeather();
 
@@ -74,6 +93,7 @@ class AppViewModel extends BaseViewModel {
         updateAppContent(
           content: content,
           weather: weather,
+          user: user,
           updateAll: true,
           context: context,
         );
@@ -90,6 +110,7 @@ class AppViewModel extends BaseViewModel {
       {bool updateAll = false}) async {
     log('Updating silently');
     try {
+      final user = context.read<UserViewModel>();
       final content = await _contentRepository.getAll();
       final weather = await _weatherService.getActualWeather();
 
@@ -97,6 +118,7 @@ class AppViewModel extends BaseViewModel {
         updateAppContent(
           content: content,
           weather: weather,
+          user: user,
           updateAll: updateAll,
           context: context,
         );
@@ -109,8 +131,9 @@ class AppViewModel extends BaseViewModel {
   }
 
   void updateAppContent({
-    required AppContent content,
+    required AppContentV2 content,
     required WeatherData weather,
+    required UserViewModel user,
     required BuildContext context,
     bool updateAll = false,
   }) {
@@ -121,30 +144,33 @@ class AppViewModel extends BaseViewModel {
     if (updateAll) {
       _tiles = _tilesService
           .createViewModels(content, weather, context)
-          .whereNot(
-            (tile) => tile is EmptyTileViewModel && tile.type == TileType.big,
-          )
-          .toList(); //TODO: Check if this is ok
-      _tiles?.removeRange(0, 2); //TODO: REMOVE THIS LATER
+          .where((tile) => UserTypeUtils.isUserTypedAllowed(
+              tile.allowedUserType, user.userType))
+          .toList();
 
       final menu = content.tiles.where((tile) => tile.showInMenu).toList();
       menu.sort((a, b) => a.menuOrder.compareTo(b.menuOrder));
 
-      _mainMenu = menu.map((menu) => _mapAppMenu(menu)).toList();
+      _mainMenu = menu
+          .map((menu) => _menuService.mapViewModel(menu))
+          .where((menu) => UserTypeUtils.isUserTypedAllowed(
+              menu.allowedUserType, user.userType))
+          .toList();
       _contactInfo = content.contactInfo;
       _campusInfo = content.campusInfo;
       _externalLinks = content.externalLinks;
+      _overallFeatureInfo = content.featureInfo;
     }
   }
 
-  String? getAppMenuTitle(AppMenuType type) {
+  List<LocalizedText> getAppMenuTitle(FeatureType type) {
     if (_mainMenu != null &&
         _mainMenu!.any((element) => element.type == type)) {
       final selectedMainMenu =
           _mainMenu!.firstWhere((elem) => elem.type == type);
       return selectedMainMenu.title;
     }
-    return null;
+    return [];
   }
 
   List<ParkingLotViewModel> getParkingLotsByCategory(
@@ -160,52 +186,36 @@ class AppViewModel extends BaseViewModel {
     return parkingLots;
   }
 
-  AppMenu _mapAppMenu(Tile model) {
-    switch (model.type) {
-      case 'parking':
-        return AppMenu(
-          title: model.menuTitle,
-          type: AppMenuType.parking,
-          navigationPath: AppRouter.parkingRoute,
-        );
-      case 'timetable':
-        return AppMenu(
-          title: model.menuTitle,
-          type: AppMenuType.timeTable,
-          navigationPath: AppRouter.timetableRoute,
-        );
-      case 'locationmap':
-        return AppMenu(
-          title: model.menuTitle,
-          type: AppMenuType.locationMap,
-          navigationPath: AppRouter.locationMapRoute,
-        );
-      case 'booksearch':
-        return AppMenu(
-          title: model.menuTitle,
-          type: AppMenuType.bookSearch,
-          navigationPath: AppRouter.bookSearchRoute,
-        );
-      case 'payment':
-        return AppMenu(
-          title: model.menuTitle,
-          type: AppMenuType.payment,
-          navigationPath: AppRouter.paymentRoute,
-        );
-      default:
-        return AppMenu(
-          title: model.menuTitle,
-          type: AppMenuType.home,
-          navigationPath: AppRouter.homeRoute,
-        );
-    }
-  }
-
   String? _externalLinkByKey(String key) {
     if (_externalLinks != null &&
         _externalLinks!.any((link) => link.name == key)) {
       return externalLinks!.firstWhere((link) => link.name == key).link;
     }
     return null;
+  }
+
+  Future<void> saveFeatureInfoReadStatus(
+      FeatureType type, FeatureInfo featureInfo) async {
+    final key = _getFeatureInfoKey(type, featureInfo);
+    await _secureStorage.write(key: key, value: "false");
+  }
+
+  Future<bool> shouldShowFeatureInfo(
+      FeatureType type, FeatureInfo featureInfo) async {
+    final packageInfo = await PackageInfo.fromPlatform();
+
+    if (!StringUtils.isNewestVersion(
+            featureInfo.version, packageInfo.version) ||
+        !featureInfo.isActive) {
+      return false;
+    }
+
+    final key = _getFeatureInfoKey(type, featureInfo);
+    final value = await _secureStorage.read(key: key);
+    return bool.parse(value ?? "true");
+  }
+
+  String _getFeatureInfoKey(FeatureType type, FeatureInfo featureInfo) {
+    return "${StringUtils.enumName(type.toString())}-${featureInfo.version}-${featureInfo.date.toIso8601String()}";
   }
 }

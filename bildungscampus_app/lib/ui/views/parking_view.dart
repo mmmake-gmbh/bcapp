@@ -1,7 +1,10 @@
-import 'package:bildungscampus_app/core/enums/app_menu_type.dart';
+import 'package:bildungscampus_app/core/enums/feature_type.dart';
 import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
+import 'package:bildungscampus_app/core/utils/localized_text_utils.dart';
 import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
+import 'package:bildungscampus_app/ui/views/feature_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bildungscampus_app/core/enums/parkinglot_category.dart';
@@ -53,8 +56,7 @@ class _ParkingViewState extends State<ParkingView>
             height: tilesHeight,
             svgIcon: SvgIcons.bike,
             onTap: (ctx) {
-              final url = Provider.of<AppViewModel>(context, listen: false)
-                  .campusRadLink;
+              final url = context.read<AppViewModel>().campusRadLink;
               if (url != null) {
                 launchUrlString(url);
               }
@@ -71,8 +73,7 @@ class _ParkingViewState extends State<ParkingView>
             height: tilesHeight,
             svgIcon: SvgIcons.eCar,
             onTap: (ctx) {
-              final url =
-                  Provider.of<AppViewModel>(context, listen: false).zaegLink;
+              final url = context.read<AppViewModel>().zaegLink;
               if (url != null) {
                 launchUrlString(url);
               }
@@ -101,97 +102,109 @@ class _ParkingViewState extends State<ParkingView>
 
   @override
   Widget build(BuildContext context) {
-    final title = Provider.of<AppViewModel>(context, listen: false)
-            .getAppMenuTitle(AppMenuType.parking) ??
-        S.of(context).parking_view_title_backup;
+    final titleList =
+        context.read<AppViewModel>().getAppMenuTitle(FeatureType.parking);
+
+    final locale = context.select((UserViewModel model) => model.locale);
+    var title = LocalizedTextUtils.getLocalizedText(titleList, locale);
+    if (title.isEmpty) {
+      title = S.of(context).parking_view_title_backup;
+    }
 
     return DefaultTabController(
         length: 3,
         child: Scaffold(
           appBar: ReusableAppBars.standardAppBar(context, title),
           drawer: const AppDrawer(),
-          body: Column(
+          body: FeatureView(
+            featureType: FeatureType.parking,
             children: [
-              Stack(
-                fit: StackFit.passthrough,
-                alignment: Alignment.bottomCenter,
+              Column(
                 children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                            color: AppColors.parkingViewBorderColor,
-                            width: 2.0),
+                  Stack(
+                    fit: StackFit.passthrough,
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      Container(
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                                color: AppColors.parkingViewBorderColor,
+                                width: 2.0),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  TabBar(
-                    controller: _tabController,
-                    labelPadding: const EdgeInsets.all(0),
-                    labelColor: const Color.fromRGBO(0, 0, 0, 0.87),
-                    labelStyle: const TextStyle(
-                      fontSize: 14.0,
-                      fontFamily: 'DINOT Medium',
-                    ),
-                    indicatorColor: AppColors.primaryTwoColor,
-                    unselectedLabelColor: const Color.fromRGBO(0, 0, 0, 0.54),
-                    tabs: [
-                      Tab(
-                        text: S
-                            .of(context)
-                            .parking_view_categories_students
-                            .toUpperCase(),
-                      ),
-                      Tab(
-                        text: S
-                            .of(context)
-                            .parking_view_categories_staff
-                            .toUpperCase(),
-                      ),
-                      Tab(
-                        text: S
-                            .of(context)
-                            .parking_view_categories_guests
-                            .toUpperCase(),
+                      TabBar(
+                        controller: _tabController,
+                        labelPadding: const EdgeInsets.all(0),
+                        labelColor: const Color.fromRGBO(0, 0, 0, 0.87),
+                        labelStyle: const TextStyle(
+                          fontSize: 14.0,
+                          fontFamily: 'DINOT Medium',
+                        ),
+                        indicatorColor: AppColors.primaryTwoColor,
+                        unselectedLabelColor:
+                            const Color.fromRGBO(0, 0, 0, 0.54),
+                        tabs: [
+                          Tab(
+                            text: S
+                                .of(context)
+                                .parking_view_categories_students
+                                .toUpperCase(),
+                          ),
+                          Tab(
+                            text: S
+                                .of(context)
+                                .parking_view_categories_staff
+                                .toUpperCase(),
+                          ),
+                          Tab(
+                            text: S
+                                .of(context)
+                                .parking_view_categories_guests
+                                .toUpperCase(),
+                          ),
+                        ],
                       ),
                     ],
+                  ),
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 6, horizontal: 12),
+                      width: double.infinity,
+                      color: AppColors.parkingViewBackgroundColor,
+                      child: Column(
+                        children: [
+                          Consumer<AppViewModel>(
+                            builder: (context, model, child) {
+                              if (model.isBusy) {
+                                return const Expanded(
+                                  child: Center(
+                                      child: CircularProgressIndicator()),
+                                );
+                              }
+                              return Expanded(
+                                child: TabBarView(
+                                  controller: _tabController,
+                                  children: [
+                                    createParkingTabListView(
+                                        model, ParkingLotCategory.students),
+                                    createParkingTabListView(
+                                        model, ParkingLotCategory.staff),
+                                    createParkingTabListView(
+                                        model, ParkingLotCategory.guests),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                          getTilesRow()
+                        ],
+                      ),
+                    ),
                   ),
                 ],
-              ),
-              Expanded(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-                  width: double.infinity,
-                  color: AppColors.parkingViewBackgroundColor,
-                  child: Column(
-                    children: [
-                      Consumer<AppViewModel>(
-                        builder: (context, model, child) {
-                          if (model.isBusy) {
-                            return const Expanded(
-                              child: Center(child: CircularProgressIndicator()),
-                            );
-                          }
-                          return Expanded(
-                            child: TabBarView(
-                              controller: _tabController,
-                              children: [
-                                createParkingTabListView(
-                                    model, ParkingLotCategory.students),
-                                createParkingTabListView(
-                                    model, ParkingLotCategory.staff),
-                                createParkingTabListView(
-                                    model, ParkingLotCategory.guests),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                      getTilesRow()
-                    ],
-                  ),
-                ),
               ),
             ],
           ),

@@ -26,11 +26,11 @@ class OAuthAuthService extends AuthService {
     );
   }
 
-  Future<AccessTokenResponse> _getToken() async {
+  Future<AccessTokenResponse> _getToken({bool forceRefresh = false}) async {
     var tknStorage = await _helper.getTokenFromStorage();
     AccessTokenResponse tknResp;
 
-    if (tknStorage == null || tknStorage.refreshNeeded()) {
+    if (tknStorage == null || tknStorage.refreshNeeded() || forceRefresh) {
       tknResp = await _helper.fetchToken();
     } else {
       tknResp = tknStorage;
@@ -49,8 +49,9 @@ class OAuthAuthService extends AuthService {
   }
 
   @override
-  Future<AccessTokenResponse> getAccessToken() async {
-    final accessToken = await _getToken();
+  Future<AccessTokenResponse> getAccessToken(
+      {bool forceRefresh = false}) async {
+    final accessToken = await _getToken(forceRefresh: forceRefresh);
     return accessToken;
   }
 }

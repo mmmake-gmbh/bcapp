@@ -42,7 +42,15 @@
   "parking_view_categories_guests": "Guests",
   "booksearch_view_title_backup": "Book Search",
   "contact_view_title_backup": "Contact",
-  "contact_view_open_email_failed_message": "We cannot open the ${model.email} in another app.",
+  "contact_view_open_email_failed_message": "We cannot open the {email} in another app.",
+  "@contact_view_open_email_failed_message": {
+    "placeholders": {
+      "email": {
+        "type": "String",
+        "example": "test@test.de"
+      }
+    }
+  },
   "map_view_title_backup": "Site Map",
   "payment_view_title_backup": "CampusCard PaymentPortal",
   "privacy_view_headline_text": "Terms of Use & Privacy Policy",
@@ -52,6 +60,7 @@
   "privacy_view_privacy_agreement_text_part2": "Privacy Policy",
   "privacy_view_privacy_agreement_text_part3": "",
   "privacy_view_accept_button_text": "Let’s go",
+  "privacy_view_tile_appendix": "for",
   "timetable_view_title_backup": "Departure Board",
   "home_view_appmenu_title": "Home",
   "contact_view_appmenu_title": "Legal Notice",
@@ -75,7 +84,19 @@
   "setting_view_logout_setting": "Logout",
   "setting_view_title": "Account settings",
   "login_tile_title": "CampusLogin",
-  "login_tile_text": "Jetzt einloggen und auf die Inhalte zugreifen",
+  "login_tile_text": "Log in now to access the content",
   "login_tile_button_text": "Login",
-  "home_view_setting_button_tooltip": "Profile"
+  "home_view_setting_button_tooltip": "Profile",
+  "login_view_title": "Login",
+  "fourtytwo_view_snackbar_text": "We cannot open the $url in other app.",
+  "@fourtytwo_view_snackbar_text": {
+    "placeholders": {
+      "url": {
+        "type": "String",
+        "example": "www.github.com"
+      }
+    }
+  },
+  "fourtytwo_view_text": "Are you a student with a passion for coding and collaboration? \n\nJoining the BildungsCampus App open source project on GitHub, which is all about enhancing students campus experiences, is an amazing opportunity to sharpen your skills, learn from experienced developers, and contribute to a meaningful project used by people on the campus. \n\nGet involved, make a difference, and be part of something special!",
+  "fourtytwo_view_button_text": "One more thing..."
 }

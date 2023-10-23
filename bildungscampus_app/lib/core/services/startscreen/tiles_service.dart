@@ -5,5 +5,5 @@ import 'package:flutter/material.dart';
 
 abstract class TilesService {
   List<BaseStartTileViewModel> createViewModels(
-      AppContent model, WeatherData weatherData, BuildContext context);
+      AppContentV2 model, WeatherData weatherData, BuildContext context);
 }

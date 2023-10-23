@@ -168,9 +168,8 @@ class _InitialViewState extends State<IntroView> {
                             .copyWith(fontWeight: FontWeight.bold),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            final url = Provider.of<PrivacyViewModel>(context,
-                                    listen: false)
-                                .termsOfUseLink;
+                            final url =
+                                context.read<PrivacyViewModel>().termsOfUseLink;
                             launchUrlString(url);
                           },
                       ),
@@ -184,8 +183,8 @@ class _InitialViewState extends State<IntroView> {
                             .copyWith(fontWeight: FontWeight.bold),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            final url = Provider.of<PrivacyViewModel>(context,
-                                    listen: false)
+                            final url = context
+                                .read<PrivacyViewModel>()
                                 .privacyAgreementLink;
                             launchUrlString(url);
                           },

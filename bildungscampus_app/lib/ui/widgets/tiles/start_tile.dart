@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:bildungscampus_app/core/utils/localized_text_utils.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/base_start_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/text_tile_viewmodel.dart';
 import 'package:bildungscampus_app/ui/widgets/common/conditional_inkwell.dart';
@@ -41,6 +42,7 @@ class StartTile extends StatelessWidget {
     BaseStartTileViewModel model, {
     Key? key,
     Color contentColor = Colors.white,
+    required Locale? locale,
     required Color bgColor,
     this.showHeader = true,
     required this.isFullTileTap,
@@ -48,7 +50,7 @@ class StartTile extends StatelessWidget {
     this.padding,
     this.onTap,
   })  : tileType = model.type,
-        tileTitle = model.title,
+        tileTitle = LocalizedTextUtils.getLocalizedText(model.title, locale),
         iconPath = model.iconPath,
         titleColor = contentColor,
         backgroundColor = bgColor,
@@ -60,20 +62,21 @@ class StartTile extends StatelessWidget {
     TextTileViewModel model, {
     Key? key,
     Color contentColor = Colors.white,
+    required Locale? locale,
     required Color bgColor,
     this.showHeader = true,
     required this.isFullTileTap,
     this.padding,
     this.onTap,
   })  : tileType = model.type,
-        tileTitle = model.title,
+        tileTitle = LocalizedTextUtils.getLocalizedText(model.title, locale),
         iconPath = model.iconPath,
         titleColor = contentColor,
         backgroundColor = bgColor,
         navigationPath = model.navigationPath,
         maxTitleLines = model.maxTitleLines,
         child = TextTileContent(
-          text: model.description,
+          text: LocalizedTextUtils.getLocalizedText(model.description, locale),
           textColor: contentColor,
           buttonText: model.buttonText,
           buttonTextColor: contentColor,

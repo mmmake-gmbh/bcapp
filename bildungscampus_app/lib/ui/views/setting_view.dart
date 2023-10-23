@@ -1,4 +1,5 @@
 import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
+import 'package:bildungscampus_app/core/models/settings/setting_view_args.dart';
 import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
@@ -8,13 +9,14 @@ import 'package:bildungscampus_app/ui/widgets/navigation/reusable_appbars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class SettingView extends StatelessWidget {
   const SettingView({Key? key}) : super(key: key);
 
   Future<void> onTileTap(
-      {required BuildContext context, required String settingValue}) async {
+      {required BuildContext context,
+      required String settingValue,
+      required String title}) async {
     final navigator = Navigator.of(context);
     final snackbar = ScaffoldMessenger.of(context);
     final logoutText = Text(S.of(context).setting_view_logout_unsuccessful);
@@ -27,7 +29,8 @@ class SettingView extends StatelessWidget {
         snackbar.showSnackBar(SnackBar(content: logoutText));
       }
     } else {
-      launchUrlString(settingValue);
+      final args = SettingViewArgs(url: settingValue, title: title);
+      navigator.pushNamed(AppRouter.settingWebRoute, arguments: args);
     }
   }
 
@@ -70,7 +73,10 @@ class SettingView extends StatelessWidget {
                   alignment: Alignment.centerRight,
                 ),
                 onTap: () async => await onTileTap(
-                    context: context, settingValue: settings[index].value),
+                  context: context,
+                  settingValue: settings[index].value,
+                  title: settings[index].key,
+                ),
               );
             }),
             separatorBuilder: (context, index) =>

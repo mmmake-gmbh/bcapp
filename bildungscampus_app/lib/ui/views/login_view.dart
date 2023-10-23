@@ -1,3 +1,4 @@
+import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/locator.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
@@ -8,14 +9,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/navigation/reusable_appbars.dart';
 
 class LoginView extends StatelessWidget {
-  const LoginView({Key? key}) : super(key: key);
+  final String? navigationPath;
+
+  const LoginView({Key? key, this.navigationPath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ReusableAppBars.standardAppBar(
         context,
-        'Login',
+        S.of(context).login_view_title,
       ),
       extendBody: true,
       extendBodyBehindAppBar: true,
@@ -23,9 +26,9 @@ class LoginView extends StatelessWidget {
         child: RepositoryProvider.value(
           value: locator<CidaasLoginProvider>(),
           child: LoginBrowser(
-            reRouteToAfterLogin: AppRouter.homeRoute,
+            reRouteToAfterLogin: navigationPath ?? AppRouter.homeRoute,
             customActionAfterLogin: () async =>
-                await context.read<UserViewModel>().loggedIn(),
+                await context.read<UserViewModel>().initLoggedInData(),
             splashScreen: const Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),

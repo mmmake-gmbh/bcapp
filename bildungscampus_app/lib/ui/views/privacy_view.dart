@@ -12,7 +12,7 @@ class PrivacyView extends StatelessWidget {
   const PrivacyView({Key? key}) : super(key: key);
 
   void _formButtonPressed(BuildContext context) async {
-    await Provider.of<PrivacyViewModel>(context, listen: false).acceptTerms();
+    await context.read<PrivacyViewModel>().acceptTerms();
 
     if (context.mounted) {
       Navigator.of(context)
@@ -30,8 +30,7 @@ class PrivacyView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 40.0),
         child: SafeArea(
           child: FutureBuilder(
-            future:
-                Provider.of<PrivacyViewModel>(context, listen: false).load(),
+            future: context.read<PrivacyViewModel>().load(),
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
                 return const Center(
@@ -55,10 +54,9 @@ class PrivacyView extends StatelessWidget {
                             children: [
                               CustomCheckbox(
                                   value: viewmodel.termsOfUse,
-                                  onChanged: (newValue) =>
-                                      Provider.of<PrivacyViewModel>(context,
-                                              listen: false)
-                                          .setTermsOfUse(newValue ?? false)),
+                                  onChanged: (newValue) => context
+                                      .read<PrivacyViewModel>()
+                                      .setTermsOfUse(newValue ?? false)),
                               Expanded(
                                 child: RichText(
                                   text: TextSpan(
@@ -85,10 +83,8 @@ class PrivacyView extends StatelessWidget {
                                                         .primaryTwoLightColor),
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
-                                                final url = Provider.of<
-                                                            PrivacyViewModel>(
-                                                        context,
-                                                        listen: false)
+                                                final url = context
+                                                    .read<PrivacyViewModel>()
                                                     .termsOfUseLink;
                                                 launchUrlString(url);
                                               }),
@@ -102,10 +98,9 @@ class PrivacyView extends StatelessWidget {
                             children: [
                               CustomCheckbox(
                                   value: viewmodel.privacyAgreement,
-                                  onChanged: (newValue) =>
-                                      Provider.of<PrivacyViewModel>(context,
-                                              listen: false)
-                                          .setPrivacyAgreement(newValue)),
+                                  onChanged: (newValue) => context
+                                      .read<PrivacyViewModel>()
+                                      .setPrivacyAgreement(newValue)),
                               Expanded(
                                 child: RichText(
                                   text: TextSpan(
@@ -132,10 +127,8 @@ class PrivacyView extends StatelessWidget {
                                                         .primaryTwoLightColor),
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
-                                                final url = Provider.of<
-                                                            PrivacyViewModel>(
-                                                        context,
-                                                        listen: false)
+                                                final url = context
+                                                    .read<PrivacyViewModel>()
                                                     .privacyAgreementLink;
                                                 launchUrlString(url);
                                               }),

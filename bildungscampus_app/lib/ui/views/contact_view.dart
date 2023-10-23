@@ -1,5 +1,7 @@
 import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
+import 'package:bildungscampus_app/core/models/info/contact_info.dart';
 import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
 import 'package:bildungscampus_app/ui/widgets/navigation/reusable_appbars.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +13,8 @@ class ContactView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<AppViewModel>().contactInfo;
+    final model = context
+        .select<AppViewModel, ContactInfoV2?>((model) => model.contactInfo);
 
     return Scaffold(
       appBar: ReusableAppBars.transparentAppBarWithTitle(
@@ -74,7 +77,8 @@ class ContactView extends StatelessWidget {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text(S
                                   .of(context)
-                                  .contact_view_open_email_failed_message),
+                                  .contact_view_open_email_failed_message(
+                                      model.email)),
                             ));
                           }
                         }
@@ -90,11 +94,14 @@ class ContactView extends StatelessWidget {
                     const SizedBox(
                       height: 24,
                     ),
-                    Text(
-                      model.description,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            color: Colors.white,
-                          ),
+                    Selector<UserViewModel, Locale?>(
+                      selector: (_, model) => model.locale,
+                      builder: (context, locale, child) => Text(
+                        model.getDescription(locale),
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              color: Colors.white,
+                            ),
+                      ),
                     ),
                   ],
                 )

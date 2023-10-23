@@ -45,8 +45,12 @@ class AppColors {
   static const Color parkingTileBgColor = Color.fromARGB(255, 143, 170, 197);
   static const Color timetableTileBgColor = parkingTileBgColor;
   static const Color welcomeTileTextBgColor = Color.fromARGB(255, 27, 61, 106);
+  static const Color fourtyTwoTileTextBgColor = campusCardTileBgColor;
 
   static const Color drawerMenuTileUnderlineColor = parkingTileBgColor;
+
+  static const Color newFlagBgColor = parkingTileBgColor;
+  static const Color newFlagButtonBgColor = welcomeTileTextBgColor;
 
   static const Color parkingCardSubtitleColor = Color.fromRGBO(0, 0, 0, 0.54);
   static const Color parkingCardOpeningHoursColor =

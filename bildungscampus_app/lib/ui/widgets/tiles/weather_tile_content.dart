@@ -18,7 +18,7 @@ class WeatherTileContent extends StatelessWidget {
 
   String _getWeatherIcon(WeatherData data) {
     if (data.isRaining && data.value <= 0) {
-      return SvgIcons.weatherSonny;
+      return SvgIcons.weatherSnowy;
     } else if (data.isRaining && data.value > 0) {
       return SvgIcons.weatherRainy;
     }

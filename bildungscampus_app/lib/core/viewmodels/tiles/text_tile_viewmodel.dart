@@ -1,21 +1,20 @@
+import 'package:bildungscampus_app/core/models/common/localized_text.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/base_start_tile_viewmodel.dart';
 
 class TextTileViewModel extends BaseStartTileViewModel {
-  final String? description;
+  final List<LocalizedText> description;
   final String? buttonText;
 
   TextTileViewModel({
     required this.description,
     this.buttonText,
-    required navigationPath,
-    required title,
-    required iconPath,
-    required type,
-    required maxTitleLines,
-  }) : super(
-            title: title,
-            iconPath: iconPath,
-            navigationPath: navigationPath,
-            type: type,
-            maxTitleLines: maxTitleLines);
+    required super.navigationPath,
+    required super.title,
+    required super.iconPath,
+    required super.type,
+    required super.featureType,
+    required super.maxTitleLines,
+    required super.allowedUserType,
+    required super.featureInfo,
+  });
 }

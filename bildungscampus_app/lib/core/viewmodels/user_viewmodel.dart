@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:bildungscampus_app/core/enums/user_type.dart';
 import 'package:bildungscampus_app/core/viewmodels/base_viewmodel.dart';
 import 'package:bildungscampus_app/locator.dart';
 import 'package:cidaas_flutter_sdk/cidaas_flutter_sdk.dart';
@@ -15,33 +14,30 @@ class UserViewModel extends BaseViewModel {
 
   bool _isLogged = false;
   String? _userName;
+  String? _profileInfo;
   String? _ssoCookie;
   Locale? _locale;
 
   bool get isLogged => _isLogged;
   String? get userName => _userName;
+  UserType get userType => _mapUserType(_profileInfo);
   String? get ssoCookie => _ssoCookie;
 
   Locale? get locale => _locale;
 
   UserViewModel(FlutterSecureStorage storage) {
     _secureStorage = storage;
-    loggedIn();
+    initLoggedInData();
   }
 
-  Future<void> loggedIn() async {
+  Future<void> initLoggedInData() async {
     final storedToken = await _cidaasProvider.getStoredAccessToken();
     _userName = _getUserName(storedToken);
     _ssoCookie = _getSsoCookie(storedToken);
+    _profileInfo = _getProfileInfo(storedToken);
     _isLogged = _userName != null && _ssoCookie != null;
 
-    final lang = await _secureStorage.read(key: storedLanguageKey);
-    if (lang != null) {
-      final split = lang.split('-');
-      _locale = Locale(split[0], split[1]);
-    }
-
-    log('loggedin');
+    _locale = await _getLocale();
 
     notifyListeners();
   }
@@ -53,6 +49,7 @@ class UserViewModel extends BaseViewModel {
       _isLogged = false;
       _userName = null;
       _ssoCookie = null;
+      _profileInfo = null;
       notifyListeners();
     }
 
@@ -68,6 +65,26 @@ class UserViewModel extends BaseViewModel {
   }
 
   String? _getUserName(TokenEntity? storedToken) {
+    final tokenInfo = _mapIdToken(storedToken);
+
+    if (tokenInfo == null) {
+      return null;
+    }
+
+    return tokenInfo['name'];
+  }
+
+  String? _getProfileInfo(TokenEntity? storedToken) {
+    final tokenInfo = _mapIdToken(storedToken);
+
+    if (tokenInfo == null) {
+      return null;
+    }
+
+    return tokenInfo['customFields']['profil'];
+  }
+
+  Map<String, dynamic>? _mapIdToken(TokenEntity? storedToken) {
     if (storedToken?.idToken == null || storedToken!.idToken!.isEmpty) {
       return null;
     }
@@ -76,19 +93,37 @@ class UserViewModel extends BaseViewModel {
       return null;
     }
 
-    final tokenInfo = JwtDecoder.decode(storedToken.idToken!);
+    return JwtDecoder.decode(storedToken.idToken!);
+  }
 
-    return tokenInfo['name'];
+  UserType _mapUserType(String? userProfile) {
+    return switch (userProfile) {
+      '14-A' => UserType.fourtyTwo,
+      '08-C' => UserType.admin,
+      _ => UserType.notLoggedIn
+    };
+  }
+
+  Future<Locale?> _getLocale() async {
+    final lang = await _secureStorage.read(key: storedLanguageKey);
+    if (lang != null) {
+      if (!lang.contains('-')) {
+        return Locale(lang);
+      }
+
+      final split = lang.split('-');
+      _locale = Locale(split[0], split[1]);
+    }
+
+    return null;
   }
 
   Future<void> saveLanguage(Locale locale) async {
-    final lang = '${locale.languageCode}-${locale.countryCode}';
+    final lang = locale.countryCode != null
+        ? '${locale.languageCode}-${locale.countryCode}'
+        : locale.languageCode;
     await _secureStorage.write(key: storedLanguageKey, value: lang);
     _locale = locale;
     notifyListeners();
-  }
-
-  Locale? getCurrentLocale() {
-    return locale;
   }
 }

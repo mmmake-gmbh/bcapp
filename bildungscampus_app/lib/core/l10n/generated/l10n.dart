@@ -480,13 +480,13 @@ class S {
     );
   }
 
-  /// `Wir können die ${model.email} nicht in anderen App öffnen.`
-  String get contact_view_open_email_failed_message {
+  /// `Wir können die {email} nicht in anderen App öffnen.`
+  String contact_view_open_email_failed_message(String email) {
     return Intl.message(
-      'Wir können die \${model.email} nicht in anderen App öffnen.',
+      'Wir können die $email nicht in anderen App öffnen.',
       name: 'contact_view_open_email_failed_message',
       desc: '',
-      args: [],
+      args: [email],
     );
   }
 
@@ -575,6 +575,16 @@ class S {
     return Intl.message(
       'Los geht\'s',
       name: 'privacy_view_accept_button_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `für`
+  String get privacy_view_tile_appendix {
+    return Intl.message(
+      'für',
+      name: 'privacy_view_tile_appendix',
       desc: '',
       args: [],
     );
@@ -830,11 +840,51 @@ class S {
     );
   }
 
-  /// `Profile`
+  /// `Profil`
   String get home_view_setting_button_tooltip {
     return Intl.message(
-      'Profile',
+      'Profil',
       name: 'home_view_setting_button_tooltip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get login_view_title {
+    return Intl.message(
+      'Login',
+      name: 'login_view_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wir können die $url nicht in anderen App öffnen.`
+  String fourtytwo_view_snackbar_text(String url) {
+    return Intl.message(
+      'Wir können die \$url nicht in anderen App öffnen.',
+      name: 'fourtytwo_view_snackbar_text',
+      desc: '',
+      args: [url],
+    );
+  }
+
+  /// `Bist du ein Student mit einer Leidenschaft für das Programmieren und die Zusammenarbeit? \n\nDie Teilnahme am BildungsCampus App Open-Source-Projekt auf GitHub, das darauf abzielt, die Campus-Erfahrungen von Studenten zu verbessern, ist eine großartige Gelegenheit, deine Fähigkeiten zu schärfen, von erfahrenen Entwicklern zu lernen und zu einem bedeutsamen Projekt beizutragen, das von Menschen an dem Campus genutzt wird. \n\nMach mit, gestalte Veränderungen und sei Teil von etwas Besonderem!`
+  String get fourtytwo_view_text {
+    return Intl.message(
+      'Bist du ein Student mit einer Leidenschaft für das Programmieren und die Zusammenarbeit? \n\nDie Teilnahme am BildungsCampus App Open-Source-Projekt auf GitHub, das darauf abzielt, die Campus-Erfahrungen von Studenten zu verbessern, ist eine großartige Gelegenheit, deine Fähigkeiten zu schärfen, von erfahrenen Entwicklern zu lernen und zu einem bedeutsamen Projekt beizutragen, das von Menschen an dem Campus genutzt wird. \n\nMach mit, gestalte Veränderungen und sei Teil von etwas Besonderem!',
+      name: 'fourtytwo_view_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `One more thing...`
+  String get fourtytwo_view_button_text {
+    return Intl.message(
+      'One more thing...',
+      name: 'fourtytwo_view_button_text',
       desc: '',
       args: [],
     );

@@ -1,10 +1,12 @@
 import 'package:bildungscampus_app/core/models/common/app_menu.dart';
+import 'package:bildungscampus_app/core/utils/localized_text_utils.dart';
 import 'package:bildungscampus_app/ui/shared/svg_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MenuListTile extends StatelessWidget {
   final AppMenu appMenu;
+  final Locale? locale;
   final bool isActive;
   final Color textColor;
   final Color indicatorColor;
@@ -13,6 +15,7 @@ class MenuListTile extends StatelessWidget {
   const MenuListTile({
     Key? key,
     required this.appMenu,
+    required this.locale,
     required this.textColor,
     required this.indicatorColor,
     this.onTap,
@@ -21,10 +24,14 @@ class MenuListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final text = appMenu.simpleTitle != null && appMenu.simpleTitle!.isNotEmpty
+        ? appMenu.simpleTitle
+        : LocalizedTextUtils.getLocalizedText(appMenu.title, locale);
+
     return ListTile(
       minLeadingWidth: 28,
       title: Text(
-        appMenu.title,
+        text!,
         style: Theme.of(context).textTheme.titleMedium!.copyWith(
               color: Colors.transparent,
               decoration: TextDecoration.underline,

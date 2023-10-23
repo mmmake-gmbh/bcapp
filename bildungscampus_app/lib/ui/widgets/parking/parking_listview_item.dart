@@ -1,5 +1,6 @@
 import 'package:bildungscampus_app/core/enums/parkinglot_category.dart';
 import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
+import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/ui/shared/svg_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,10 +22,7 @@ class ParkingListViewItem extends StatelessWidget {
       height: 30,
       child: ElevatedButton(
         onPressed: () {
-          Provider.of<ParkingLotViewModel>(
-            context,
-            listen: false,
-          ).toggleExpanded();
+          context.read<ParkingLotViewModel>().toggleExpanded();
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: bgColor,
@@ -40,7 +38,6 @@ class ParkingListViewItem extends StatelessWidget {
           buttonText,
           style: Theme.of(context).textTheme.labelLarge!.copyWith(
                 color: textColor,
-                height: 1.69,
                 letterSpacing: 0.3,
               ),
           textAlign: TextAlign.center,
@@ -49,7 +46,8 @@ class ParkingListViewItem extends StatelessWidget {
     );
   }
 
-  Widget _getCollapsedContent(BuildContext context, ParkingLotViewModel model) {
+  Widget _getCollapsedContent(
+      BuildContext context, ParkingLotViewModel model, Locale? locale) {
     return SizedBox(
       height: 115,
       child: Row(
@@ -60,7 +58,7 @@ class ParkingListViewItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  model.parkingLot.title,
+                  model.parkingLot.getTitle(locale),
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         color: AppColors.primaryOneColor,
                       ),
@@ -103,13 +101,14 @@ class ParkingListViewItem extends StatelessWidget {
     );
   }
 
-  Widget _getExpandedContent(BuildContext context, ParkingLotViewModel model) {
+  Widget _getExpandedContent(
+      BuildContext context, ParkingLotViewModel model, Locale? locale) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          model.parkingLot.priceHeader,
+          model.parkingLot.getPriceHeader(locale),
           style: const TextStyle(
             color: AppColors.primaryOneColor,
           ),
@@ -167,9 +166,9 @@ class ParkingListViewItem extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
-                              child: Text(priceItem.title),
+                              child: Text(priceItem.getTitle(locale)),
                             ),
-                            Text(priceItem.description),
+                            Text(priceItem.getDescription(locale)),
                           ],
                         ),
                         if (model.parkingLot.priceItems.indexOf(priceItem) !=
@@ -191,10 +190,8 @@ class ParkingListViewItem extends StatelessWidget {
           children: [
             TextButton(
               onPressed: () async {
-                final navigated = await Provider.of<ParkingLotViewModel>(
-                        context,
-                        listen: false)
-                    .navigateTo();
+                final navigated =
+                    await context.read<ParkingLotViewModel>().navigateTo();
 
                 if (!navigated && context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -234,6 +231,9 @@ class ParkingListViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.select<UserViewModel, Locale?>(
+        (userViewModel) => userViewModel.locale);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6.0),
       child: Card(
@@ -246,8 +246,8 @@ class ParkingListViewItem extends StatelessWidget {
             builder: (ctx, model, child) {
               return Column(
                 children: [
-                  _getCollapsedContent(ctx, model),
-                  if (model.isExpanded) _getExpandedContent(ctx, model),
+                  _getCollapsedContent(ctx, model, locale),
+                  if (model.isExpanded) _getExpandedContent(ctx, model, locale),
                 ],
               );
             },

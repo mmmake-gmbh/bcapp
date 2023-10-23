@@ -20,20 +20,27 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(email) => "We cannot open the ${email} in another app.";
+
+  static String m1(url) => "We cannot open the \$url in other app.";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "booksearch_view_title_backup":
             MessageLookupByLibrary.simpleMessage("Book Search"),
         "contact_view_appmenu_title":
             MessageLookupByLibrary.simpleMessage("Legal Notice"),
-        "contact_view_open_email_failed_message":
-            MessageLookupByLibrary.simpleMessage(
-                "We cannot open the \${model.email} in another app."),
+        "contact_view_open_email_failed_message": m0,
         "contact_view_title_backup":
             MessageLookupByLibrary.simpleMessage("Contact"),
         "error_dialog_text": MessageLookupByLibrary.simpleMessage(
             "Unfortunately, something went wrong while connecting the app. Please check the internet connection and try again."),
         "error_dialog_title": MessageLookupByLibrary.simpleMessage("Oops!"),
+        "fourtytwo_view_button_text":
+            MessageLookupByLibrary.simpleMessage("One more thing..."),
+        "fourtytwo_view_snackbar_text": m1,
+        "fourtytwo_view_text": MessageLookupByLibrary.simpleMessage(
+            "Are you a student with a passion for coding and collaboration? \n\nJoining the BildungsCampus App open source project on GitHub, which is all about enhancing students campus experiences, is an amazing opportunity to sharpen your skills, learn from experienced developers, and contribute to a meaningful project used by people on the campus. \n\nGet involved, make a difference, and be part of something special!"),
         "home_view_appmenu_title": MessageLookupByLibrary.simpleMessage("Home"),
         "home_view_setting_button_tooltip":
             MessageLookupByLibrary.simpleMessage("Profile"),
@@ -79,8 +86,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(" are accepted."),
         "login_tile_button_text": MessageLookupByLibrary.simpleMessage("Login"),
         "login_tile_text": MessageLookupByLibrary.simpleMessage(
-            "Jetzt einloggen und auf die Inhalte zugreifen"),
+            "Log in now to access the content"),
         "login_tile_title": MessageLookupByLibrary.simpleMessage("CampusLogin"),
+        "login_view_title": MessageLookupByLibrary.simpleMessage("Login"),
         "map_view_title_backup":
             MessageLookupByLibrary.simpleMessage("Site Map"),
         "maps_building15_name": MessageLookupByLibrary.simpleMessage("Library"),
@@ -132,6 +140,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("I accept the "),
         "privacy_view_terms_of_use_text_part2":
             MessageLookupByLibrary.simpleMessage("Terms of Use"),
+        "privacy_view_tile_appendix":
+            MessageLookupByLibrary.simpleMessage("for"),
         "setting_view_account_setting":
             MessageLookupByLibrary.simpleMessage("Manage your user account"),
         "setting_view_campus_card_setting":

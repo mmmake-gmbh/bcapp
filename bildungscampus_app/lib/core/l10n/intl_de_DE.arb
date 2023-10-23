@@ -42,7 +42,15 @@
   "parking_view_categories_guests": "Besucher:innen",
   "booksearch_view_title_backup": "Buchsuche",
   "contact_view_title_backup": "Kontakt",
-  "contact_view_open_email_failed_message": "Wir können die ${model.email} nicht in anderen App öffnen.",
+  "contact_view_open_email_failed_message": "Wir können die {email} nicht in anderen App öffnen.",
+  "@contact_view_open_email_failed_message": {
+    "placeholders": {
+      "email": {
+        "type": "String",
+        "example": "test@test.de"
+      }
+    }
+  },
   "map_view_title_backup": "Lageplan",
   "payment_view_title_backup": "CampusCard PaymentPortal",
   "privacy_view_headline_text": "Nutzungsbedingungen & Datenschutzerklärung",
@@ -52,6 +60,7 @@
   "privacy_view_privacy_agreement_text_part2": "Datenschutzerklärung",
   "privacy_view_privacy_agreement_text_part3": " gelesen und verstanden",
   "privacy_view_accept_button_text": "Los geht's",
+  "privacy_view_tile_appendix": "für",
   "timetable_view_title_backup": "Abfahrtsmonitor",
   "home_view_appmenu_title": "Home",
   "contact_view_appmenu_title": "Impressum",
@@ -77,5 +86,17 @@
   "login_tile_title": "CampusLogin",
   "login_tile_text": "Jetzt einloggen und auf die Inhalte zugreifen",
   "login_tile_button_text": "Login",
-  "home_view_setting_button_tooltip": "Profile"
+  "home_view_setting_button_tooltip": "Profil",
+  "login_view_title": "Login",
+  "fourtytwo_view_snackbar_text": "Wir können die $url nicht in anderen App öffnen.",
+  "@fourtytwo_view_snackbar_text": {
+    "placeholders": {
+      "url": {
+        "type": "String",
+        "example": "www.github.com"
+      }
+    }
+  },
+  "fourtytwo_view_text": "Bist du ein Student mit einer Leidenschaft für das Programmieren und die Zusammenarbeit? \n\nDie Teilnahme am BildungsCampus App Open-Source-Projekt auf GitHub, das darauf abzielt, die Campus-Erfahrungen von Studenten zu verbessern, ist eine großartige Gelegenheit, deine Fähigkeiten zu schärfen, von erfahrenen Entwicklern zu lernen und zu einem bedeutsamen Projekt beizutragen, das von Menschen an dem Campus genutzt wird. \n\nMach mit, gestalte Veränderungen und sei Teil von etwas Besonderem!",
+  "fourtytwo_view_button_text": "One more thing..."
 }

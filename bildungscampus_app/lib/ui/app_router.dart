@@ -1,11 +1,14 @@
 import 'package:bildungscampus_app/core/enums/parkinglot_category.dart';
+import 'package:bildungscampus_app/core/models/settings/setting_view_args.dart';
 import 'package:bildungscampus_app/ui/views/book_search_view.dart';
 import 'package:bildungscampus_app/ui/views/contact_view.dart';
+import 'package:bildungscampus_app/ui/views/fourty_two_view.dart';
 import 'package:bildungscampus_app/ui/views/location_map_view.dart';
 import 'package:bildungscampus_app/ui/views/login_view.dart';
 import 'package:bildungscampus_app/ui/views/payment_view.dart';
 import 'package:bildungscampus_app/ui/views/privacy_view.dart';
 import 'package:bildungscampus_app/ui/views/setting_view.dart';
+import 'package:bildungscampus_app/ui/views/setting_web_view.dart';
 import 'package:bildungscampus_app/ui/views/timetable_view.dart';
 import 'package:flutter/material.dart';
 import 'package:bildungscampus_app/ui/views/intro_view.dart';
@@ -26,6 +29,8 @@ class AppRouter {
   static const String contactRoute = "/contact";
   static const String loginRoute = "/login";
   static const String settingRoute = "/setting";
+  static const String settingWebRoute = "/setting-web";
+  static const String fourtyTwoRoute = "/fourtytwo";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -81,13 +86,34 @@ class AppRouter {
           settings: settings,
         );
       case loginRoute:
+        final args = settings.arguments as String?;
         return MaterialPageRoute(
-          builder: (_) => _setupProvidersAndFlavorBanner(const LoginView()),
+          builder: (_) => _setupProvidersAndFlavorBanner(
+            LoginView(
+              navigationPath: args,
+            ),
+          ),
           settings: settings,
         );
       case settingRoute:
         return MaterialPageRoute(
           builder: (_) => _setupProvidersAndFlavorBanner(const SettingView()),
+          settings: settings,
+        );
+      case settingWebRoute:
+        final args = settings.arguments as SettingViewArgs?;
+        return MaterialPageRoute(
+          builder: (_) => _setupProvidersAndFlavorBanner(
+            SettingWebView(
+              url: args?.url,
+              title: args?.title,
+            ),
+          ),
+          settings: settings,
+        );
+      case fourtyTwoRoute:
+        return MaterialPageRoute(
+          builder: (_) => _setupProvidersAndFlavorBanner(const FourtyTwoView()),
           settings: settings,
         );
       default:

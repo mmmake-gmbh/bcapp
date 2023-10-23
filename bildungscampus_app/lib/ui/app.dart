@@ -2,6 +2,7 @@ import 'package:bildungscampus_app/core/models/common/local_settings_dto.dart';
 import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/privacy_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
+import 'package:bildungscampus_app/game/models/player_data.dart';
 import 'package:bildungscampus_app/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -33,6 +34,9 @@ class MyApp extends StatelessWidget {
             }),
         ChangeNotifierProvider<UserViewModel>(
           create: (ctx) => locator<UserViewModel>(),
+        ),
+        ChangeNotifierProvider<PlayerData>(
+          create: (ctx) => PlayerData(),
         ),
       ],
       builder: (context, child) => MaterialApp(

@@ -1,4 +1,5 @@
 import 'package:bildungscampus_app/core/enums/parkinglot_category.dart';
+import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/ui/shared/svg_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,7 +8,7 @@ import 'package:bildungscampus_app/core/viewmodels/tiles/parking_tile_viewmodel.
 import 'package:bildungscampus_app/ui/widgets/tiles/carousel_tile_content.dart';
 
 class ParkingTileContent extends StatelessWidget {
-  final List<MapEntry<ParkingLotCategory, String>> parkingCategories;
+  final List<ParkingLotCategory> parkingCategories;
   final Color contentColor;
   final String? buttonText;
   final Color buttonTextColor;
@@ -22,16 +23,30 @@ class ParkingTileContent extends StatelessWidget {
     this.onTap,
   }) : super(key: key);
 
+  String _getCategoryTranslation(
+      BuildContext context, ParkingLotCategory category) {
+    switch (category) {
+      case ParkingLotCategory.students:
+        return S.of(context).parking_view_categories_students;
+      case ParkingLotCategory.staff:
+        return S.of(context).parking_view_categories_staff;
+      case ParkingLotCategory.guests:
+        return S.of(context).parking_view_categories_guests;
+      default:
+        return '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      CarouselTileContent<MapEntry<ParkingLotCategory, String>>(
+      CarouselTileContent<ParkingLotCategory>(
         items: parkingCategories,
         contentColor: Colors.white,
         builder: (ctx, model) {
           return Center(
             child: Text(
-              model.value,
+              "${S.of(context).privacy_view_tile_appendix} ${_getCategoryTranslation(context, model)}",
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     color: contentColor,
                     height: 1.33,
@@ -45,9 +60,9 @@ class ParkingTileContent extends StatelessWidget {
             onTap!();
           }
         },
-        onSlideChange: (newIndex) =>
-            Provider.of<ParkingTileViewModel>(context, listen: false)
-                .updateSelectedParkinglot(newIndex),
+        onSlideChange: (newIndex) => context
+            .read<ParkingTileViewModel>()
+            .updateSelectedParkinglot(newIndex),
       ),
       Align(
         alignment: Alignment.topRight,
