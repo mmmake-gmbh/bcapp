@@ -1,3 +1,4 @@
+import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/models/common/intro.dart';
 import 'package:bildungscampus_app/core/repositories/intro/intro_repository.dart';
 import 'package:bildungscampus_app/core/viewmodels/privacy_viewmodel.dart';
@@ -9,8 +10,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-
-import '../../core/l10n/generated/l10n.dart';
 
 class IntroView extends StatefulWidget {
   const IntroView({Key? key}) : super(key: key);

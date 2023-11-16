@@ -21,6 +21,7 @@ class StartTile extends StatelessWidget {
   final int maxTitleLines;
   final Function? onTap;
   final EdgeInsetsGeometry? padding;
+  final Future<bool?>? isFeatureInfoShown;
 
   const StartTile({
     Key? key,
@@ -36,6 +37,7 @@ class StartTile extends StatelessWidget {
     required this.maxTitleLines,
     this.padding,
     this.onTap,
+    this.isFeatureInfoShown,
   }) : super(key: key);
 
   StartTile.withBaseModel(
@@ -49,6 +51,7 @@ class StartTile extends StatelessWidget {
     required this.child,
     this.padding,
     this.onTap,
+    this.isFeatureInfoShown,
   })  : tileType = model.type,
         tileTitle = LocalizedTextUtils.getLocalizedText(model.title, locale),
         iconPath = model.iconPath,
@@ -68,6 +71,7 @@ class StartTile extends StatelessWidget {
     required this.isFullTileTap,
     this.padding,
     this.onTap,
+    this.isFeatureInfoShown,
   })  : tileType = model.type,
         tileTitle = LocalizedTextUtils.getLocalizedText(model.title, locale),
         iconPath = model.iconPath,
@@ -87,65 +91,91 @@ class StartTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      color: backgroundColor,
-      child: Container(
-        padding: padding ??
-            const EdgeInsets.only(top: 8, left: 12, right: 12, bottom: 12),
-        width: double.infinity,
-        child: ConditionalInkWell(
-          condition: isFullTileTap,
-          onTap: onTap as void Function()?,
-          child: Column(
-            children: [
-              if (showHeader)
-                ConditionalInkWell(
-                  condition: !isFullTileTap,
-                  onTap: onTap as void Function()?,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (iconPath?.isNotEmpty ?? false)
-                        Transform.translate(
-                          offset: const Offset(0, 6),
-                          child: SvgPicture.asset(
-                            iconPath!,
-                            height: 16.0,
-                            width: 16.0,
-                            colorFilter: ColorFilter.mode(
-                              titleColor,
-                              BlendMode.srcIn,
+    return Stack(
+      children: [
+        Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          color: backgroundColor,
+          child: Container(
+            padding: padding ??
+                const EdgeInsets.only(top: 8, left: 12, right: 12, bottom: 12),
+            width: double.infinity,
+            child: ConditionalInkWell(
+              condition: isFullTileTap,
+              onTap: onTap as void Function()?,
+              child: Column(
+                children: [
+                  if (showHeader)
+                    ConditionalInkWell(
+                      condition: !isFullTileTap,
+                      onTap: onTap as void Function()?,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (iconPath?.isNotEmpty ?? false)
+                            Transform.translate(
+                              offset: const Offset(0, 6),
+                              child: SvgPicture.asset(
+                                iconPath!,
+                                height: 16.0,
+                                width: 16.0,
+                                colorFilter: ColorFilter.mode(
+                                  titleColor,
+                                  BlendMode.srcIn,
+                                ),
+                              ),
+                            ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: AutoSizeText(
+                                tileTitle ?? '',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(
+                                      fontFamily: 'DINOT Bold',
+                                      color: titleColor,
+                                      height: 1.5,
+                                    ),
+                                maxLines: maxTitleLines,
+                              ),
                             ),
                           ),
-                        ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: AutoSizeText(
-                            tileTitle ?? '',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(
-                                  fontFamily: 'DINOT Bold',
-                                  color: titleColor,
-                                  height: 1.5,
-                                ),
-                            maxLines: maxTitleLines,
-                          ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-              Expanded(child: child),
-            ],
+                    ),
+                  Expanded(child: child),
+                ],
+              ),
+            ),
           ),
         ),
-      ),
+        FutureBuilder(
+          future: isFeatureInfoShown,
+          builder: (context, shouldShow) => Positioned(
+            right: 0,
+            top: 0,
+            child: AnimatedOpacity(
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.fastOutSlowIn,
+              opacity: shouldShow.hasData &&
+                      shouldShow.data != null &&
+                      shouldShow.data!
+                  ? 1
+                  : 0,
+              child: Container(
+                width: 20.0,
+                height: 20.0,
+                decoration: const BoxDecoration(
+                    color: Colors.yellow, shape: BoxShape.circle),
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:bildungscampus_app/core/models/startscreen/app_content.dart';
 import 'package:bildungscampus_app/core/models/weather/weather_data.dart';
 import 'package:bildungscampus_app/core/services/startscreen/tiles_service.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/base_start_tile_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/tiles/bike_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/booksearch_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/campus_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/empty_tile_viewmodel.dart';
@@ -146,6 +147,18 @@ class CampusTilesService implements TilesService {
             navigationPath: AppRouter.fourtyTwoRoute,
             type: TileType.big,
             featureType: FeatureType.fourtyTwo,
+            featureInfo: tileModel.featureInfo,
+          );
+          return vm;
+        case 'kienzler-bikes':
+          final vm = BikeTileViewModel(
+            title: tileModel.title,
+            iconPath: SvgIcons.bike,
+            buttonText: S.of(context).tiles_button_text_more,
+            description: tileModel.text,
+            navigationPath: AppRouter.kienzlerBikeRoute,
+            type: TileType.big,
+            featureType: FeatureType.kienzlerBike,
             featureInfo: tileModel.featureInfo,
           );
           return vm;

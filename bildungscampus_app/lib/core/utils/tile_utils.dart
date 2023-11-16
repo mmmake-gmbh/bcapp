@@ -1,6 +1,9 @@
+import 'package:bildungscampus_app/core/enums/feature_type.dart';
 import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
+import 'package:bildungscampus_app/core/models/common/feature_info.dart';
 import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/base_start_tile_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/tiles/bike_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/booksearch_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/campus_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/fourty_two_tile_viewmodel.dart';
@@ -41,6 +44,8 @@ class TileUtils {
         isFullTileTap: false,
         padding:
             const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0, bottom: 0.0),
+        isFeatureInfoShown:
+            _isFeatureInfoShown(context, model.featureInfo, model.featureType),
         child: Consumer<AppViewModel>(
           builder: (ctx, appModel, _) => WeatherTileContent(
             model: appModel.currentWeather,
@@ -54,6 +59,8 @@ class TileUtils {
         locale: locale,
         bgColor: AppColors.primaryTwoColor,
         isFullTileTap: false,
+        isFeatureInfoShown:
+            _isFeatureInfoShown(context, model.featureInfo, model.featureType),
         child: MensaTileContent(
           weeklyMenu: model.weeklyMenu,
           activeTabColor: AppColors.primaryOneColor,
@@ -73,6 +80,8 @@ class TileUtils {
           bgColor: AppColors.parkingTileBgColor,
           isFullTileTap: false,
           onTap: onTapFunction,
+          isFeatureInfoShown: _isFeatureInfoShown(
+              context, model.featureInfo, model.featureType),
           child: Consumer<ParkingTileViewModel>(
             builder: (ctx, model, _) => ParkingTileContent(
               parkingCategories: model.parkingCategories,
@@ -91,6 +100,8 @@ class TileUtils {
         bgColor: AppColors.campusTileBgColor,
         contentColor: Colors.white,
         isFullTileTap: true,
+        isFeatureInfoShown:
+            _isFeatureInfoShown(context, model.featureInfo, model.featureType),
         onTap: () {
           Navigator.of(context).pushNamed(model.navigationPath);
         },
@@ -102,6 +113,8 @@ class TileUtils {
         bgColor: AppColors.timetableTileBgColor,
         contentColor: Colors.white,
         isFullTileTap: true,
+        isFeatureInfoShown:
+            _isFeatureInfoShown(context, model.featureInfo, model.featureType),
         onTap: () {
           Navigator.of(context).pushNamed(model.navigationPath);
         },
@@ -113,6 +126,8 @@ class TileUtils {
         contentColor: Colors.white,
         bgColor: AppColors.primaryTwoColor,
         isFullTileTap: true,
+        isFeatureInfoShown:
+            _isFeatureInfoShown(context, model.featureInfo, model.featureType),
         onTap: () {
           Navigator.of(context).pushNamed(model.navigationPath);
         },
@@ -124,6 +139,8 @@ class TileUtils {
         bgColor: AppColors.primaryTwoColor,
         contentColor: Colors.white,
         isFullTileTap: true,
+        isFeatureInfoShown:
+            _isFeatureInfoShown(context, model.featureInfo, model.featureType),
         onTap: () {
           Navigator.of(context).pushNamed(model.navigationPath);
         },
@@ -135,6 +152,8 @@ class TileUtils {
         bgColor: AppColors.fourtyTwoTileTextBgColor,
         contentColor: Colors.white,
         isFullTileTap: true,
+        isFeatureInfoShown:
+            _isFeatureInfoShown(context, model.featureInfo, model.featureType),
         onTap: () {
           Navigator.of(context).pushNamed(model.navigationPath);
         },
@@ -151,6 +170,51 @@ class TileUtils {
               bgColor: AppColors.campusCardTileBgColor,
               contentColor: contentColor,
               isFullTileTap: true,
+              isFeatureInfoShown: _isFeatureInfoShown(
+                  context, model.featureInfo, model.featureType),
+              onTap: () {
+                Navigator.of(context).pushNamed(model.navigationPath);
+              },
+            );
+          }
+
+          return StartTile(
+            titleColor: contentColor,
+            tileTitle: S.of(context).login_tile_title,
+            iconPath: SvgIcons.pin,
+            isFullTileTap: true,
+            maxTitleLines: 1,
+            backgroundColor: AppColors.primaryOneColor,
+            child: TextTileContent(
+                textColor: contentColor,
+                text: S.of(context).login_tile_text,
+                textAlignment: TextAlign.center,
+                buttonText: S.of(context).login_tile_button_text,
+                buttonTextColor: contentColor),
+            onTap: () {
+              final navigator = Navigator.of(context);
+              navigator.pushNamed(
+                AppRouter.loginRoute,
+                arguments: AppRouter.paymentRoute,
+              );
+            },
+          );
+        }),
+      );
+    } else if (model is BikeTileViewModel) {
+      const contentColor = Colors.white;
+
+      return Consumer<UserViewModel>(
+        builder: ((context, userViewModel, _) {
+          if (userViewModel.isLogged) {
+            return StartTile.withTextContent(
+              model,
+              locale: locale,
+              bgColor: AppColors.campusCardTileBgColor,
+              contentColor: contentColor,
+              isFullTileTap: true,
+              isFeatureInfoShown: _isFeatureInfoShown(
+                  context, model.featureInfo, model.featureType),
               onTap: () {
                 Navigator.of(context).pushNamed(model.navigationPath);
               },
@@ -182,5 +246,13 @@ class TileUtils {
       );
     }
     return Container();
+  }
+
+  static Future<bool?> _isFeatureInfoShown(BuildContext context,
+      FeatureInfo featureInfo, FeatureType featureType) async {
+    final shouldBeShown = await context
+        .read<AppViewModel>()
+        .shouldShowFeatureInfo(featureType, featureInfo);
+    return shouldBeShown;
   }
 }

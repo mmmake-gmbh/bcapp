@@ -4,7 +4,6 @@ import 'package:bildungscampus_app/game/enemy.dart';
 import 'package:bildungscampus_app/game/models/enemy_data.dart';
 import 'package:bildungscampus_app/game/models/player_data.dart';
 import 'package:bildungscampus_app/game/space_game.dart';
-import 'package:flame/experimental.dart';
 import 'package:flame/sprite.dart';
 import 'package:flame/components.dart';
 import 'package:provider/provider.dart';

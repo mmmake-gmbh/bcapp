@@ -45,10 +45,11 @@ android {
 
     defaultConfig {
         applicationId "com.schwarz.bildungscampus.application"
-        minSdkVersion 26
+        minSdkVersion 23
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
     signingConfigs {

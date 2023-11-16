@@ -85,6 +85,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Datenschutzerklärung"),
         "intro_view_term_of_use_part5":
             MessageLookupByLibrary.simpleMessage(" akzeptiert."),
+        "keinzler_bike_view_title_backup":
+            MessageLookupByLibrary.simpleMessage("Kienzler Fahrradbox"),
         "login_tile_button_text": MessageLookupByLibrary.simpleMessage("Login"),
         "login_tile_text": MessageLookupByLibrary.simpleMessage(
             "Jetzt einloggen und auf die Inhalte zugreifen"),

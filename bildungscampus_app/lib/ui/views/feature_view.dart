@@ -10,22 +10,23 @@ class FeatureView extends StatelessWidget {
       {required this.featureType, required this.children, super.key});
 
   final List<Widget> children;
-  final FeatureType featureType;
+  final FeatureType? featureType;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         ...children,
-        Selector<AppViewModel, FeatureInfo>(
-          builder: (context, featureInfo, _) => NewFlag(
-            featureInfo: featureInfo,
-            featureType: FeatureType.home,
+        if (featureType != null)
+          Selector<AppViewModel, FeatureInfo>(
+            builder: (context, featureInfo, _) => NewFlag(
+              featureInfo: featureInfo,
+              featureType: featureType!,
+            ),
+            selector: (context, model) => model.tiles!
+                .firstWhere((tile) => tile.featureType == featureType)
+                .featureInfo,
           ),
-          selector: (context, model) => model.tiles!
-              .firstWhere((tile) => tile.featureType == featureType)
-              .featureInfo,
-        ),
       ],
     );
   }

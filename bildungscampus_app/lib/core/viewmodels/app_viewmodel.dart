@@ -38,6 +38,7 @@ class AppViewModel extends BaseViewModel {
   static const String sessionsSettingLinkKey = 'Anmeldungen';
   static const String campusCardSettingLinkKey = 'CampusCardSetting';
   static const String gitHubLinkKey = 'GitHub';
+  static const String fahrradBoxLinkKey = 'FahrradBox';
 
   final AppContentRepository _contentRepository =
       locator<AppContentRepository>();
@@ -77,6 +78,7 @@ class AppViewModel extends BaseViewModel {
   String? get campusCardSettingLink =>
       _externalLinkByKey(campusCardSettingLinkKey);
   String? get gitHubLink => _externalLinkByKey(gitHubLinkKey);
+  String? get fahradBoxLink => _externalLinkByKey(fahrradBoxLinkKey);
 
   AppViewModel(FlutterSecureStorage storage) {
     _secureStorage = storage;

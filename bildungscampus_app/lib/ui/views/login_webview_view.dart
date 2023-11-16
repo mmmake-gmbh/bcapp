@@ -1,25 +1,29 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:bildungscampus_app/core/enums/feature_type.dart';
+import 'package:bildungscampus_app/core/models/common/localized_text.dart';
+import 'package:bildungscampus_app/core/utils/localized_text_utils.dart';
+import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
 import 'package:bildungscampus_app/ui/views/feature_view.dart';
 import 'package:bildungscampus_app/ui/widgets/navigation/app_drawer.dart';
 import 'package:bildungscampus_app/ui/widgets/navigation/reusable_appbars.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class LoginWebViewView extends StatefulWidget {
-  final String title;
-  final String url;
-  final Map<String, String> headers;
-  final FeatureType featureType;
+  final String titleBackup;
+  final String? url;
+  final FeatureType? featureType;
   final bool showDrawer;
 
   const LoginWebViewView(
       {Key? key,
-      required this.title,
+      required this.titleBackup,
       required this.url,
-      required this.headers,
       required this.featureType,
       this.showDrawer = true})
       : super(key: key);
@@ -29,7 +33,8 @@ class LoginWebViewView extends StatefulWidget {
 
 class _LoginWebViewViewState extends State<LoginWebViewView> {
   final _key = UniqueKey();
-  bool isLoading = true;
+  final ValueNotifier<bool> isLoading = ValueNotifier(true);
+  late Map<String, String> headers;
   late final WebViewController _controller;
 
   final loginPageUrlPart = "user-ui-bc/login";
@@ -39,7 +44,24 @@ class _LoginWebViewViewState extends State<LoginWebViewView> {
   void initState() {
     super.initState();
 
-    log("headers: ${widget.headers}");
+    final userViewModel = context.read<UserViewModel>();
+    log('userViewModel: ${userViewModel.ssoCookie == null}');
+    Cookie? ssoCookie =
+        userViewModel.ssoCookie != null && userViewModel.ssoCookie!.isNotEmpty
+            ? Cookie.fromSetCookieValue(userViewModel.ssoCookie!)
+            : null;
+    Cookie? ssoCookie2 =
+        userViewModel.ssoCookie != null && userViewModel.ssoCookie!.isNotEmpty
+            ? Cookie.fromSetCookieValue(userViewModel.ssoCookie!)
+            : null;
+
+    ssoCookie2?.name = "cidaas_rl";
+
+    headers = userViewModel.ssoCookie != null
+        ? {'cookie': '$ssoCookie;$ssoCookie2'}
+        : {};
+
+    log("headers: $headers");
 
     _controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -53,9 +75,7 @@ class _LoginWebViewViewState extends State<LoginWebViewView> {
           },
           onPageFinished: (String url) {
             log(url);
-            setState(() {
-              isLoading = false;
-            });
+            isLoading.value = false;
           },
           onWebResourceError: (WebResourceError error) {
             log('web resource error: ${error.description}');
@@ -63,7 +83,7 @@ class _LoginWebViewViewState extends State<LoginWebViewView> {
           onNavigationRequest: (NavigationRequest request) {
             log('req: ${request.url}');
             log('wid: ${widget.url}');
-            final uri = Uri.parse(widget.url);
+            final uri = Uri.parse(widget.url!);
 
             if (request.url.contains(uri.host) ||
                 request.url.contains(loggingUrlPart)) {
@@ -82,27 +102,50 @@ class _LoginWebViewViewState extends State<LoginWebViewView> {
             return NavigationDecision.prevent;
           },
         ),
-      )
-      ..loadRequest(Uri.parse(widget.url), headers: widget.headers);
+      );
   }
 
   @override
   Widget build(BuildContext context) {
+    final appViewModel = context.read<AppViewModel>();
+    final List<LocalizedText> titleList = widget.featureType != null
+        ? appViewModel.getAppMenuTitle(widget.featureType!)
+        : [];
+
+    final locale = context.select((UserViewModel model) => model.locale);
+    var title = LocalizedTextUtils.getLocalizedText(titleList, locale);
+    if (title.isEmpty) {
+      title = widget.titleBackup;
+    }
+
     return Scaffold(
       appBar: ReusableAppBars.standardAppBar(
         context,
-        widget.title,
+        title,
       ),
       drawer: widget.showDrawer ? const AppDrawer() : null,
       body: FeatureView(
         featureType: widget.featureType,
         children: [
-          WebViewWidget(key: _key, controller: _controller),
-          isLoading
-              ? const Center(
+          if (widget.url != null)
+            WebViewWidget(key: _key, controller: _controller),
+          ValueListenableBuilder(
+            valueListenable: isLoading,
+            builder: (_, bool isLoading, Widget? child) {
+              if (isLoading) {
+                return const Center(
                   child: CircularProgressIndicator(),
-                )
-              : const SizedBox.shrink(),
+                );
+              }
+
+              return const SizedBox.shrink();
+            },
+          ),
+          FutureBuilder(
+            builder: (context, _) => const SizedBox.shrink(),
+            future: _controller.loadRequest(Uri.parse(widget.url!),
+                headers: headers),
+          )
         ],
       ),
     );

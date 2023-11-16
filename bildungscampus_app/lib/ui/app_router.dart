@@ -1,11 +1,14 @@
+import 'package:bildungscampus_app/core/enums/feature_type.dart';
 import 'package:bildungscampus_app/core/enums/parkinglot_category.dart';
+import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/models/settings/setting_view_args.dart';
+import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
 import 'package:bildungscampus_app/ui/views/book_search_view.dart';
 import 'package:bildungscampus_app/ui/views/contact_view.dart';
 import 'package:bildungscampus_app/ui/views/fourty_two_view.dart';
 import 'package:bildungscampus_app/ui/views/location_map_view.dart';
 import 'package:bildungscampus_app/ui/views/login_view.dart';
-import 'package:bildungscampus_app/ui/views/payment_view.dart';
+import 'package:bildungscampus_app/ui/views/login_webview_view.dart';
 import 'package:bildungscampus_app/ui/views/privacy_view.dart';
 import 'package:bildungscampus_app/ui/views/setting_view.dart';
 import 'package:bildungscampus_app/ui/views/setting_web_view.dart';
@@ -16,6 +19,7 @@ import 'package:bildungscampus_app/ui/views/parking_view.dart';
 import 'package:bildungscampus_app/ui/views/home_view.dart';
 import 'package:bildungscampus_app/ui/widgets/common/flavor_banner.dart';
 import 'package:bildungscampus_app/core/configs/flavor_config.dart';
+import 'package:provider/provider.dart';
 
 class AppRouter {
   static const String initialRoute = "/initial";
@@ -31,6 +35,7 @@ class AppRouter {
   static const String settingRoute = "/setting";
   static const String settingWebRoute = "/setting-web";
   static const String fourtyTwoRoute = "/fourtytwo";
+  static const String kienzlerBikeRoute = "/bike";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -77,12 +82,29 @@ class AppRouter {
         );
       case paymentRoute:
         return MaterialPageRoute(
-          builder: (_) => _setupProvidersAndFlavorBanner(const PaymentView()),
+          builder: (context) => _setupProvidersAndFlavorBanner(
+            LoginWebViewView(
+              featureType: FeatureType.payment,
+              titleBackup: S.of(context).payment_view_title_backup,
+              url: context.read<AppViewModel>().paymentLink,
+            ),
+          ),
           settings: settings,
         );
       case contactRoute:
         return MaterialPageRoute(
           builder: (_) => _setupProvidersAndFlavorBanner(const ContactView()),
+          settings: settings,
+        );
+      case kienzlerBikeRoute:
+        return MaterialPageRoute(
+          builder: (context) => _setupProvidersAndFlavorBanner(
+            LoginWebViewView(
+              featureType: FeatureType.kienzlerBike,
+              titleBackup: S.of(context).keinzler_bike_view_title_backup,
+              url: context.read<AppViewModel>().fahradBoxLink,
+            ),
+          ),
           settings: settings,
         );
       case loginRoute:

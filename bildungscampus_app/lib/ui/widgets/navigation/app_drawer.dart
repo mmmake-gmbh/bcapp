@@ -36,6 +36,24 @@ class AppDrawer extends StatelessWidget {
     }
   }
 
+  void appMenuOnTap(BuildContext context, AppMenu appMenu) {
+    if (appMenu.navigationPath == null && appMenu.externalPath != null) {
+      launchUrlString(appMenu.externalPath!);
+    } else if (appMenu.navigationPath != null) {
+      final isLogged = context.read<UserViewModel>().isLogged;
+
+      if ((appMenu.type == FeatureType.payment ||
+              appMenu.type == FeatureType.kienzlerBike) &&
+          !isLogged) {
+        Navigator.pushNamed(context, AppRouter.loginRoute,
+            arguments: appMenu.navigationPath!);
+        return;
+      }
+
+      Navigator.pushNamed(context, appMenu.navigationPath!);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final currentModalRoute = ModalRoute.of(context);
@@ -120,8 +138,7 @@ class AppDrawer extends StatelessWidget {
                         locale: locale,
                         textColor: AppColors.primaryOneTextColor,
                         indicatorColor: AppColors.drawerMenuTileUnderlineColor,
-                        onTap: () => Navigator.pushNamed(
-                            context, appMenu.navigationPath!),
+                        onTap: () => appMenuOnTap(context, appMenu),
                         isActive: _isAppMenuItemCurrentRoute(
                             currentModalRoute, appMenu),
                       ),
@@ -143,15 +160,7 @@ class AppDrawer extends StatelessWidget {
                         indicatorColor: Colors.white,
                         isActive: _isAppMenuItemCurrentRoute(
                             currentModalRoute, appMenu),
-                        onTap: () {
-                          if (appMenu.navigationPath == null &&
-                              appMenu.externalPath != null) {
-                            launchUrlString(appMenu.externalPath!);
-                          } else if (appMenu.navigationPath != null) {
-                            Navigator.pushNamed(
-                                context, appMenu.navigationPath!);
-                          }
-                        },
+                        onTap: () => appMenuOnTap(context, appMenu),
                       ))
                   .toList(),
               Consumer<UserViewModel>(

@@ -217,6 +217,7 @@ class SpaceGame extends FlameGame with HasCollisionDetection {
         break;
       case AppLifecycleState.inactive:
       case AppLifecycleState.paused:
+      case AppLifecycleState.hidden:
       case AppLifecycleState.detached:
         if (_player.health > 0) {
           pauseEngine();

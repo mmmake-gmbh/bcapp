@@ -65,8 +65,7 @@ class ReusableAppBars {
   }
 
   static AppBar lightAppBarWithLogo(BuildContext context,
-      {required List<Widget> actions,
-      required GlobalKey<ScaffoldState> scaffoldKey}) {
+      {required List<Widget> actions}) {
     return AppBar(
       backgroundColor: Colors.white,
       toolbarOpacity: 0.9,

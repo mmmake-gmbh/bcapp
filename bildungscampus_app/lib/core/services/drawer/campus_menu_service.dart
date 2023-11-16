@@ -44,6 +44,13 @@ class CampusMenuService implements MenuService {
           allowedUserType: UserType.notLoggedIn,
           navigationPath: AppRouter.paymentRoute,
         );
+      case 'kienzler-bikes':
+        return AppMenu(
+          title: model.menuTitle,
+          type: FeatureType.kienzlerBike,
+          allowedUserType: UserType.notLoggedIn,
+          navigationPath: AppRouter.kienzlerBikeRoute,
+        );
       case 'fourtytwo':
         return AppMenu(
           title: model.menuTitle,

@@ -12,5 +12,6 @@ enum FeatureType {
   empty,
   welcome,
   weather,
-  mensa
+  mensa,
+  kienzlerBike
 }

@@ -889,6 +889,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Kienzler Fahrradbox`
+  String get keinzler_bike_view_title_backup {
+    return Intl.message(
+      'Kienzler Fahrradbox',
+      name: 'keinzler_bike_view_title_backup',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

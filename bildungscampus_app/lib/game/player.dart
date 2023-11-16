@@ -4,7 +4,6 @@ import 'package:bildungscampus_app/game/enemy.dart';
 import 'package:bildungscampus_app/game/models/player_data.dart';
 import 'package:bildungscampus_app/game/space_game.dart';
 import 'package:flame/collisions.dart';
-import 'package:flame/experimental.dart';
 import 'package:flame/particles.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +64,9 @@ class Player extends SpriteComponent
     );
     add(shape);
 
-    _playerData = game.buildContext!.read<PlayerData>();
+    _playerData = game.buildContext != null
+        ? game.buildContext!.read<PlayerData>()
+        : PlayerData();
   }
 
   @override

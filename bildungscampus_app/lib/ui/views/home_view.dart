@@ -8,6 +8,7 @@ import 'package:bildungscampus_app/core/utils/tile_utils.dart';
 import 'package:bildungscampus_app/core/viewmodels/base_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
+import 'package:bildungscampus_app/ui/shared/svg_icons.dart';
 import 'package:bildungscampus_app/ui/widgets/common/new_flag.dart';
 import 'package:bildungscampus_app/ui/widgets/common/standard_error_dialog.dart';
 import 'package:bildungscampus_app/ui/widgets/navigation/reusable_appbars.dart';
@@ -23,10 +24,8 @@ import 'package:bildungscampus_app/ui/widgets/navigation/app_drawer.dart';
 import 'package:bildungscampus_app/ui/shared/app_images.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
 
-import '../shared/svg_icons.dart';
-
 class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -99,6 +98,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
         startTimer();
         break;
       case AppLifecycleState.inactive:
+      case AppLifecycleState.hidden:
       case AppLifecycleState.detached:
         cancelTimer();
         break;
@@ -138,7 +138,6 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
       key: scaffoldKey,
       appBar: ReusableAppBars.lightAppBarWithLogo(
         context,
-        scaffoldKey: scaffoldKey,
         actions: [
           IconButton(
             icon: SvgPicture.asset(
