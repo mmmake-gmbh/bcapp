@@ -51,7 +51,7 @@ dependencies:
     path: ../../cidaas_flutter_sdk
   flame: ^1.8.2
   cached_network_image: ^3.3.0
-  package_info_plus: ^4.2.0
+  package_info_plus: ^5.0.1
 
 dev_dependencies:
   flutter_test:

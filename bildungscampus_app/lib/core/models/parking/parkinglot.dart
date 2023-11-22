@@ -5,7 +5,6 @@ import 'package:bildungscampus_app/core/models/common/localized_text.dart';
 import 'package:bildungscampus_app/core/models/parking/parkinglot_priceitem.dart';
 import 'package:bildungscampus_app/core/enums/parkinglot_light.dart';
 import 'package:bildungscampus_app/core/utils/localized_text_utils.dart';
-import 'package:flutter/foundation.dart';
 
 class ParkingLotBase {
   final int id;
@@ -109,7 +108,7 @@ class ParkingLot extends ParkingLotBase {
         "carParkNo": carParkNo,
         "title": title,
         "subTitle": subtitle,
-        "categories": categories.map((e) => describeEnum(e).toLowerCase()),
+        "categories": categories.map((e) => e.name.toLowerCase()),
         "city": city,
         "street": street,
         "openingHours": openingHours,
@@ -187,7 +186,7 @@ class ParkingLotV2 extends ParkingLotBase {
         "carParkNo": carParkNo,
         "title": List<dynamic>.from(title.map((x) => x.toJson())),
         "subTitle": List<dynamic>.from(subtitle.map((x) => x.toJson())),
-        "categories": categories.map((e) => describeEnum(e).toLowerCase()),
+        "categories": categories.map((e) => e.name.toLowerCase()),
         "city": city,
         "street": street,
         "openingHours": List<dynamic>.from(openingHours.map((x) => x.toJson())),

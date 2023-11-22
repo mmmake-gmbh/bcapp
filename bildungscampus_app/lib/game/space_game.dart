@@ -17,6 +17,7 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/material.dart';
 
 class SpaceGame extends FlameGame with HasCollisionDetection {
+  @override
   final World world = World();
 
   late CameraComponent primaryCamera;

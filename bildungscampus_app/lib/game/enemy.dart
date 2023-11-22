@@ -56,11 +56,11 @@ class Enemy extends SpriteComponent
   }
 
   Enemy({
-    required Sprite? sprite,
+    required super.sprite,
     required this.enemyData,
-    required Vector2? position,
-    required Vector2? size,
-  }) : super(sprite: sprite, position: position, size: size) {
+    required super.position,
+    required super.size,
+  }) {
     // Rotates the enemy component by 180 degrees. This is needed because
     // all the sprites initially face the same direct, but we want enemies to be
     // moving in opposite direction.

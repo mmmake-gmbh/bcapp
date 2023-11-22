@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class IntroView extends StatefulWidget {
-  const IntroView({Key? key}) : super(key: key);
+  const IntroView({super.key});
 
   @override
   State<IntroView> createState() => _InitialViewState();

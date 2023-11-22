@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 class TextWithHyphenation extends StatelessWidget {
   const TextWithHyphenation(
     this.data, {
-    Key? key,
+    super.key,
     this.style,
-  }) : super(key: key);
+  });
 
   final String data;
   final TextStyle? style;

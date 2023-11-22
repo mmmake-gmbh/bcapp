@@ -5,8 +5,8 @@ class CustomCheckbox extends StatelessWidget {
   final bool value;
   final Function(bool? value) onChanged;
 
-  const CustomCheckbox({Key? key, required this.value, required this.onChanged})
-      : super(key: key);
+  const CustomCheckbox(
+      {super.key, required this.value, required this.onChanged});
 
   Color getCheckboxColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{

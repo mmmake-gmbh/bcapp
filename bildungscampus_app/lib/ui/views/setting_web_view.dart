@@ -5,8 +5,7 @@ class SettingWebView extends StatelessWidget {
   final String? url;
   final String? title;
 
-  const SettingWebView({Key? key, required this.url, required this.title})
-      : super(key: key);
+  const SettingWebView({super.key, required this.url, required this.title});
 
   @override
   Widget build(BuildContext context) {

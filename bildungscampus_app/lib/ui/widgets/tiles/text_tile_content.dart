@@ -12,7 +12,7 @@ class TextTileContent extends StatelessWidget {
   final Function? onTap;
 
   const TextTileContent({
-    Key? key,
+    super.key,
     required this.text,
     required this.textColor,
     this.textFontSize,
@@ -20,7 +20,7 @@ class TextTileContent extends StatelessWidget {
     required this.buttonText,
     required this.buttonTextColor,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -11,12 +11,12 @@ class MensaTileContent extends StatefulWidget {
   final Color unselectedTabColor;
 
   const MensaTileContent({
-    Key? key,
+    super.key,
     required this.weeklyMenu,
     required this.contentColor,
     required this.activeTabColor,
     required this.unselectedTabColor,
-  }) : super(key: key);
+  });
 
   @override
   State<MensaTileContent> createState() => _MensaTileContentState();

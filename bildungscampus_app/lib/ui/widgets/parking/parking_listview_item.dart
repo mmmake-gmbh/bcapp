@@ -12,8 +12,7 @@ import 'package:bildungscampus_app/core/viewmodels/parking/parkinglot_viewmodel.
 class ParkingListViewItem extends StatelessWidget {
   final ParkingLotCategory category;
 
-  const ParkingListViewItem({Key? key, required this.category})
-      : super(key: key);
+  const ParkingListViewItem({super.key, required this.category});
 
   Widget _toggleButton(BuildContext context, String buttonText,
       {Color textColor = Colors.white,
@@ -179,8 +178,7 @@ class ParkingListViewItem extends StatelessWidget {
                             width: double.infinity,
                             color: const Color.fromRGBO(245, 245, 245, 1),
                           )
-                      ]))
-                  .toList(),
+                      ])),
             ],
           ),
         ),

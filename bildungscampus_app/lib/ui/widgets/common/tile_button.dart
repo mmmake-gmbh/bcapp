@@ -14,7 +14,7 @@ class TileButton extends StatelessWidget {
   final Function(BuildContext context)? onTap;
 
   const TileButton({
-    Key? key,
+    super.key,
     required this.title,
     required this.contentColor,
     this.svgIcon,
@@ -23,7 +23,7 @@ class TileButton extends StatelessWidget {
     this.width = 100,
     this.bgColor = Colors.white,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

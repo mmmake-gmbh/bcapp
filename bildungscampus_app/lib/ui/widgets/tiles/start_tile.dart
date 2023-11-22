@@ -24,7 +24,7 @@ class StartTile extends StatelessWidget {
   final Future<bool?>? isFeatureInfoShown;
 
   const StartTile({
-    Key? key,
+    super.key,
     this.tileType,
     this.tileTitle,
     this.iconPath,
@@ -38,11 +38,11 @@ class StartTile extends StatelessWidget {
     this.padding,
     this.onTap,
     this.isFeatureInfoShown,
-  }) : super(key: key);
+  });
 
   StartTile.withBaseModel(
     BaseStartTileViewModel model, {
-    Key? key,
+    super.key,
     Color contentColor = Colors.white,
     required Locale? locale,
     required Color bgColor,
@@ -58,12 +58,11 @@ class StartTile extends StatelessWidget {
         titleColor = contentColor,
         backgroundColor = bgColor,
         navigationPath = model.navigationPath,
-        maxTitleLines = model.maxTitleLines,
-        super(key: key);
+        maxTitleLines = model.maxTitleLines;
 
   StartTile.withTextContent(
     TextTileViewModel model, {
-    Key? key,
+    super.key,
     Color contentColor = Colors.white,
     required Locale? locale,
     required Color bgColor,
@@ -86,8 +85,7 @@ class StartTile extends StatelessWidget {
           buttonTextColor: contentColor,
           textAlignment: TextAlign.center,
           onTap: onTap,
-        ),
-        super(key: key);
+        );
 
   @override
   Widget build(BuildContext context) {

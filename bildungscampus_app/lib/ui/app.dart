@@ -15,9 +15,9 @@ class MyApp extends StatelessWidget {
   final LocalSettingsDto localSettingsDto;
 
   const MyApp({
-    Key? key,
+    super.key,
     required this.localSettingsDto,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -15,13 +15,13 @@ class ParkingTileContent extends StatelessWidget {
   final Function? onTap;
 
   const ParkingTileContent({
-    Key? key,
+    super.key,
     required this.parkingCategories,
     required this.contentColor,
     required this.buttonText,
     required this.buttonTextColor,
     this.onTap,
-  }) : super(key: key);
+  });
 
   String _getCategoryTranslation(
       BuildContext context, ParkingLotCategory category) {

@@ -9,10 +9,10 @@ class ParkingTrafficLights extends StatelessWidget {
   final Color textColor;
 
   const ParkingTrafficLights({
-    Key? key,
+    super.key,
     required this.parkingModel,
     required this.textColor,
-  }) : super(key: key);
+  });
 
   Color _getCircleColor(ParkingLotLight light) {
     switch (light) {

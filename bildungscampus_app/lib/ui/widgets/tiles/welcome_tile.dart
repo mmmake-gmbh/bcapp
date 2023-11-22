@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class WelcomeTile extends StatefulWidget {
-  const WelcomeTile({Key? key, required this.firstLogin}) : super(key: key);
+  const WelcomeTile({super.key, required this.firstLogin});
 
   final bool firstLogin;
 

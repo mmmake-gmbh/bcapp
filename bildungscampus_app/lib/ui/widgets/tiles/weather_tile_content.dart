@@ -11,10 +11,10 @@ class WeatherTileContent extends StatelessWidget {
   final Color textColor;
 
   const WeatherTileContent({
-    Key? key,
+    super.key,
     required this.model,
     required this.textColor,
-  }) : super(key: key);
+  });
 
   String _getWeatherIcon(WeatherData data) {
     if (data.isRaining && data.value <= 0) {

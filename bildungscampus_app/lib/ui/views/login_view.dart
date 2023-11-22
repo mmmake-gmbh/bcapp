@@ -11,7 +11,7 @@ import '../widgets/navigation/reusable_appbars.dart';
 class LoginView extends StatelessWidget {
   final String? navigationPath;
 
-  const LoginView({Key? key, this.navigationPath}) : super(key: key);
+  const LoginView({super.key, this.navigationPath});
 
   @override
   Widget build(BuildContext context) {

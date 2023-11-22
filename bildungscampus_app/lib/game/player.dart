@@ -45,10 +45,10 @@ class Player extends SpriteComponent
 
   Player({
     required this.joystick,
-    Sprite? sprite,
-    Vector2? position,
-    Vector2? size,
-  }) : super(sprite: sprite, position: position, size: size);
+    super.sprite,
+    super.position,
+    super.size,
+  });
 
   @override
   void onMount() {

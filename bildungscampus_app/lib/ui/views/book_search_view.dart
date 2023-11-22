@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BookSearchView extends StatelessWidget {
-  const BookSearchView({Key? key}) : super(key: key);
+  const BookSearchView({super.key});
 
   @override
   Widget build(BuildContext context) {

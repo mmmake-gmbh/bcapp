@@ -13,14 +13,14 @@ class MenuListTile extends StatelessWidget {
   final Function? onTap;
 
   const MenuListTile({
-    Key? key,
+    super.key,
     required this.appMenu,
     required this.locale,
     required this.textColor,
     required this.indicatorColor,
     this.onTap,
     this.isActive = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

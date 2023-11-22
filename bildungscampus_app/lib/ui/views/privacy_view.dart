@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class PrivacyView extends StatelessWidget {
-  const PrivacyView({Key? key}) : super(key: key);
+  const PrivacyView({super.key});
 
   void _formButtonPressed(BuildContext context) async {
     await context.read<PrivacyViewModel>().acceptTerms();

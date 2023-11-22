@@ -15,13 +15,12 @@ class SimpleWebViewView extends StatefulWidget {
   final FeatureType featureType;
 
   const SimpleWebViewView(
-      {Key? key,
+      {super.key,
       required this.featureType,
       required this.title,
       required this.url,
       required this.headers,
-      this.additionalUrl})
-      : super(key: key);
+      this.additionalUrl});
   @override
   State<SimpleWebViewView> createState() => _SimpleWebViewViewState();
 }

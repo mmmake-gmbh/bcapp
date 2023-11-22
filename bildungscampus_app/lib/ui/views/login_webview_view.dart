@@ -21,12 +21,11 @@ class LoginWebViewView extends StatefulWidget {
   final bool showDrawer;
 
   const LoginWebViewView(
-      {Key? key,
+      {super.key,
       required this.titleBackup,
       required this.url,
       required this.featureType,
-      this.showDrawer = true})
-      : super(key: key);
+      this.showDrawer = true});
   @override
   State<LoginWebViewView> createState() => _LoginWebViewViewState();
 }

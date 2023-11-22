@@ -6,11 +6,11 @@ class ConditionalInkWell extends StatelessWidget {
   final Function()? onTap;
 
   const ConditionalInkWell({
-    Key? key,
+    super.key,
     required this.condition,
     required this.child,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

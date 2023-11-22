@@ -8,7 +8,7 @@ class GameOverMenu extends StatelessWidget {
   static const String id = 'GameOverMenu';
   final SpaceGame game;
 
-  const GameOverMenu({Key? key, required this.game}) : super(key: key);
+  const GameOverMenu({super.key, required this.game});
 
   @override
   Widget build(BuildContext context) {

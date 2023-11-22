@@ -19,7 +19,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 class ParkingView extends StatefulWidget {
   final ParkingLotCategory? preselectedCategory;
 
-  const ParkingView({Key? key, this.preselectedCategory}) : super(key: key);
+  const ParkingView({super.key, this.preselectedCategory});
 
   @override
   State<ParkingView> createState() => _ParkingViewState();

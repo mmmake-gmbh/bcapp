@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LocationMapView extends StatelessWidget {
-  const LocationMapView({Key? key}) : super(key: key);
+  const LocationMapView({super.key});
 
   @override
   Widget build(BuildContext context) {

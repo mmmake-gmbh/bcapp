@@ -6,8 +6,7 @@ class FlavorBanner extends StatelessWidget {
   final String? bannerName;
   final Color? bannerColor;
   const FlavorBanner(
-      {Key? key, required this.child, this.bannerName, this.bannerColor})
-      : super(key: key);
+      {super.key, required this.child, this.bannerName, this.bannerColor});
 
   @override
   Widget build(BuildContext context) {

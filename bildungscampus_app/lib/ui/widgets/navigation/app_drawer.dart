@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class AppDrawer extends StatelessWidget {
-  const AppDrawer({Key? key}) : super(key: key);
+  const AppDrawer({super.key});
 
   bool _isAppMenuItemCurrentRoute(
       ModalRoute<Object?> modalRoute, AppMenu menuItem) {
@@ -131,19 +131,17 @@ class AppDrawer extends StatelessWidget {
                     _isAppMenuItemCurrentRoute(currentModalRoute!, homeMenu),
               ),
               if (mainMenu != null)
-                ...mainMenu
-                    .map(
-                      (appMenu) => MenuListTile(
-                        appMenu: appMenu,
-                        locale: locale,
-                        textColor: AppColors.primaryOneTextColor,
-                        indicatorColor: AppColors.drawerMenuTileUnderlineColor,
-                        onTap: () => appMenuOnTap(context, appMenu),
-                        isActive: _isAppMenuItemCurrentRoute(
-                            currentModalRoute, appMenu),
-                      ),
-                    )
-                    .toList(),
+                ...mainMenu.map(
+                  (appMenu) => MenuListTile(
+                    appMenu: appMenu,
+                    locale: locale,
+                    textColor: AppColors.primaryOneTextColor,
+                    indicatorColor: AppColors.drawerMenuTileUnderlineColor,
+                    onTap: () => appMenuOnTap(context, appMenu),
+                    isActive:
+                        _isAppMenuItemCurrentRoute(currentModalRoute, appMenu),
+                  ),
+                ),
               const SizedBox(height: 20),
               Container(
                 height: 1,
@@ -152,17 +150,15 @@ class AppDrawer extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(horizontal: 16),
               ),
               const SizedBox(height: 20),
-              ...additionalMenu
-                  .map((appMenu) => MenuListTile(
-                        appMenu: appMenu,
-                        locale: locale,
-                        textColor: AppColors.drawerMenuTileUnderlineColor,
-                        indicatorColor: Colors.white,
-                        isActive: _isAppMenuItemCurrentRoute(
-                            currentModalRoute, appMenu),
-                        onTap: () => appMenuOnTap(context, appMenu),
-                      ))
-                  .toList(),
+              ...additionalMenu.map((appMenu) => MenuListTile(
+                    appMenu: appMenu,
+                    locale: locale,
+                    textColor: AppColors.drawerMenuTileUnderlineColor,
+                    indicatorColor: Colors.white,
+                    isActive:
+                        _isAppMenuItemCurrentRoute(currentModalRoute, appMenu),
+                    onTap: () => appMenuOnTap(context, appMenu),
+                  )),
               Consumer<UserViewModel>(
                 builder: (context, userViewModel, child) => Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
