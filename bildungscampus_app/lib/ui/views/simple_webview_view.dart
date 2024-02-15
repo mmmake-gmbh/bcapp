@@ -12,6 +12,7 @@ class SimpleWebViewView extends StatefulWidget {
   final String url;
   final Map<String, String> headers;
   final String? additionalUrl;
+  final bool showDrawer;
   final FeatureType featureType;
 
   const SimpleWebViewView(
@@ -20,7 +21,8 @@ class SimpleWebViewView extends StatefulWidget {
       required this.title,
       required this.url,
       required this.headers,
-      this.additionalUrl});
+      this.additionalUrl,
+      this.showDrawer = true});
   @override
   State<SimpleWebViewView> createState() => _SimpleWebViewViewState();
 }
@@ -83,7 +85,8 @@ class _SimpleWebViewViewState extends State<SimpleWebViewView> {
         context,
         widget.title,
       ),
-      drawer: const AppDrawer(),
+      resizeToAvoidBottomInset: false,
+      drawer: widget.showDrawer ? const AppDrawer() : null,
       body: FeatureView(
         featureType: widget.featureType,
         children: [

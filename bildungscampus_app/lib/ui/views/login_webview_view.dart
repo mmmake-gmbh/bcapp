@@ -74,6 +74,7 @@ class _LoginWebViewViewState extends State<LoginWebViewView> {
           },
           onPageFinished: (String url) {
             log(url);
+            log('onPageFinished');
             isLoading.value = false;
           },
           onWebResourceError: (WebResourceError error) {
@@ -82,6 +83,7 @@ class _LoginWebViewViewState extends State<LoginWebViewView> {
           onNavigationRequest: (NavigationRequest request) {
             log('req: ${request.url}');
             log('wid: ${widget.url}');
+            isLoading.value = true;
             final uri = Uri.parse(widget.url!);
 
             if (request.url.contains(uri.host) ||

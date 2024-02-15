@@ -3,18 +3,14 @@ import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/utils/localized_text_utils.dart';
 import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
-import 'package:bildungscampus_app/ui/app_router.dart';
 import 'package:bildungscampus_app/ui/views/feature_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bildungscampus_app/core/enums/parkinglot_category.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
-import 'package:bildungscampus_app/ui/shared/svg_icons.dart';
-import 'package:bildungscampus_app/ui/widgets/common/tile_button.dart';
 import 'package:bildungscampus_app/ui/widgets/navigation/reusable_appbars.dart';
 import 'package:bildungscampus_app/ui/widgets/navigation/app_drawer.dart';
 import 'package:bildungscampus_app/ui/widgets/parking/parking_listview_item.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class ParkingView extends StatefulWidget {
   final ParkingLotCategory? preselectedCategory;
@@ -30,59 +26,6 @@ class _ParkingViewState extends State<ParkingView>
   final double tilesHeight = 116;
   final double tilesSpacing = 8;
   late TabController _tabController;
-
-  Widget getTilesRow() {
-    return Row(
-      children: [
-        Expanded(
-          child: TileButton(
-            contentColor: Colors.white,
-            bgColor: AppColors.primaryOneColor,
-            title: S.of(context).parking_view_tiles_timetable_title,
-            height: tilesHeight,
-            svgIcon: SvgIcons.bus,
-            onTap: (ctx) {
-              Navigator.of(context).pushNamed(AppRouter.timetableRoute);
-            },
-          ),
-        ),
-        SizedBox(width: tilesSpacing),
-        Expanded(
-          child: TileButton(
-            contentColor: Colors.white,
-            bgColor: AppColors.primaryOneColor,
-            title: S.of(context).parking_view_tiles_campus_rad_title,
-            titleIcon: SvgIcons.externalLink,
-            height: tilesHeight,
-            svgIcon: SvgIcons.bike,
-            onTap: (ctx) {
-              final url = context.read<AppViewModel>().campusRadLink;
-              if (url != null) {
-                launchUrlString(url);
-              }
-            },
-          ),
-        ),
-        SizedBox(width: tilesSpacing),
-        Expanded(
-          child: TileButton(
-            contentColor: Colors.white,
-            bgColor: AppColors.primaryOneColor,
-            title: S.of(context).parking_view_tiles_zaeg_title,
-            titleIcon: SvgIcons.externalLink,
-            height: tilesHeight,
-            svgIcon: SvgIcons.eCar,
-            onTap: (ctx) {
-              final url = context.read<AppViewModel>().zaegLink;
-              if (url != null) {
-                launchUrlString(url);
-              }
-            },
-          ),
-        ),
-      ],
-    );
-  }
 
   @override
   void initState() {
@@ -116,6 +59,7 @@ class _ParkingViewState extends State<ParkingView>
         child: Scaffold(
           appBar: ReusableAppBars.standardAppBar(context, title),
           drawer: const AppDrawer(),
+          backgroundColor: Colors.white,
           body: FeatureView(
             featureType: FeatureType.parking,
             children: [
@@ -198,8 +142,7 @@ class _ParkingViewState extends State<ParkingView>
                                 ),
                               );
                             },
-                          ),
-                          getTilesRow()
+                          )
                         ],
                       ),
                     ),

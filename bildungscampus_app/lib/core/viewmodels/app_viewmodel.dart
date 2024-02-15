@@ -203,7 +203,11 @@ class AppViewModel extends BaseViewModel {
   }
 
   Future<bool> shouldShowFeatureInfo(
-      FeatureType type, FeatureInfo featureInfo) async {
+      FeatureType type, FeatureInfo? featureInfo) async {
+    if (featureInfo == null) {
+      return false;
+    }
+
     final packageInfo = await PackageInfo.fromPlatform();
 
     if (!StringUtils.isNewestVersion(

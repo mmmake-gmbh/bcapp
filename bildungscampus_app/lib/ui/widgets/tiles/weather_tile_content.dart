@@ -77,7 +77,7 @@ class WeatherTileContent extends StatelessWidget {
                                     '${model!.value.round()} ${model!.unit}',
                                     style: TextStyle(
                                         color: textColor,
-                                        fontSize: 24.0,
+                                        fontSize: 18.0,
                                         fontFamily: 'DINOT Bold'),
                                     maxLines: 1,
                                   ),

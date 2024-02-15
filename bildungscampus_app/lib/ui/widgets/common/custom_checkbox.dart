@@ -23,28 +23,20 @@ class CustomCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-          child: Container(
-            height: 24,
-            width: 24,
-            color: AppColors.checkBoxBgColor,
+    return Transform.scale(
+      scale: 1.5,
+      child: Checkbox(
+        value: value,
+        onChanged: onChanged,
+        fillColor: MaterialStateProperty.resolveWith(getCheckboxColor),
+        checkColor: AppColors.primaryOneColor,
+        side: BorderSide.none,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(3.0),
           ),
         ),
-        Transform.scale(
-          scale: 1.5,
-          child: Checkbox(
-              value: value,
-              onChanged: onChanged,
-              fillColor: MaterialStateProperty.resolveWith(getCheckboxColor),
-              checkColor: AppColors.primaryOneColor,
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)))),
-        )
-      ],
+      ),
     );
   }
 }

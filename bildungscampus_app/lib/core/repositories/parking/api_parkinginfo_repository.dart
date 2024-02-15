@@ -6,7 +6,7 @@ class ApiParkingInfoRepository extends BaseRepository<ParkingLot>
     implements ParkingInfoRepository {
   @override
   Future<List<ParkingLot>> getAllParkingLots() async {
-    final List<ParkingLot> item = await getItems("/parking");
+    final List<ParkingLot> item = await getItems("/parking-v2");
     return item;
   }
 

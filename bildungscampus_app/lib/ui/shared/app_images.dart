@@ -18,4 +18,6 @@ class AppImages {
       'assets/images/intro/intro_screen_payment.png';
   static const String introMap = 'assets/images/intro/intro_screen_map.png';
   static const String arSpatialLoading = 'assets/images/ar_scan_progress.gif';
+  static const String mensa = 'assets/images/mensa.png';
+  static const String logoStiftung = 'assets/images/logo_schwarz_stiftung.png';
 }

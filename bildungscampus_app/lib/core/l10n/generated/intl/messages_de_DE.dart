@@ -23,7 +23,9 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m0(email) =>
       "Wir können die ${email} nicht in anderen App öffnen.";
 
-  static String m1(url) => "Wir können die \$url nicht in anderen App öffnen.";
+  static String m1(url) => "Wir können die ${url} nicht in anderen App öffnen.";
+
+  static String m2(amount) => "${amount} FREI";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -47,30 +49,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Profil"),
         "home_view_tiles_weather_title":
             MessageLookupByLibrary.simpleMessage("Bildungscampus Wetter"),
-        "intro_booksearch_subtitle": MessageLookupByLibrary.simpleMessage(
-            "Im Online-Katalog der Bibliothek LIV findest du viele verschiedene Medien zur Ansicht und Ausleihe."),
-        "intro_booksearch_title": MessageLookupByLibrary.simpleMessage(
-            "Wo finde ich die passende Literatur für die nächste Hausarbeit?"),
-        "intro_map_subtitle": MessageLookupByLibrary.simpleMessage(
-            "Auf dem Lageplan sind Gebäude, Institutionen, Parkmöglichkeiten, Gastronomie, Services und Veranstaltungsbereiche verortet."),
-        "intro_map_title": MessageLookupByLibrary.simpleMessage(
-            "Wie finde ich mich auf dem Campus zurecht? "),
         "intro_overview2_title": MessageLookupByLibrary.simpleMessage(
-            "\"Mein Bildungscampus\" — der digitale Campus an einem Ort und jederzeit griffbereit:"),
+            "An den Campus fahren oder Alternativen planen?\nBleib Mobil, wir zeigen dir den weg."),
         "intro_overview_title": MessageLookupByLibrary.simpleMessage(
-            "\"Mein Bildungscampus\" — der digitale Campus an einem Ort und jederzeit griffbereit:"),
-        "intro_parkinglot_subtitle": MessageLookupByLibrary.simpleMessage(
-            "Die Auslastung der Parkplätze wird dir hier in Echtzeit angegeben."),
-        "intro_parkinglot_title": MessageLookupByLibrary.simpleMessage(
-            "An den Campus fahren oder Alternativen planen?"),
-        "intro_payment_subtitle": MessageLookupByLibrary.simpleMessage(
-            "Über das PaymentPortal lässt sich die CampusCard komfortabel online verwalten und aufladen \\u2014 immer und überall nur einen Klick entfernt."),
-        "intro_payment_title": MessageLookupByLibrary.simpleMessage(
-            "Wie kann ich meine CampusCard aufladen?"),
-        "intro_timetable_subtitle": MessageLookupByLibrary.simpleMessage(
-            "Mit dem Abfahrtsmonitor erreichst du auf die Minute genau alle Abfahrten von Bus und Bahn rund um den Bildungscampus."),
-        "intro_timetable_title":
-            MessageLookupByLibrary.simpleMessage("Wann fährt der nächste Bus?"),
+            "\"Mein Bildungscampus\" — der digitale Campus jederzeit griffbereit."),
         "intro_view_skip_intro":
             MessageLookupByLibrary.simpleMessage("Intro überspringen"),
         "intro_view_stop_intro":
@@ -85,6 +67,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Datenschutzerklärung"),
         "intro_view_term_of_use_part5":
             MessageLookupByLibrary.simpleMessage(" akzeptiert."),
+        "intro_welcome_view_login_button":
+            MessageLookupByLibrary.simpleMessage("Login via CampusCard"),
+        "intro_welcome_view_main_text": MessageLookupByLibrary.simpleMessage(
+            "Herzlich Willkommen\n\nbei \"Mein Bildungscampus\" - deinem mobilen Helfer rund um den Campus!"),
+        "intro_welcome_view_registration_text_part1":
+            MessageLookupByLibrary.simpleMessage("Noch keine CampusCard? "),
+        "intro_welcome_view_registration_text_part2":
+            MessageLookupByLibrary.simpleMessage("Hier registrieren"),
+        "intro_welcome_view_skip_login_button":
+            MessageLookupByLibrary.simpleMessage("Weiter ohne Login"),
         "keinzler_bike_view_title_backup":
             MessageLookupByLibrary.simpleMessage("Kienzler Fahrradbox"),
         "login_tile_button_text": MessageLookupByLibrary.simpleMessage("Login"),
@@ -98,12 +90,60 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Bibliothek"),
         "maps_building6_name": MessageLookupByLibrary.simpleMessage("Aula"),
         "maps_building8_name": MessageLookupByLibrary.simpleMessage("Mensa"),
+        "mensa_view_closed_text": MessageLookupByLibrary.simpleMessage(
+            "An diesem Tag ist geschlossen"),
+        "mensa_view_in_the_past_label_part1":
+            MessageLookupByLibrary.simpleMessage("Dieser Tag liegt in der "),
+        "mensa_view_in_the_past_label_part2":
+            MessageLookupByLibrary.simpleMessage("Vergangenheit."),
+        "mensa_view_info_content_campuscard_label":
+            MessageLookupByLibrary.simpleMessage("CampusCard Aufladestation"),
+        "mensa_view_info_content_campuscard_value":
+            MessageLookupByLibrary.simpleMessage("JA"),
+        "mensa_view_info_content_opening_hours":
+            MessageLookupByLibrary.simpleMessage("Öffnungzeiten"),
+        "mensa_view_info_content_opening_hours_value":
+            MessageLookupByLibrary.simpleMessage(
+                "Mo-Fr 11:00-14:30 Uhr\nAls Lernraum Mo-Fr 14.30-18 Uhr"),
+        "mensa_view_info_content_payment_label":
+            MessageLookupByLibrary.simpleMessage("Bezahlmöglichkeiten"),
+        "mensa_view_info_content_payment_value":
+            MessageLookupByLibrary.simpleMessage("Gästekarte Verzehr"),
+        "mensa_view_info_content_vegan_label":
+            MessageLookupByLibrary.simpleMessage("Vegan, Vegetarisch"),
+        "mensa_view_info_content_vegan_value":
+            MessageLookupByLibrary.simpleMessage("JA"),
+        "mensa_view_info_dialog_details":
+            MessageLookupByLibrary.simpleMessage("Details"),
+        "mensa_view_info_dialog_title":
+            MessageLookupByLibrary.simpleMessage("Info"),
+        "mensa_view_meal_categories_dessert":
+            MessageLookupByLibrary.simpleMessage("Dessert"),
+        "mensa_view_meal_categories_dessert_vegan":
+            MessageLookupByLibrary.simpleMessage("Dessert vegan"),
+        "mensa_view_meal_categories_meat":
+            MessageLookupByLibrary.simpleMessage("Tierisch"),
+        "mensa_view_meal_categories_soup":
+            MessageLookupByLibrary.simpleMessage("Suppentopf"),
+        "mensa_view_meal_categories_vegan":
+            MessageLookupByLibrary.simpleMessage("Vegan"),
+        "mensa_view_meal_categories_vegetarian":
+            MessageLookupByLibrary.simpleMessage("Vegetarisch"),
+        "mensa_view_timeline_menu_label":
+            MessageLookupByLibrary.simpleMessage("Speiseplan"),
+        "mensa_view_title_backup":
+            MessageLookupByLibrary.simpleMessage("Mensa"),
+        "new_flag_widget_close_button":
+            MessageLookupByLibrary.simpleMessage("Weiter"),
+        "new_flag_widget_title":
+            MessageLookupByLibrary.simpleMessage("That´s new:"),
         "parking_view_categories_guests":
             MessageLookupByLibrary.simpleMessage("Besucher:innen"),
         "parking_view_categories_staff":
             MessageLookupByLibrary.simpleMessage("Beschäftigte"),
         "parking_view_categories_students":
             MessageLookupByLibrary.simpleMessage("Studierende"),
+        "parking_view_parkinglistitem_occupancy_text": m2,
         "parking_view_tiles_campus_rad_title":
             MessageLookupByLibrary.simpleMessage("Campus Rad"),
         "parking_view_tiles_timetable_title":
@@ -172,7 +212,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "weather_above31_raining":
             MessageLookupByLibrary.simpleMessage("Heute schwül-warme"),
         "weather_between11and1":
-            MessageLookupByLibrary.simpleMessage("Heute coole"),
+            MessageLookupByLibrary.simpleMessage("Heute kühl"),
         "weather_between11and1_raining":
             MessageLookupByLibrary.simpleMessage("Heute klamm-kühle"),
         "weather_between21and11":

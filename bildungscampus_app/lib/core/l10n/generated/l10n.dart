@@ -120,10 +120,10 @@ class S {
     );
   }
 
-  /// `Heute coole`
+  /// `Heute kühl`
   String get weather_between11and1 {
     return Intl.message(
-      'Heute coole',
+      'Heute kühl',
       name: 'weather_between11and1',
       desc: '',
       args: [],
@@ -180,121 +180,21 @@ class S {
     );
   }
 
-  /// `"Mein Bildungscampus" — der digitale Campus an einem Ort und jederzeit griffbereit:`
+  /// `"Mein Bildungscampus" — der digitale Campus jederzeit griffbereit.`
   String get intro_overview_title {
     return Intl.message(
-      '"Mein Bildungscampus" — der digitale Campus an einem Ort und jederzeit griffbereit:',
+      '"Mein Bildungscampus" — der digitale Campus jederzeit griffbereit.',
       name: 'intro_overview_title',
       desc: '',
       args: [],
     );
   }
 
-  /// `"Mein Bildungscampus" — der digitale Campus an einem Ort und jederzeit griffbereit:`
+  /// `An den Campus fahren oder Alternativen planen?\nBleib Mobil, wir zeigen dir den weg.`
   String get intro_overview2_title {
     return Intl.message(
-      '"Mein Bildungscampus" — der digitale Campus an einem Ort und jederzeit griffbereit:',
+      'An den Campus fahren oder Alternativen planen?\nBleib Mobil, wir zeigen dir den weg.',
       name: 'intro_overview2_title',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `An den Campus fahren oder Alternativen planen?`
-  String get intro_parkinglot_title {
-    return Intl.message(
-      'An den Campus fahren oder Alternativen planen?',
-      name: 'intro_parkinglot_title',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Die Auslastung der Parkplätze wird dir hier in Echtzeit angegeben.`
-  String get intro_parkinglot_subtitle {
-    return Intl.message(
-      'Die Auslastung der Parkplätze wird dir hier in Echtzeit angegeben.',
-      name: 'intro_parkinglot_subtitle',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Wann fährt der nächste Bus?`
-  String get intro_timetable_title {
-    return Intl.message(
-      'Wann fährt der nächste Bus?',
-      name: 'intro_timetable_title',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Mit dem Abfahrtsmonitor erreichst du auf die Minute genau alle Abfahrten von Bus und Bahn rund um den Bildungscampus.`
-  String get intro_timetable_subtitle {
-    return Intl.message(
-      'Mit dem Abfahrtsmonitor erreichst du auf die Minute genau alle Abfahrten von Bus und Bahn rund um den Bildungscampus.',
-      name: 'intro_timetable_subtitle',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Wo finde ich die passende Literatur für die nächste Hausarbeit?`
-  String get intro_booksearch_title {
-    return Intl.message(
-      'Wo finde ich die passende Literatur für die nächste Hausarbeit?',
-      name: 'intro_booksearch_title',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Im Online-Katalog der Bibliothek LIV findest du viele verschiedene Medien zur Ansicht und Ausleihe.`
-  String get intro_booksearch_subtitle {
-    return Intl.message(
-      'Im Online-Katalog der Bibliothek LIV findest du viele verschiedene Medien zur Ansicht und Ausleihe.',
-      name: 'intro_booksearch_subtitle',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Wie kann ich meine CampusCard aufladen?`
-  String get intro_payment_title {
-    return Intl.message(
-      'Wie kann ich meine CampusCard aufladen?',
-      name: 'intro_payment_title',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Wie finde ich mich auf dem Campus zurecht? `
-  String get intro_map_title {
-    return Intl.message(
-      'Wie finde ich mich auf dem Campus zurecht? ',
-      name: 'intro_map_title',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Auf dem Lageplan sind Gebäude, Institutionen, Parkmöglichkeiten, Gastronomie, Services und Veranstaltungsbereiche verortet.`
-  String get intro_map_subtitle {
-    return Intl.message(
-      'Auf dem Lageplan sind Gebäude, Institutionen, Parkmöglichkeiten, Gastronomie, Services und Veranstaltungsbereiche verortet.',
-      name: 'intro_map_subtitle',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Über das PaymentPortal lässt sich die CampusCard komfortabel online verwalten und aufladen \u2014 immer und überall nur einen Klick entfernt.`
-  String get intro_payment_subtitle {
-    return Intl.message(
-      'Über das PaymentPortal lässt sich die CampusCard komfortabel online verwalten und aufladen \\u2014 immer und überall nur einen Klick entfernt.',
-      name: 'intro_payment_subtitle',
       desc: '',
       args: [],
     );
@@ -860,10 +760,10 @@ class S {
     );
   }
 
-  /// `Wir können die $url nicht in anderen App öffnen.`
+  /// `Wir können die {url} nicht in anderen App öffnen.`
   String fourtytwo_view_snackbar_text(String url) {
     return Intl.message(
-      'Wir können die \$url nicht in anderen App öffnen.',
+      'Wir können die $url nicht in anderen App öffnen.',
       name: 'fourtytwo_view_snackbar_text',
       desc: '',
       args: [url],
@@ -895,6 +795,296 @@ class S {
     return Intl.message(
       'Kienzler Fahrradbox',
       name: 'keinzler_bike_view_title_backup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Weiter`
+  String get new_flag_widget_close_button {
+    return Intl.message(
+      'Weiter',
+      name: 'new_flag_widget_close_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `That´s new:`
+  String get new_flag_widget_title {
+    return Intl.message(
+      'That´s new:',
+      name: 'new_flag_widget_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{amount} FREI`
+  String parking_view_parkinglistitem_occupancy_text(String amount) {
+    return Intl.message(
+      '$amount FREI',
+      name: 'parking_view_parkinglistitem_occupancy_text',
+      desc: '',
+      args: [amount],
+    );
+  }
+
+  /// `Dessert`
+  String get mensa_view_meal_categories_dessert {
+    return Intl.message(
+      'Dessert',
+      name: 'mensa_view_meal_categories_dessert',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dessert vegan`
+  String get mensa_view_meal_categories_dessert_vegan {
+    return Intl.message(
+      'Dessert vegan',
+      name: 'mensa_view_meal_categories_dessert_vegan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vegan`
+  String get mensa_view_meal_categories_vegan {
+    return Intl.message(
+      'Vegan',
+      name: 'mensa_view_meal_categories_vegan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vegetarisch`
+  String get mensa_view_meal_categories_vegetarian {
+    return Intl.message(
+      'Vegetarisch',
+      name: 'mensa_view_meal_categories_vegetarian',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tierisch`
+  String get mensa_view_meal_categories_meat {
+    return Intl.message(
+      'Tierisch',
+      name: 'mensa_view_meal_categories_meat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Suppentopf`
+  String get mensa_view_meal_categories_soup {
+    return Intl.message(
+      'Suppentopf',
+      name: 'mensa_view_meal_categories_soup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mensa`
+  String get mensa_view_title_backup {
+    return Intl.message(
+      'Mensa',
+      name: 'mensa_view_title_backup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Info`
+  String get mensa_view_info_dialog_title {
+    return Intl.message(
+      'Info',
+      name: 'mensa_view_info_dialog_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Details`
+  String get mensa_view_info_dialog_details {
+    return Intl.message(
+      'Details',
+      name: 'mensa_view_info_dialog_details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Öffnungzeiten`
+  String get mensa_view_info_content_opening_hours {
+    return Intl.message(
+      'Öffnungzeiten',
+      name: 'mensa_view_info_content_opening_hours',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mo-Fr 11:00-14:30 Uhr\nAls Lernraum Mo-Fr 14.30-18 Uhr`
+  String get mensa_view_info_content_opening_hours_value {
+    return Intl.message(
+      'Mo-Fr 11:00-14:30 Uhr\nAls Lernraum Mo-Fr 14.30-18 Uhr',
+      name: 'mensa_view_info_content_opening_hours_value',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vegan, Vegetarisch`
+  String get mensa_view_info_content_vegan_label {
+    return Intl.message(
+      'Vegan, Vegetarisch',
+      name: 'mensa_view_info_content_vegan_label',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `JA`
+  String get mensa_view_info_content_vegan_value {
+    return Intl.message(
+      'JA',
+      name: 'mensa_view_info_content_vegan_value',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CampusCard Aufladestation`
+  String get mensa_view_info_content_campuscard_label {
+    return Intl.message(
+      'CampusCard Aufladestation',
+      name: 'mensa_view_info_content_campuscard_label',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `JA`
+  String get mensa_view_info_content_campuscard_value {
+    return Intl.message(
+      'JA',
+      name: 'mensa_view_info_content_campuscard_value',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bezahlmöglichkeiten`
+  String get mensa_view_info_content_payment_label {
+    return Intl.message(
+      'Bezahlmöglichkeiten',
+      name: 'mensa_view_info_content_payment_label',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gästekarte Verzehr`
+  String get mensa_view_info_content_payment_value {
+    return Intl.message(
+      'Gästekarte Verzehr',
+      name: 'mensa_view_info_content_payment_value',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An diesem Tag ist geschlossen`
+  String get mensa_view_closed_text {
+    return Intl.message(
+      'An diesem Tag ist geschlossen',
+      name: 'mensa_view_closed_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dieser Tag liegt in der `
+  String get mensa_view_in_the_past_label_part1 {
+    return Intl.message(
+      'Dieser Tag liegt in der ',
+      name: 'mensa_view_in_the_past_label_part1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vergangenheit.`
+  String get mensa_view_in_the_past_label_part2 {
+    return Intl.message(
+      'Vergangenheit.',
+      name: 'mensa_view_in_the_past_label_part2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Speiseplan`
+  String get mensa_view_timeline_menu_label {
+    return Intl.message(
+      'Speiseplan',
+      name: 'mensa_view_timeline_menu_label',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Herzlich Willkommen\n\nbei "Mein Bildungscampus" - deinem mobilen Helfer rund um den Campus!`
+  String get intro_welcome_view_main_text {
+    return Intl.message(
+      'Herzlich Willkommen\n\nbei "Mein Bildungscampus" - deinem mobilen Helfer rund um den Campus!',
+      name: 'intro_welcome_view_main_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login via CampusCard`
+  String get intro_welcome_view_login_button {
+    return Intl.message(
+      'Login via CampusCard',
+      name: 'intro_welcome_view_login_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Weiter ohne Login`
+  String get intro_welcome_view_skip_login_button {
+    return Intl.message(
+      'Weiter ohne Login',
+      name: 'intro_welcome_view_skip_login_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Noch keine CampusCard? `
+  String get intro_welcome_view_registration_text_part1 {
+    return Intl.message(
+      'Noch keine CampusCard? ',
+      name: 'intro_welcome_view_registration_text_part1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hier registrieren`
+  String get intro_welcome_view_registration_text_part2 {
+    return Intl.message(
+      'Hier registrieren',
+      name: 'intro_welcome_view_registration_text_part2',
       desc: '',
       args: [],
     );

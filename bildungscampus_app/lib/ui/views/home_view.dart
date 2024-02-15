@@ -160,6 +160,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
       ),
       drawer: const AppDrawer(),
       extendBodyBehindAppBar: true,
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           SafeArea(

@@ -1,9 +1,12 @@
+import 'package:bildungscampus_app/core/repositories/mensa/api_mensa_repository.dart';
+import 'package:bildungscampus_app/core/repositories/mensa/mensa_repository.dart';
 import 'package:bildungscampus_app/core/repositories/startscreen/api_app_content_repository.dart';
 import 'package:bildungscampus_app/core/repositories/startscreen/app_content_repository.dart';
 import 'package:bildungscampus_app/core/services/drawer/campus_menu_service.dart';
 import 'package:bildungscampus_app/core/services/drawer/menu_service.dart';
 import 'package:bildungscampus_app/core/services/weather/api_weather_service.dart';
 import 'package:bildungscampus_app/core/services/weather/weather_service.dart';
+import 'package:bildungscampus_app/core/viewmodels/mensa_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:cidaas_flutter_sdk/cidaas_flutter_sdk.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -36,6 +39,7 @@ void setupLocator(
   locator.registerLazySingleton<SettingsService>(() => LocalSettingsService());
   locator
       .registerLazySingleton<WeatherRepository>(() => ApiWeatherRepository());
+  locator.registerLazySingleton<MensaRepository>(() => ApiMensaRepository());
   locator.registerLazySingleton<IntroRepository>(() => LocalIntroRepository());
   locator.registerLazySingleton<AppContentRepository>(
       () => ApiAppContentRepository());
@@ -48,4 +52,5 @@ void setupLocator(
       openIdConfiguration: openIdConfig));
   locator.registerLazySingleton(() => AppViewModel(secureStorage));
   locator.registerLazySingleton(() => UserViewModel(secureStorage));
+  locator.registerLazySingleton(() => MensaViewModel());
 }

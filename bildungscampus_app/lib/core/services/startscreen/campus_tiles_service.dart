@@ -62,16 +62,21 @@ class CampusTilesService implements TilesService {
           final vm = MensaTileViewModel(
             title: tileModel.title,
             iconPath: SvgIcons.mensa,
-            weeklyMenu: [], //TODO: Mensa
+            description: tileModel.text,
+            buttonText: S.of(context).tiles_button_text_more,
+            navigationPath: AppRouter.mensaRoute,
             type: TileType.big,
             featureType: FeatureType.mensa,
             featureInfo: tileModel.featureInfo,
           );
           return vm;
+
         case 'parking':
           final vm = ParkingTileViewModel(
             title: tileModel.title,
             iconPath: SvgIcons.parkinglot,
+            description: tileModel.text,
+            buttonText: S.of(context).tiles_button_text_more,
             navigationPath: AppRouter.parkingRoute,
             type: TileType.big,
             featureType: FeatureType.parking,
@@ -121,7 +126,7 @@ class CampusTilesService implements TilesService {
             description: tileModel.text,
             title: tileModel.title,
             iconPath: SvgIcons.pin,
-            type: TileType.wide,
+            type: TileType.big,
             featureType: FeatureType.locationMap,
             featureInfo: tileModel.featureInfo,
           );

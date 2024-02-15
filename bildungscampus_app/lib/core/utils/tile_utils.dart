@@ -18,8 +18,6 @@ import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
 import 'package:bildungscampus_app/ui/shared/svg_icons.dart';
-import 'package:bildungscampus_app/ui/widgets/tiles/mensa_tile_content.dart';
-import 'package:bildungscampus_app/ui/widgets/tiles/parking_tile_content.dart';
 import 'package:bildungscampus_app/ui/widgets/tiles/start_tile.dart';
 import 'package:bildungscampus_app/ui/widgets/tiles/text_tile_content.dart';
 import 'package:bildungscampus_app/ui/widgets/tiles/weather_tile_content.dart';
@@ -54,44 +52,30 @@ class TileUtils {
         ),
       );
     } else if (model is MensaTileViewModel) {
-      return StartTile.withBaseModel(
+      return StartTile.withTextContent(
         model,
         locale: locale,
         bgColor: AppColors.primaryTwoColor,
+        contentColor: Colors.white,
         isFullTileTap: false,
         isFeatureInfoShown:
             _isFeatureInfoShown(context, model.featureInfo, model.featureType),
-        child: MensaTileContent(
-          weeklyMenu: model.weeklyMenu,
-          activeTabColor: AppColors.primaryOneColor,
-          contentColor: Colors.white,
-          unselectedTabColor: Colors.white,
-        ),
+        onTap: () {
+          Navigator.of(context).pushNamed(model.navigationPath);
+        },
       );
     } else if (model is ParkingTileViewModel) {
-      onTapFunction() => Navigator.of(context).pushNamed(AppRouter.parkingRoute,
-          arguments: model.selectedParkingCategory!);
-
-      return ChangeNotifierProvider<ParkingTileViewModel>.value(
-        value: model,
-        builder: (ctx, child) => StartTile.withBaseModel(
-          model,
-          locale: locale,
-          bgColor: AppColors.parkingTileBgColor,
-          isFullTileTap: false,
-          onTap: onTapFunction,
-          isFeatureInfoShown: _isFeatureInfoShown(
-              context, model.featureInfo, model.featureType),
-          child: Consumer<ParkingTileViewModel>(
-            builder: (ctx, model, _) => ParkingTileContent(
-              parkingCategories: model.parkingCategories,
-              contentColor: Colors.white,
-              buttonText: S.of(context).tiles_button_text_more,
-              buttonTextColor: Colors.white,
-              onTap: onTapFunction,
-            ),
-          ),
-        ),
+      return StartTile.withTextContent(
+        model,
+        locale: locale,
+        bgColor: AppColors.parkingTileBgColor,
+        contentColor: Colors.white,
+        isFullTileTap: true,
+        isFeatureInfoShown:
+            _isFeatureInfoShown(context, model.featureInfo, model.featureType),
+        onTap: () {
+          Navigator.of(context).pushNamed(model.navigationPath);
+        },
       );
     } else if (model is CampusTileViewModel) {
       return StartTile.withTextContent(

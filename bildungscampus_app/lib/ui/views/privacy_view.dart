@@ -26,7 +26,20 @@ class PrivacyView extends StatelessWidget {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        color: AppColors.primaryOneColor,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            stops: [
+              0.5,
+              1,
+            ],
+            colors: [
+              Color.fromRGBO(29, 61, 106, 1),
+              Color.fromRGBO(96, 169, 214, 1)
+            ],
+          ),
+        ),
         padding: const EdgeInsets.symmetric(horizontal: 40.0),
         child: SafeArea(
           child: FutureBuilder(
@@ -152,10 +165,12 @@ class PrivacyView extends StatelessWidget {
                             ? null
                             : () => _formButtonPressed(context),
                         style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.primaryTwoColor,
-                                textStyle:
-                                    Theme.of(context).textTheme.bodyLarge!)
-                            .copyWith(
+                          backgroundColor: AppColors.primaryTwoColor,
+                          textStyle: Theme.of(context).textTheme.bodyLarge!,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ).copyWith(
                           backgroundColor:
                               MaterialStateProperty.resolveWith<Color>(
                             (Set<MaterialState> states) {

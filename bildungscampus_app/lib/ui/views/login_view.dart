@@ -2,6 +2,7 @@ import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/locator.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
+import 'package:bildungscampus_app/ui/shared/app_colors.dart';
 import 'package:cidaas_flutter_sdk/cidaas_flutter_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +23,7 @@ class LoginView extends StatelessWidget {
       ),
       extendBody: true,
       extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: RepositoryProvider.value(
           value: locator<CidaasLoginProvider>(),
@@ -29,9 +31,9 @@ class LoginView extends StatelessWidget {
             reRouteToAfterLogin: navigationPath ?? AppRouter.homeRoute,
             customActionAfterLogin: () async =>
                 await context.read<UserViewModel>().initLoggedInData(),
-            splashScreen: const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
+            splashScreen: const Center(
+              child: CircularProgressIndicator(
+                color: AppColors.primaryOneColor,
               ),
             ),
           ),

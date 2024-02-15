@@ -20,36 +20,6 @@ class LocalIntroRepository implements IntroRepository {
         imagePath: AppImages.introOverview2,
         imageTitle: '',
       ),
-      Intro(
-        title: S.of(context).intro_parkinglot_title,
-        subtitle: S.of(context).intro_parkinglot_subtitle,
-        imagePath: AppImages.introParkinglot,
-        imageTitle: '',
-      ),
-      Intro(
-        title: S.of(context).intro_timetable_title,
-        subtitle: S.of(context).intro_timetable_subtitle,
-        imagePath: AppImages.introTimetableMonitor,
-        imageTitle: '',
-      ),
-      Intro(
-        title: S.of(context).intro_booksearch_title,
-        subtitle: S.of(context).intro_booksearch_subtitle,
-        imagePath: AppImages.introBookSearch,
-        imageTitle: '',
-      ),
-      Intro(
-        title: S.of(context).intro_payment_title,
-        subtitle: S.of(context).intro_payment_subtitle,
-        imagePath: AppImages.introPayment,
-        imageTitle: '',
-      ),
-      Intro(
-        title: S.of(context).intro_map_title,
-        subtitle: S.of(context).intro_map_subtitle,
-        imagePath: AppImages.introMap,
-        imageTitle: '',
-      ),
     ];
     return pages;
   }

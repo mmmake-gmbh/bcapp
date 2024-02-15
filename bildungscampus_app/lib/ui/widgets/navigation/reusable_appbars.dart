@@ -5,6 +5,11 @@ import 'package:bildungscampus_app/ui/shared/app_colors.dart';
 import 'package:bildungscampus_app/ui/shared/app_images.dart';
 
 class ReusableAppBars {
+  static TextStyle standardTextStyle = const TextStyle(
+    color: Colors.white,
+    fontSize: 20.0,
+  );
+
   static AppBar transparentAppBar({bool whiteLogo = false}) {
     final logo = whiteLogo ? AppImages.logoWhite : AppImages.logoBlue;
     final backArrowColor = whiteLogo ? Colors.white : AppColors.primaryOneColor;
@@ -36,31 +41,32 @@ class ReusableAppBars {
         offset: const Offset(0, 2),
         child: Text(
           title,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20.0,
-          ),
+          style: standardTextStyle,
           textAlign: TextAlign.left,
         ),
       ),
       titleSpacing: 0,
+      iconTheme: const IconThemeData(
+        color: Colors.white,
+      ),
     );
   }
 
   static AppBar standardAppBar(BuildContext context, String title) {
     return AppBar(
+      backgroundColor: AppColors.primaryOneColor,
       title: Transform.translate(
         offset: const Offset(0, 2),
         child: Text(
           title,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20.0,
-          ),
+          style: standardTextStyle,
           textAlign: TextAlign.left,
         ),
       ),
       titleSpacing: 0,
+      iconTheme: const IconThemeData(
+        color: Colors.white,
+      ),
     );
   }
 

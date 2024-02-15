@@ -1,15 +1,11 @@
 import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/models/common/intro.dart';
 import 'package:bildungscampus_app/core/repositories/intro/intro_repository.dart';
-import 'package:bildungscampus_app/core/viewmodels/privacy_viewmodel.dart';
 import 'package:bildungscampus_app/locator.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class IntroView extends StatefulWidget {
   const IntroView({super.key});
@@ -53,19 +49,33 @@ class _InitialViewState extends State<IntroView> {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        color: AppColors.primaryOneColor,
-        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 0),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            stops: [
+              0.5,
+              1,
+            ],
+            colors: [
+              Color.fromRGBO(29, 61, 106, 1),
+              Color.fromRGBO(96, 169, 214, 1)
+            ],
+          ),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
         child: SafeArea(
           child: Column(
             children: [
-              const SizedBox(height: 40),
               Expanded(
                 child: CarouselSlider.builder(
-                    carouselController: _controller,
-                    itemCount: _introPages.length,
-                    itemBuilder: (ctx, idx, readIndex) {
-                      final page = _introPages[idx];
-                      return Column(
+                  carouselController: _controller,
+                  itemCount: _introPages.length,
+                  itemBuilder: (ctx, idx, readIndex) {
+                    final page = _introPages[idx];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Column(
@@ -105,92 +115,41 @@ class _InitialViewState extends State<IntroView> {
                               Expanded(
                                 child: Image.asset(
                                   page.imagePath,
+                                  fit: BoxFit.fitHeight,
                                 ),
                               )
                             ]),
                           ),
                         ],
-                      );
-                    },
-                    options: CarouselOptions(
-                      enableInfiniteScroll: false,
-                      height: height,
-                      viewportFraction: 1.0,
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          _currentIndex = index;
-                        });
-                      },
-                    )),
-              ),
-              const SizedBox(height: 30),
-              SizedBox(
-                width: double.infinity,
-                height: 48,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, AppRouter.privacyRoute);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primaryTwoColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6), // <-- Radius
                       ),
-                    ),
-                    child: Text(
-                      _getButtonText(),
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            color: Colors.white,
-                            fontSize: 18.0,
-                          ),
-                    ),
+                    );
+                  },
+                  options: CarouselOptions(
+                    enableInfiniteScroll: false,
+                    height: height,
+                    viewportFraction: 1,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        _currentIndex = index;
+                      });
+                    },
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(),
-                    children: [
-                      TextSpan(
-                        text: S.of(context).intro_view_term_of_use_part1,
+              const SizedBox(height: 10),
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRouter.privacyRoute);
+                },
+                child: Text(
+                  _getButtonText(),
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.white60,
+                        color: Colors.white60,
+                        fontSize: 18.0,
                       ),
-                      TextSpan(
-                        text: S.of(context).intro_view_term_of_use_part2,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(fontWeight: FontWeight.bold),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            final url =
-                                context.read<PrivacyViewModel>().termsOfUseLink;
-                            launchUrlString(url);
-                          },
-                      ),
-                      TextSpan(
-                          text: S.of(context).intro_view_term_of_use_part3),
-                      TextSpan(
-                        text: S.of(context).intro_view_term_of_use_part4,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(fontWeight: FontWeight.bold),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            final url = context
-                                .read<PrivacyViewModel>()
-                                .privacyAgreementLink;
-                            launchUrlString(url);
-                          },
-                      ),
-                      TextSpan(
-                          text: S.of(context).intro_view_term_of_use_part5),
-                    ]),
+                ),
               ),
               const SizedBox(height: 35),
               Row(
@@ -200,8 +159,8 @@ class _InitialViewState extends State<IntroView> {
                     .map((index) {
                   return InkWell(
                     child: Container(
-                      width: 6.0,
-                      height: 6.0,
+                      width: 12.0,
+                      height: 12.0,
                       margin: const EdgeInsets.symmetric(
                         vertical: 10.0,
                         horizontal: 6.0,
@@ -209,7 +168,7 @@ class _InitialViewState extends State<IntroView> {
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: _currentIndex == index
-                              ? AppColors.initialIndicatorActiveColor
+                              ? const Color(0xFF11C1B0)
                               : AppColors.initialIndicatorColor),
                     ),
                     onTap: () {
@@ -218,7 +177,6 @@ class _InitialViewState extends State<IntroView> {
                   );
                 }).toList(),
               ),
-              const SizedBox(height: 40),
             ],
           ),
         ),

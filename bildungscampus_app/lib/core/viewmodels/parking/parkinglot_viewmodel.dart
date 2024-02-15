@@ -6,7 +6,7 @@ import 'package:bildungscampus_app/core/models/parking/parkinglot.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class ParkingLotViewModel extends ChangeNotifier {
-  final ParkingLotV2 parkingLot;
+  final ParkingLot parkingLot;
   bool _isExpanded;
 
   bool get isExpanded => _isExpanded;

@@ -1,4 +1,5 @@
 import 'package:bildungscampus_app/core/enums/feature_type.dart';
+import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/models/common/feature_info.dart';
 import 'package:bildungscampus_app/core/utils/localized_text_utils.dart';
 import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
@@ -10,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class NewFlag extends StatefulWidget {
-  final FeatureInfo featureInfo;
+  final FeatureInfo? featureInfo;
   final FeatureType featureType;
 
   const NewFlag(
@@ -58,7 +59,7 @@ class _NewFlagState extends State<NewFlag> {
                 children: [
                   const SizedBox(height: 40),
                   Text(
-                    'That´s new:',
+                    S.of(context).new_flag_widget_title,
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontSize: 24.0,
                           fontFamily: 'DINOT Bold',
@@ -69,9 +70,9 @@ class _NewFlagState extends State<NewFlag> {
                   Expanded(
                     child: CarouselSlider.builder(
                         carouselController: _controller,
-                        itemCount: widget.featureInfo.slides.length,
+                        itemCount: widget.featureInfo!.slides.length,
                         itemBuilder: (ctx, idx, readIndex) {
-                          final page = widget.featureInfo.slides[idx];
+                          final page = widget.featureInfo!.slides[idx];
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -124,10 +125,10 @@ class _NewFlagState extends State<NewFlag> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children:
-                        Iterable<int>.generate(widget.featureInfo.slides.length)
-                            .toList()
-                            .map((index) {
+                    children: Iterable<int>.generate(
+                            widget.featureInfo!.slides.length)
+                        .toList()
+                        .map((index) {
                       return InkWell(
                         child: Container(
                           width: 6.0,
@@ -160,18 +161,20 @@ class _NewFlagState extends State<NewFlag> {
                           context
                               .read<AppViewModel>()
                               .saveFeatureInfoReadStatus(
-                                  widget.featureType, widget.featureInfo);
+                                  widget.featureType, widget.featureInfo!);
                           setState(() {});
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.newFlagButtonBgColor,
                           shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(6), // <-- Radius
+                            borderRadius: BorderRadius.circular(6),
                           ),
                         ),
                         child: Text(
-                          'Weiter'.toUpperCase(),
+                          S
+                              .of(context)
+                              .new_flag_widget_close_button
+                              .toUpperCase(),
                           style:
                               Theme.of(context).textTheme.bodyLarge!.copyWith(
                                     color: Colors.white,

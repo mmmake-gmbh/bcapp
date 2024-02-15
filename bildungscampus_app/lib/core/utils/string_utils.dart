@@ -20,3 +20,12 @@ class StringUtils {
     return true;
   }
 }
+
+extension IsNullOrEmptyCompare on String? {
+  bool isEmptyOrNull() {
+    if (this == null) {
+      return true;
+    }
+    return this!.isEmpty;
+  }
+}

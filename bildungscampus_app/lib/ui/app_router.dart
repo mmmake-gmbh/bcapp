@@ -6,9 +6,11 @@ import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
 import 'package:bildungscampus_app/ui/views/book_search_view.dart';
 import 'package:bildungscampus_app/ui/views/contact_view.dart';
 import 'package:bildungscampus_app/ui/views/fourty_two_view.dart';
+import 'package:bildungscampus_app/ui/views/intro_welcome_view.dart';
 import 'package:bildungscampus_app/ui/views/location_map_view.dart';
 import 'package:bildungscampus_app/ui/views/login_view.dart';
 import 'package:bildungscampus_app/ui/views/login_webview_view.dart';
+import 'package:bildungscampus_app/ui/views/mensa_view.dart';
 import 'package:bildungscampus_app/ui/views/privacy_view.dart';
 import 'package:bildungscampus_app/ui/views/setting_view.dart';
 import 'package:bildungscampus_app/ui/views/setting_web_view.dart';
@@ -22,9 +24,11 @@ import 'package:bildungscampus_app/core/configs/flavor_config.dart';
 import 'package:provider/provider.dart';
 
 class AppRouter {
-  static const String initialRoute = "/initial";
+  static const String initialRoute = "/welcome";
+  static const String introRoute = "/intro";
   static const String homeRoute = "/";
   static const String parkingRoute = "/parking";
+  static const String mensaRoute = "/mensa";
   static const String privacyRoute = "/privacy";
   static const String timetableRoute = "/timetable";
   static const String locationMapRoute = "/locationmap";
@@ -41,6 +45,12 @@ class AppRouter {
     switch (settings.name) {
       case initialRoute:
         return MaterialPageRoute(
+          builder: (_) =>
+              _setupProvidersAndFlavorBanner(const IntroWelcomeView()),
+          settings: settings,
+        );
+      case introRoute:
+        return MaterialPageRoute(
           builder: (_) => _setupProvidersAndFlavorBanner(const IntroView()),
           settings: settings,
         );
@@ -56,6 +66,11 @@ class AppRouter {
           builder: (_) => _setupProvidersAndFlavorBanner(ParkingView(
             preselectedCategory: args,
           )),
+          settings: settings,
+        );
+      case mensaRoute:
+        return MaterialPageRoute(
+          builder: (_) => _setupProvidersAndFlavorBanner(const MensaView()),
           settings: settings,
         );
       case privacyRoute:

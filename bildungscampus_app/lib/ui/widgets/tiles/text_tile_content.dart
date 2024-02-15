@@ -45,16 +45,20 @@ class TextTileContent extends StatelessWidget {
         ),
         Align(
           alignment: Alignment.topRight,
-          child: IconButton(
-            onPressed: onTap as void Function()?,
-            alignment: Alignment.bottomRight,
-            padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(),
-            icon: SvgPicture.asset(
-              SvgIcons.arrowRight,
-              colorFilter: ColorFilter.mode(textColor, BlendMode.srcIn),
-              height: 16.0,
-              width: 16.0,
+          child: SizedBox(
+            height: 16.0,
+            width: 16.0,
+            child: IconButton(
+              onPressed: onTap as void Function()?,
+              alignment: Alignment.bottomRight,
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
+              icon: SvgPicture.asset(
+                SvgIcons.arrowRight,
+                colorFilter: ColorFilter.mode(textColor, BlendMode.srcIn),
+                height: 16.0,
+                width: 16.0,
+              ),
             ),
           ),
         ),

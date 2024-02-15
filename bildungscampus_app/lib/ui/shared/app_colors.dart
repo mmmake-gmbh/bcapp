@@ -64,6 +64,11 @@ class AppColors {
   static const Color parkingViewDisabledButtonColor =
       Color.fromARGB(255, 224, 224, 224);
   static const Color parkingViewBorderColor = Color.fromRGBO(226, 233, 242, 1);
+  static const Color parkingViewIconsColor = Color.fromRGBO(115, 115, 115, 1);
+  static const Color parkingViewIconsBgColor = Color.fromRGBO(250, 250, 250, 1);
+  static const Color parkingViewIconsTextColor = Color.fromRGBO(0, 200, 83, 1);
+  static const Color parkingViewIconsSeparatorColor =
+      Color.fromRGBO(27, 61, 106, 0.05);
 
   static const Color parkingLightGreen = Color.fromRGBO(76, 175, 80, 1);
   static const Color parkingLightYellow = Color.fromRGBO(255, 204, 0, 1);

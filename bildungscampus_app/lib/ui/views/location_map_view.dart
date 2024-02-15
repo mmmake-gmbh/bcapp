@@ -29,6 +29,7 @@ class LocationMapView extends StatelessWidget {
       featureType: FeatureType.locationMap,
       title: title,
       url: url,
+      showDrawer: false,
       headers: const {},
     );
   }

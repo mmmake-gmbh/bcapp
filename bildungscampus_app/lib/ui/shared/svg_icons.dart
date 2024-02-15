@@ -13,6 +13,7 @@ class SvgIcons {
   static const String bus = 'assets/icons/bus.svg';
   static const String car = 'assets/icons/car.svg';
   static const String campusCard = 'assets/icons/campuscard.svg';
+  static const String dessert = 'assets/icons/dessert.svg';
   static const String eCar = 'assets/icons/e-car.svg';
   static const String events = 'assets/icons/events.svg';
   static const String externalLink = 'assets/icons/external-link.svg';
@@ -26,10 +27,16 @@ class SvgIcons {
   static const String pin = 'assets/icons/pin.svg';
   static const String sbahn = 'assets/icons/sbahn.svg';
   static const String school = 'assets/icons/school.svg';
+  static const String soup = 'assets/icons/soup.svg';
+  static const String thunder = 'assets/icons/thunder.svg';
+  static const String meat = 'assets/icons/tierisch.svg';
   static const String train = 'assets/icons/train.svg';
   static const String tram = 'assets/icons/tram.svg';
   static const String ungroup = 'assets/icons/ungroup.svg';
+  static const String vegan = 'assets/icons/vegan.svg';
+  static const String vegetarian = 'assets/icons/vegetarian.svg';
   static const String weatherSonny = 'assets/icons/weather_sonny.svg';
   static const String weatherRainy = 'assets/icons/weather_rainy.svg';
   static const String weatherSnowy = 'assets/icons/weather_snowy.svg';
+  static const String wheelchair = 'assets/icons/wheelchair.svg';
 }
