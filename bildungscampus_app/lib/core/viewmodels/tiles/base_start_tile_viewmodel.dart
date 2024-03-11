@@ -4,10 +4,11 @@ import 'package:bildungscampus_app/core/enums/user_type.dart';
 import 'package:bildungscampus_app/core/models/common/feature_info.dart';
 import 'package:bildungscampus_app/core/models/common/localized_text.dart';
 import 'package:bildungscampus_app/core/viewmodels/base_viewmodel.dart';
+import 'package:flutter/widgets.dart';
 
 class BaseStartTileViewModel extends BaseViewModel {
   final List<LocalizedText> title;
-  final String iconPath;
+  final IconData? icon;
   final String navigationPath;
   final TileType type;
   final FeatureType featureType;
@@ -17,7 +18,7 @@ class BaseStartTileViewModel extends BaseViewModel {
 
   BaseStartTileViewModel({
     required this.title,
-    required this.iconPath,
+    required this.icon,
     required this.navigationPath,
     required this.type,
     required this.featureType,

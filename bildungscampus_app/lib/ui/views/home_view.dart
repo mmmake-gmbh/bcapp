@@ -4,14 +4,15 @@ import 'dart:io';
 import 'package:bildungscampus_app/core/enums/feature_type.dart';
 import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/models/common/feature_info.dart';
+import 'package:bildungscampus_app/core/models/weather/weather_data.dart';
 import 'package:bildungscampus_app/core/utils/tile_utils.dart';
 import 'package:bildungscampus_app/core/viewmodels/base_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/privacy_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
 import 'package:bildungscampus_app/ui/shared/svg_icons.dart';
 import 'package:bildungscampus_app/ui/widgets/common/new_flag.dart';
 import 'package:bildungscampus_app/ui/widgets/common/standard_error_dialog.dart';
-import 'package:bildungscampus_app/ui/widgets/navigation/reusable_appbars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -20,9 +21,9 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:bildungscampus_app/core/enums/tile_type.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/base_start_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
-import 'package:bildungscampus_app/ui/widgets/navigation/app_drawer.dart';
 import 'package:bildungscampus_app/ui/shared/app_images.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -86,6 +87,15 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
     super.dispose();
   }
 
+  String _getWeatherIcon(WeatherData data) {
+    if (data.isRaining && data.value <= 0) {
+      return SvgIcons.weatherSnowy;
+    } else if (data.isRaining && data.value > 0) {
+      return SvgIcons.weatherRainy;
+    }
+    return SvgIcons.weatherSonny;
+  }
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
@@ -136,9 +146,106 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
 
     return Scaffold(
       key: scaffoldKey,
-      appBar: ReusableAppBars.lightAppBarWithLogo(
-        context,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        toolbarOpacity: 0.9,
+        leadingWidth: 85,
+        leading: Selector<AppViewModel, WeatherData?>(
+          selector: (context, viewModel) => viewModel.currentWeather,
+          builder: (ctx, model, _) {
+            if (model == null) {
+              return const SizedBox.shrink();
+            }
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Row(
+                children: [
+                  SvgPicture.asset(
+                    _getWeatherIcon(model),
+                    height: 24,
+                    alignment: Alignment.center,
+                    colorFilter: const ColorFilter.mode(
+                        Color(0xFF3B3B3B), BlendMode.srcIn),
+                  ),
+                  const SizedBox(
+                    width: 2,
+                  ),
+                  Text(
+                    "${model.value.round()}°",
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Color(0xFF3B3B3B),
+                      fontFamily: "DIN OT",
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+        title: Center(
+          child: Transform.translate(
+            offset: const Offset(5, 0),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: SvgPicture.asset(
+                SvgIcons.logo,
+                alignment: Alignment.center,
+              ),
+            ),
+          ),
+        ),
         actions: [
+          Selector<UserViewModel, Locale?>(
+            selector: (_, viewModel) => viewModel.locale,
+            builder: (context, viewModel, _) => PopupMenuButton<Locale>(
+              icon: Text(
+                viewModel?.languageCode.toUpperCase() ?? "DE",
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: Color(0xFF3B3B3B),
+                  fontFamily: "DIN OT",
+                  fontWeight: FontWeight.w700,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              onSelected: (item) {
+                Provider.of<UserViewModel>(context, listen: false)
+                    .saveLanguage(item);
+              },
+              itemBuilder: (context) => S.delegate.supportedLocales
+                  .where((locale) =>
+                      locale.languageCode != viewModel?.languageCode)
+                  .map(
+                    (locale) => PopupMenuItem<Locale>(
+                      value: locale,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            locale.languageCode.toUpperCase(),
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Color(0xFF3B3B3B),
+                              fontFamily: "DIN OT",
+                              fontWeight: FontWeight.w700,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          if (SvgIcons.flagList[
+                                  locale.languageCode.toLowerCase()] !=
+                              null)
+                            SvgPicture.asset(SvgIcons
+                                .flagList[locale.languageCode.toLowerCase()]!),
+                        ],
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ),
           IconButton(
             icon: SvgPicture.asset(
               SvgIcons.accountCircleFilled,
@@ -157,13 +264,16 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
             },
           ),
         ],
+        iconTheme: const IconThemeData(
+          color: AppColors.homeAppBarColor,
+        ),
       ),
-      drawer: const AppDrawer(),
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
       body: Stack(
         children: [
           SafeArea(
+            bottom: false,
             child: SizedBox(
               height: double.infinity,
               child: Stack(
@@ -196,13 +306,58 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
                         physics: Platform.isIOS
                             ? const AlwaysScrollableScrollPhysics()
                             : const BouncingScrollPhysics(),
-                        child: StaggeredGrid.count(
-                          crossAxisCount: 4,
-                          axisDirection: AxisDirection.down,
-                          mainAxisSpacing: 16.0,
-                          crossAxisSpacing: 16.0,
-                          children: _getTiles(
-                              model.tiles!, userModel.locale, context),
+                        child: Column(
+                          children: [
+                            StaggeredGrid.count(
+                              crossAxisCount: 4,
+                              axisDirection: AxisDirection.down,
+                              mainAxisSpacing: 16.0,
+                              crossAxisSpacing: 16.0,
+                              children: _getTiles(
+                                  model.tiles!, userModel.locale, context),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 6, right: 6, top: 12),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  InkWell(
+                                    onTap: () => Navigator.of(context)
+                                        .pushNamed(AppRouter.contactRoute),
+                                    child: Text(
+                                      S.of(context).contact_view_appmenu_title,
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      final url = context
+                                          .read<PrivacyViewModel>()
+                                          .privacyAgreementLink;
+                                      launchUrlString(url);
+                                    },
+                                    child: Text(
+                                      S.of(context).privacy_view_appmenu_title,
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      final url = context
+                                          .read<PrivacyViewModel>()
+                                          .termsOfUseLink;
+                                      launchUrlString(url);
+                                    },
+                                    child: Text(
+                                      S
+                                          .of(context)
+                                          .termsofuse_view_appmenu_title,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     );

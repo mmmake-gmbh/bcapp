@@ -73,12 +73,12 @@ class _InitialViewState extends State<IntroView> {
                   itemCount: _introPages.length,
                   itemBuilder: (ctx, idx, readIndex) {
                     final page = _introPages[idx];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Column(
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: Column(
                             children: [
                               Text(
                                 page.title,
@@ -107,21 +107,21 @@ class _InitialViewState extends State<IntroView> {
                                 ),
                             ],
                           ),
-                          const SizedBox(height: 30),
-                          Expanded(
-                            child: Column(children: [
-                              if (page.imageTitle.isNotEmpty)
-                                Text(page.imageTitle),
-                              Expanded(
-                                child: Image.asset(
-                                  page.imagePath,
-                                  fit: BoxFit.fitHeight,
-                                ),
-                              )
-                            ]),
-                          ),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(height: 30),
+                        Expanded(
+                          child: Column(children: [
+                            if (page.imageTitle.isNotEmpty)
+                              Text(page.imageTitle),
+                            Expanded(
+                              child: Image.asset(
+                                page.imagePath,
+                                fit: BoxFit.fitWidth,
+                              ),
+                            )
+                          ]),
+                        ),
+                      ],
                     );
                   },
                   options: CarouselOptions(

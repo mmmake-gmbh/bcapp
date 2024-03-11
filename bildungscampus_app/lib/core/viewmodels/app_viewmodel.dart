@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:bildungscampus_app/core/enums/feature_type.dart';
 import 'package:bildungscampus_app/core/enums/parkinglot_category.dart';
 import 'package:bildungscampus_app/core/enums/viewstate.dart';
-import 'package:bildungscampus_app/core/models/common/app_menu.dart';
 import 'package:bildungscampus_app/core/models/common/feature_info.dart';
 import 'package:bildungscampus_app/core/models/common/localized_text.dart';
 import 'package:bildungscampus_app/core/models/info/campus_info.dart';
@@ -12,7 +11,6 @@ import 'package:bildungscampus_app/core/models/info/external_link.dart';
 import 'package:bildungscampus_app/core/models/startscreen/app_content.dart';
 import 'package:bildungscampus_app/core/models/weather/weather_data.dart';
 import 'package:bildungscampus_app/core/repositories/startscreen/app_content_repository.dart';
-import 'package:bildungscampus_app/core/services/drawer/menu_service.dart';
 import 'package:bildungscampus_app/core/services/startscreen/tiles_service.dart';
 import 'package:bildungscampus_app/core/services/weather/weather_service.dart';
 import 'package:bildungscampus_app/core/utils/string_utils.dart';
@@ -44,11 +42,9 @@ class AppViewModel extends BaseViewModel {
       locator<AppContentRepository>();
   final WeatherService _weatherService = locator<WeatherService>();
   final TilesService _tilesService = locator<TilesService>();
-  final MenuService _menuService = locator<MenuService>();
   late FlutterSecureStorage _secureStorage;
 
   List<BaseStartTileViewModel>? _tiles;
-  List<AppMenu>? _mainMenu;
   List<ParkingLotViewModel>? _parkingLots;
   ContactInfoV2? _contactInfo;
   CampusInfoV2? _campusInfo;
@@ -57,7 +53,6 @@ class AppViewModel extends BaseViewModel {
   FeatureInfo? _overallFeatureInfo;
 
   List<BaseStartTileViewModel>? get tiles => _tiles;
-  List<AppMenu>? get mainMenu => _mainMenu;
   ContactInfoV2? get contactInfo => _contactInfo;
   CampusInfoV2? get campusInfo => _campusInfo;
   List<ExternalLink>? get externalLinks => _externalLinks;
@@ -153,11 +148,6 @@ class AppViewModel extends BaseViewModel {
       final menu = content.tiles.where((tile) => tile.showInMenu).toList();
       menu.sort((a, b) => a.menuOrder.compareTo(b.menuOrder));
 
-      _mainMenu = menu
-          .map((menu) => _menuService.mapViewModel(menu))
-          .where((menu) => UserTypeUtils.isUserTypedAllowed(
-              menu.allowedUserType, user.userType))
-          .toList();
       _contactInfo = content.contactInfo;
       _campusInfo = content.campusInfo;
       _externalLinks = content.externalLinks;
@@ -166,11 +156,11 @@ class AppViewModel extends BaseViewModel {
   }
 
   List<LocalizedText> getAppMenuTitle(FeatureType type) {
-    if (_mainMenu != null &&
-        _mainMenu!.any((element) => element.type == type)) {
-      final selectedMainMenu =
-          _mainMenu!.firstWhere((elem) => elem.type == type);
-      return selectedMainMenu.title;
+    if (_tiles != null &&
+        _tiles!.any((element) => element.featureType == type)) {
+      final selectedTile =
+          _tiles!.firstWhere((elem) => elem.featureType == type);
+      return selectedTile.title;
     }
     return [];
   }

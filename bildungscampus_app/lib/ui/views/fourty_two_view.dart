@@ -4,7 +4,6 @@ import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
 import 'package:bildungscampus_app/game/screens/start_game.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
 import 'package:bildungscampus_app/ui/views/feature_view.dart';
-import 'package:bildungscampus_app/ui/widgets/navigation/app_drawer.dart';
 import 'package:bildungscampus_app/ui/widgets/navigation/reusable_appbars.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +21,6 @@ class FourtyTwoView extends StatelessWidget {
         context,
         '42',
       ),
-      drawer: const AppDrawer(),
       body: FeatureView(
         featureType: FeatureType.fourtyTwo,
         children: [

@@ -35,53 +35,36 @@ class AppColors {
   static const Color settingListTileSeparatorColor =
       Color.fromARGB(255, 202, 196, 208);
 
-  static const Color weatherTileBgColor = Color.fromARGB(255, 234, 242, 246);
-  static const Color weatherTileTextColor = Color.fromARGB(255, 59, 59, 59);
-  static const Color weatherIconColor = settingListTileTitleColor;
-  static const Color campusCardTileBgColor = Color.fromARGB(255, 5, 162, 155);
-  static const Color campusTileBgColor = Color.fromARGB(255, 226, 233, 242);
-  static const Color campusTileTitleColor = Color.fromARGB(255, 226, 233, 242);
-  static const Color campusTileContentColor = mainTextColor;
-  static const Color parkingTileBgColor = Color.fromARGB(255, 143, 170, 197);
-  static const Color timetableTileBgColor = parkingTileBgColor;
-  static const Color welcomeTileTextBgColor = Color.fromARGB(255, 27, 61, 106);
-  static const Color fourtyTwoTileTextBgColor = campusCardTileBgColor;
+  static const campusCardTileBgColor = Color.fromARGB(255, 5, 162, 155);
+  static const campusTileBgColor = Color.fromARGB(255, 226, 233, 242);
+  static const parkingTileBgColor = Color.fromARGB(255, 143, 170, 197);
+  static const timetableTileBgColor = parkingTileBgColor;
+  static const welcomeTileTextBgColor = Color.fromARGB(255, 27, 61, 106);
+  static const fourtyTwoTileTextBgColor = campusCardTileBgColor;
 
-  static const Color drawerMenuTileUnderlineColor = parkingTileBgColor;
+  static const newFlagBgColor = parkingTileBgColor;
+  static const newFlagButtonBgColor = welcomeTileTextBgColor;
 
-  static const Color newFlagBgColor = parkingTileBgColor;
-  static const Color newFlagButtonBgColor = welcomeTileTextBgColor;
-
-  static const Color parkingCardSubtitleColor = Color.fromRGBO(0, 0, 0, 0.54);
-  static const Color parkingCardOpeningHoursColor =
-      Color.fromRGBO(0, 0, 0, 0.87);
-  static const Color parkingViewBackgroundColor =
-      Color.fromARGB(255, 245, 248, 250);
-  static const Color parkingViewEmptyPriceBgColor =
+  static const parkingCardSubtitleColor = Color.fromRGBO(0, 0, 0, 0.54);
+  static const parkingViewBackgroundColor = Color.fromARGB(255, 245, 248, 250);
+  static const parkingViewEmptyPriceBgColor =
       Color.fromARGB(255, 232, 244, 253);
-  static const Color parkingViewEmptyPriceTextColor =
-      Color.fromARGB(255, 13, 60, 97);
-  static const Color parkingViewDisabledButtonColor =
-      Color.fromARGB(255, 224, 224, 224);
-  static const Color parkingViewBorderColor = Color.fromRGBO(226, 233, 242, 1);
-  static const Color parkingViewIconsColor = Color.fromRGBO(115, 115, 115, 1);
-  static const Color parkingViewIconsBgColor = Color.fromRGBO(250, 250, 250, 1);
-  static const Color parkingViewIconsTextColor = Color.fromRGBO(0, 200, 83, 1);
-  static const Color parkingViewIconsSeparatorColor =
+  static const parkingViewEmptyPriceTextColor = Color.fromARGB(255, 13, 60, 97);
+  static const parkingViewBorderColor = Color.fromRGBO(226, 233, 242, 1);
+  static const parkingViewIconsColor = Color.fromRGBO(115, 115, 115, 1);
+  static const parkingViewIconsBgColor = Color.fromRGBO(250, 250, 250, 1);
+  static const parkingViewIconsTextColor = Color.fromRGBO(0, 200, 83, 1);
+  static const parkingViewIconsSeparatorColor =
       Color.fromRGBO(27, 61, 106, 0.05);
 
-  static const Color parkingLightGreen = Color.fromRGBO(76, 175, 80, 1);
-  static const Color parkingLightYellow = Color.fromRGBO(255, 204, 0, 1);
-  static const Color parkingLightRed = Color.fromRGBO(211, 47, 47, 1);
+  static const initialIndicatorColor = Color.fromARGB(255, 216, 216, 216);
+  static const initialIndicatorActiveColor = Color.fromARGB(255, 254, 240, 63);
 
-  static const Color initialIndicatorColor = Color.fromARGB(255, 216, 216, 216);
-  static const Color initialIndicatorActiveColor =
-      Color.fromARGB(255, 254, 240, 63);
+  static const checkBoxBgColor = Color.fromARGB(255, 225, 225, 225);
+  static const disabledButtonBgColor = checkBoxBgColor;
+  static const disabledButtonTextColor = Color.fromARGB(255, 158, 158, 158);
 
-  static const Color checkBoxBgColor = Color.fromARGB(255, 225, 225, 225);
-  static const Color disabledButtonBgColor = checkBoxBgColor;
-  static const Color disabledButtonTextColor =
-      Color.fromARGB(255, 158, 158, 158);
+  static const homeAppBarColor = Color.fromARGB(255, 73, 69, 79);
 
-  static const Color homeAppBarColor = Color.fromARGB(255, 73, 69, 79);
+  static const mensaBgColor = Color(0xFF2B78A7);
 }

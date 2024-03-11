@@ -27,7 +27,7 @@ class LocationMapView extends StatelessWidget {
     }
     return SimpleWebViewView(
       featureType: FeatureType.locationMap,
-      title: title,
+      title: "",
       url: url,
       showDrawer: false,
       headers: const {},

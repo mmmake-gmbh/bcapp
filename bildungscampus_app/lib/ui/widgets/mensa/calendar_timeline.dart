@@ -8,9 +8,15 @@ import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class CalendarTimeline extends StatelessWidget {
+  final ItemScrollController controller;
   final List<DayPlan> dayPlans;
+  final Function(int) onClick;
 
-  const CalendarTimeline({super.key, required this.dayPlans});
+  const CalendarTimeline(
+      {super.key,
+      required this.controller,
+      required this.dayPlans,
+      required this.onClick});
 
   final Color _disabledTextColor = const Color(0xFF979797);
   final Color _mainTextColor = const Color(0xFF193E69);
@@ -29,6 +35,7 @@ class CalendarTimeline extends StatelessWidget {
           children: [
             Expanded(
               child: ScrollablePositionedList.builder(
+                itemScrollController: controller,
                 initialScrollIndex: initialIndex ?? 0,
                 scrollDirection: Axis.horizontal,
                 itemCount: dayPlans.length,
@@ -38,9 +45,12 @@ class CalendarTimeline extends StatelessWidget {
                     height: 44,
                     width: 44,
                     child: InkWell(
-                      onTap: () => context
-                          .read<MensaViewModel>()
-                          .dayPlanSelected(dayPlans[idx]),
+                      onTap: () {
+                        context
+                            .read<MensaViewModel>()
+                            .dayPlanSelected(dayPlans[idx]);
+                        onClick(idx);
+                      },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

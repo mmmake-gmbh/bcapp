@@ -12,15 +12,12 @@ import 'package:bildungscampus_app/core/viewmodels/tiles/mensa_tile_viewmodel.da
 import 'package:bildungscampus_app/core/viewmodels/tiles/parking_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/payment_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/timetable_tile_viewmodel.dart';
-import 'package:bildungscampus_app/core/viewmodels/tiles/weather_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/welcome_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
-import 'package:bildungscampus_app/ui/shared/svg_icons.dart';
 import 'package:bildungscampus_app/ui/widgets/tiles/start_tile.dart';
 import 'package:bildungscampus_app/ui/widgets/tiles/text_tile_content.dart';
-import 'package:bildungscampus_app/ui/widgets/tiles/weather_tile_content.dart';
 import 'package:bildungscampus_app/ui/widgets/tiles/welcome_tile.dart';
 import 'package:cidaas_flutter_sdk/cidaas_flutter_sdk.dart';
 import 'package:flutter/material.dart';
@@ -32,32 +29,13 @@ class TileUtils {
     if (model is WelcomeTileViewModel) {
       final args = ModalRoute.of(context)!.settings.arguments as TokenEntity?;
       return WelcomeTile(firstLogin: args?.ssoCookie != null);
-    } else if (model is WeatherTileViewModel) {
-      const textColor = AppColors.weatherTileTextColor;
-      return StartTile.withBaseModel(
-        model,
-        locale: locale,
-        bgColor: AppColors.weatherTileBgColor.withOpacity(0.85),
-        showHeader: false,
-        isFullTileTap: false,
-        padding:
-            const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0, bottom: 0.0),
-        isFeatureInfoShown:
-            _isFeatureInfoShown(context, model.featureInfo, model.featureType),
-        child: Consumer<AppViewModel>(
-          builder: (ctx, appModel, _) => WeatherTileContent(
-            model: appModel.currentWeather,
-            textColor: textColor,
-          ),
-        ),
-      );
     } else if (model is MensaTileViewModel) {
       return StartTile.withTextContent(
         model,
         locale: locale,
-        bgColor: AppColors.primaryTwoColor,
+        bgColor: AppColors.mensaBgColor,
         contentColor: Colors.white,
-        isFullTileTap: false,
+        isFullTileTap: true,
         isFeatureInfoShown:
             _isFeatureInfoShown(context, model.featureInfo, model.featureType),
         onTap: () {
@@ -165,7 +143,7 @@ class TileUtils {
           return StartTile(
             titleColor: contentColor,
             tileTitle: S.of(context).login_tile_title,
-            iconPath: SvgIcons.pin,
+            icon: Icons.lock_outline,
             isFullTileTap: true,
             maxTitleLines: 1,
             backgroundColor: AppColors.primaryOneColor,
@@ -208,7 +186,7 @@ class TileUtils {
           return StartTile(
             titleColor: contentColor,
             tileTitle: S.of(context).login_tile_title,
-            iconPath: SvgIcons.pin,
+            icon: Icons.lock_outline,
             isFullTileTap: true,
             maxTitleLines: 1,
             backgroundColor: AppColors.primaryOneColor,

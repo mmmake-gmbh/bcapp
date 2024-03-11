@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:bildungscampus_app/core/enums/feature_type.dart';
 import 'package:bildungscampus_app/ui/views/feature_view.dart';
-import 'package:bildungscampus_app/ui/widgets/navigation/app_drawer.dart';
 import 'package:bildungscampus_app/ui/widgets/navigation/reusable_appbars.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -86,7 +85,6 @@ class _SimpleWebViewViewState extends State<SimpleWebViewView> {
         widget.title,
       ),
       resizeToAvoidBottomInset: false,
-      drawer: widget.showDrawer ? const AppDrawer() : null,
       body: FeatureView(
         featureType: widget.featureType,
         children: [

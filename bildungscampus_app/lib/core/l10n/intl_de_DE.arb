@@ -1,17 +1,4 @@
 {
-  "weather_above31_raining": "Heute schwül-warme",
-  "weather_above31": "Heute tropische",
-  "weather_between31and21_raining": "Heute feucht-fröhliche",
-  "weather_between31and21": "Heute sommerliche",
-  "weather_between21and11_raining": "Heute nass-milde",
-  "weather_between21and11": "Heute milde",
-  "weather_between11and1_raining": "Heute klamm-kühle",
-  "weather_between11and1": "Heute kühl",
-  "weather_under1_raining": "Heute ungemütlich-kalte",
-  "weather_under1": "Heute eiskalte",
-  "maps_building15_name": "Bibliothek",
-  "maps_building6_name": "Aula",
-  "maps_building8_name": "Mensa",
   "intro_overview_title": "\"Mein Bildungscampus\" — der digitale Campus jederzeit griffbereit.",
   "intro_overview2_title": "An den Campus fahren oder Alternativen planen?\nBleib Mobil, wir zeigen dir den weg.",
   "intro_view_stop_intro": "Intro beenden",
@@ -122,9 +109,10 @@
   "mensa_view_in_the_past_label_part1": "Dieser Tag liegt in der ",
   "mensa_view_in_the_past_label_part2": "Vergangenheit.",
   "mensa_view_timeline_menu_label": "Speiseplan",
-  "intro_welcome_view_main_text": "Herzlich Willkommen\n\nbei \"Mein Bildungscampus\" - deinem mobilen Helfer rund um den Campus!",
+  "intro_welcome_view_main_text": "Herzlich Willkommen\n\nbei \"Mein Bildungscampus\" \u2014 deinem mobilen Helfer rund um den Campus!",
   "intro_welcome_view_login_button": "Login via CampusCard",
   "intro_welcome_view_skip_login_button": "Weiter ohne Login",
   "intro_welcome_view_registration_text_part1": "Noch keine CampusCard? ",
-  "intro_welcome_view_registration_text_part2": "Hier registrieren"
+  "intro_welcome_view_registration_text_part2": "Hier registrieren",
+  "welcome_tile_no_user_text": "Wilkommen am Campus!"
 }

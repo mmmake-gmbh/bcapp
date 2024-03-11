@@ -39,4 +39,9 @@ class SvgIcons {
   static const String weatherRainy = 'assets/icons/weather_rainy.svg';
   static const String weatherSnowy = 'assets/icons/weather_snowy.svg';
   static const String wheelchair = 'assets/icons/wheelchair.svg';
+
+  static const Map<String, String> flagList = {
+    'de': 'assets/icons/flag_de.svg',
+    'en': 'assets/icons/flag_en.svg'
+  };
 }

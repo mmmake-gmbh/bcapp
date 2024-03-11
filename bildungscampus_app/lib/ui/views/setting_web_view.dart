@@ -13,7 +13,6 @@ class SettingWebView extends StatelessWidget {
       featureType: null,
       titleBackup: title!,
       url: url!,
-      showDrawer: false,
     );
   }
 }

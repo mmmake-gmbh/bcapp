@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:bildungscampus_app/core/enums/parkinglot_category.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
 import 'package:bildungscampus_app/ui/widgets/navigation/reusable_appbars.dart';
-import 'package:bildungscampus_app/ui/widgets/navigation/app_drawer.dart';
 import 'package:bildungscampus_app/ui/widgets/parking/parking_listview_item.dart';
 
 class ParkingView extends StatefulWidget {
@@ -44,6 +43,12 @@ class _ParkingViewState extends State<ParkingView>
   }
 
   @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final titleList =
         context.read<AppViewModel>().getAppMenuTitle(FeatureType.parking);
@@ -58,7 +63,6 @@ class _ParkingViewState extends State<ParkingView>
         length: 3,
         child: Scaffold(
           appBar: ReusableAppBars.standardAppBar(context, title),
-          drawer: const AppDrawer(),
           backgroundColor: Colors.white,
           body: FeatureView(
             featureType: FeatureType.parking,

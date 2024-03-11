@@ -27,83 +27,88 @@ class ContactView extends StatelessWidget {
         color: AppColors.primaryOneColor,
         height: double.infinity,
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
         child: SafeArea(
           child: model != null
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      model.name,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(fontFamily: 'DINOT Bold'),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Text(
-                      '${model.city}\n${model.street}',
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            color: Colors.white,
-                          ),
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Text(
-                      model.phone,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            color: Colors.white,
-                          ),
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    InkWell(
-                      onTap: () async {
-                        final params = Uri(
-                          scheme: 'mailto',
-                          path: model.email,
-                        );
-
-                        final url = params.toString();
-
-                        if (await canLaunchUrlString(url)) {
-                          await launchUrlString(url);
-                        } else {
-                          if (context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text(S
-                                  .of(context)
-                                  .contact_view_open_email_failed_message(
-                                      model.email)),
-                            ));
-                          }
-                        }
-                      },
-                      child: Text(
-                        model.email,
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              color: AppColors.primaryTwoLightColor,
-                              decoration: TextDecoration.underline,
-                            ),
+              ? SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SelectableText(
+                        model.name,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(fontFamily: 'DINOT Bold'),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Selector<UserViewModel, Locale?>(
-                      selector: (_, model) => model.locale,
-                      builder: (context, locale, child) => Text(
-                        model.getDescription(locale),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      SelectableText(
+                        '${model.city}\n${model.street}',
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                               color: Colors.white,
                             ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      SelectableText(
+                        model.phone,
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              color: Colors.white,
+                            ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          final params = Uri(
+                            scheme: 'mailto',
+                            path: model.email,
+                          );
+
+                          final url = params.toString();
+
+                          if (await canLaunchUrlString(url)) {
+                            await launchUrlString(url);
+                          } else {
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text(S
+                                    .of(context)
+                                    .contact_view_open_email_failed_message(
+                                        model.email)),
+                              ));
+                            }
+                          }
+                        },
+                        child: SelectableText(
+                          model.email,
+                          style:
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                    color: AppColors.primaryTwoLightColor,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Selector<UserViewModel, Locale?>(
+                        selector: (_, model) => model.locale,
+                        builder: (context, locale, child) => SelectableText(
+                          model.getDescription(locale),
+                          style:
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                    color: Colors.white,
+                                  ),
+                        ),
+                      ),
+                    ],
+                  ),
                 )
               : const SizedBox.shrink(),
         ),

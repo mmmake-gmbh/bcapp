@@ -8,7 +8,6 @@ import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
 import 'package:bildungscampus_app/ui/views/feature_view.dart';
-import 'package:bildungscampus_app/ui/widgets/navigation/app_drawer.dart';
 import 'package:bildungscampus_app/ui/widgets/navigation/reusable_appbars.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,14 +17,12 @@ class LoginWebViewView extends StatefulWidget {
   final String titleBackup;
   final String? url;
   final FeatureType? featureType;
-  final bool showDrawer;
 
   const LoginWebViewView(
       {super.key,
       required this.titleBackup,
       required this.url,
-      required this.featureType,
-      this.showDrawer = true});
+      required this.featureType});
   @override
   State<LoginWebViewView> createState() => _LoginWebViewViewState();
 }
@@ -124,7 +121,6 @@ class _LoginWebViewViewState extends State<LoginWebViewView> {
         context,
         title,
       ),
-      drawer: widget.showDrawer ? const AppDrawer() : null,
       body: FeatureView(
         featureType: widget.featureType,
         children: [

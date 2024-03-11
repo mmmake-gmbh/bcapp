@@ -5,13 +5,12 @@ import 'package:bildungscampus_app/core/viewmodels/tiles/text_tile_viewmodel.dar
 import 'package:bildungscampus_app/ui/widgets/common/conditional_inkwell.dart';
 import 'package:bildungscampus_app/ui/widgets/tiles/text_tile_content.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:bildungscampus_app/core/enums/tile_type.dart';
 
 class StartTile extends StatelessWidget {
   final TileType? tileType;
   final String? tileTitle;
-  final String? iconPath;
+  final IconData? icon;
   final Color titleColor;
   final Widget child;
   final bool showHeader;
@@ -27,7 +26,7 @@ class StartTile extends StatelessWidget {
     super.key,
     this.tileType,
     this.tileTitle,
-    this.iconPath,
+    this.icon,
     required this.titleColor,
     required this.child,
     required this.backgroundColor,
@@ -54,7 +53,7 @@ class StartTile extends StatelessWidget {
     this.isFeatureInfoShown,
   })  : tileType = model.type,
         tileTitle = LocalizedTextUtils.getLocalizedText(model.title, locale),
-        iconPath = model.iconPath,
+        icon = model.icon,
         titleColor = contentColor,
         backgroundColor = bgColor,
         navigationPath = model.navigationPath,
@@ -73,7 +72,7 @@ class StartTile extends StatelessWidget {
     this.isFeatureInfoShown,
   })  : tileType = model.type,
         tileTitle = LocalizedTextUtils.getLocalizedText(model.title, locale),
-        iconPath = model.iconPath,
+        icon = model.icon,
         titleColor = contentColor,
         backgroundColor = bgColor,
         navigationPath = model.navigationPath,
@@ -112,18 +111,10 @@ class StartTile extends StatelessWidget {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (iconPath?.isNotEmpty ?? false)
+                          if (icon != null)
                             Transform.translate(
-                              offset: const Offset(0, 6),
-                              child: SvgPicture.asset(
-                                iconPath!,
-                                height: 16.0,
-                                width: 16.0,
-                                colorFilter: ColorFilter.mode(
-                                  titleColor,
-                                  BlendMode.srcIn,
-                                ),
-                              ),
+                              offset: const Offset(0, 4),
+                              child: Icon(icon, size: 16, color: titleColor),
                             ),
                           Expanded(
                             child: Padding(

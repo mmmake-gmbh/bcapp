@@ -10,7 +10,7 @@ class TextTileViewModel extends BaseStartTileViewModel {
     this.buttonText,
     required super.navigationPath,
     required super.title,
-    required super.iconPath,
+    required super.icon,
     required super.type,
     required super.featureType,
     required super.maxTitleLines,

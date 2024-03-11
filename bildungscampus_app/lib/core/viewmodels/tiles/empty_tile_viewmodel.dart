@@ -7,7 +7,7 @@ class EmptyTileViewModel extends BaseStartTileViewModel {
   EmptyTileViewModel({required super.type})
       : super(
           title: [],
-          iconPath: '',
+          icon: null,
           navigationPath: '',
           maxTitleLines: 1,
           allowedUserType: UserType.notLoggedIn,

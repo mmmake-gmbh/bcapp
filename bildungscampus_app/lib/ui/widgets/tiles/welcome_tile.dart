@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
@@ -15,7 +16,6 @@ class WelcomeTile extends StatefulWidget {
 
 class _WelcomeTileState extends State<WelcomeTile>
     with TickerProviderStateMixin {
-  bool _visible = false;
   late final AnimationController _controller;
 
   @override
@@ -28,13 +28,11 @@ class _WelcomeTileState extends State<WelcomeTile>
     );
 
     if (widget.firstLogin) {
-      _visible = true;
       _controller.repeat(reverse: true);
 
-      Future.delayed(const Duration(milliseconds: 4500), () {
+      Future.delayed(const Duration(milliseconds: 4400), () {
         if (mounted) {
           setState(() {
-            _visible = false;
             _controller.stop();
           });
         }
@@ -48,63 +46,64 @@ class _WelcomeTileState extends State<WelcomeTile>
       (value) => value.userName,
     );
 
-    if (userName != null && userName.isNotEmpty) {
-      return Container(
-        padding: const EdgeInsets.all(4.0),
-        width: double.infinity,
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    S.of(context).welcome_tile_hello,
+    const handWidget = Text(
+      '👋',
+      style: TextStyle(fontSize: 70, height: 1),
+    );
+
+    final firstLine = userName != null && userName.isNotEmpty
+        ? S.of(context).welcome_tile_hello
+        : S.of(context).welcome_tile_no_user_text;
+
+    final secondLine = userName != null && userName.isNotEmpty ? userName : "";
+
+    return Container(
+      padding: const EdgeInsets.all(4.0),
+      width: double.infinity,
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AutoSizeText(
+                  firstLine,
+                  maxLines: 1,
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      fontFamily: 'DINOT Bold',
+                      color: Colors.white,
+                      backgroundColor: AppColors.welcomeTileTextBgColor),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 3.0),
+                  child: AutoSizeText(
+                    secondLine,
+                    maxLines: 1,
                     style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                         fontFamily: 'DINOT Bold',
                         color: Colors.white,
                         backgroundColor: AppColors.welcomeTileTextBgColor),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 3.0),
-                    child: Text(
-                      userName,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall!
-                          .copyWith(
-                              fontFamily: 'DINOT Bold',
-                              color: Colors.white,
-                              backgroundColor:
-                                  AppColors.welcomeTileTextBgColor),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            AnimatedOpacity(
-              opacity: _visible ? 1.0 : 0.0,
-              duration: const Duration(milliseconds: 400),
-              child: RotationTransition(
-                turns: Tween(begin: -0.1, end: 0.1).animate(_controller),
-                child: const Text(
-                  '👋',
-                  style: TextStyle(fontSize: 70),
                 ),
-              ),
-            )
-          ],
-        ),
-      );
-    }
-
-    return const SizedBox.shrink();
+              ],
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          if (widget.firstLogin)
+            RotationTransition(
+                turns: Tween(begin: -0.1, end: 0.1).animate(_controller),
+                child: handWidget),
+          if (!widget.firstLogin) handWidget
+        ],
+      ),
+    );
   }
 
   @override
   void dispose() {
-    _visible = true;
     _controller.dispose();
     super.dispose();
   }

@@ -16,10 +16,8 @@ import 'package:bildungscampus_app/core/viewmodels/tiles/mensa_tile_viewmodel.da
 import 'package:bildungscampus_app/core/viewmodels/tiles/parking_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/payment_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/timetable_tile_viewmodel.dart';
-import 'package:bildungscampus_app/core/viewmodels/tiles/weather_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/welcome_tile_viewmodel.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
-import 'package:bildungscampus_app/ui/shared/svg_icons.dart';
 import 'package:flutter/material.dart';
 
 class CampusTilesService implements TilesService {
@@ -36,7 +34,7 @@ class CampusTilesService implements TilesService {
           final vm = WelcomeTileViewModel(
             title: [],
             description: [],
-            iconPath: 'iconPath',
+            icon: null,
             navigationPath: 'navigationPath',
             type: TileType.wideSmall,
             featureType: FeatureType.welcome,
@@ -48,20 +46,10 @@ class CampusTilesService implements TilesService {
             ),
           );
           return vm;
-        case 'weather':
-          final vm = WeatherTileViewModel(
-            title: tileModel.title,
-            iconPath: '',
-            weatherData: weatherData,
-            type: TileType.small,
-            featureType: FeatureType.weather,
-            featureInfo: tileModel.featureInfo,
-          );
-          return vm;
         case 'mensa':
           final vm = MensaTileViewModel(
             title: tileModel.title,
-            iconPath: SvgIcons.mensa,
+            icon: Icons.restaurant_outlined,
             description: tileModel.text,
             buttonText: S.of(context).tiles_button_text_more,
             navigationPath: AppRouter.mensaRoute,
@@ -74,7 +62,7 @@ class CampusTilesService implements TilesService {
         case 'parking':
           final vm = ParkingTileViewModel(
             title: tileModel.title,
-            iconPath: SvgIcons.parkinglot,
+            icon: Icons.local_parking_outlined,
             description: tileModel.text,
             buttonText: S.of(context).tiles_button_text_more,
             navigationPath: AppRouter.parkingRoute,
@@ -86,7 +74,7 @@ class CampusTilesService implements TilesService {
         case 'booksearch':
           final vm = BookSearchTileViewModel(
             title: tileModel.title,
-            iconPath: SvgIcons.bookSearch,
+            icon: Icons.auto_stories_outlined,
             description: tileModel.text,
             buttonText: S.of(context).tiles_button_text_more,
             navigationPath: AppRouter.bookSearchRoute,
@@ -98,7 +86,7 @@ class CampusTilesService implements TilesService {
         case 'payment':
           final vm = PaymentTileViewModel(
             title: tileModel.title,
-            iconPath: SvgIcons.campusCard,
+            icon: Icons.credit_card_outlined,
             description: tileModel.text,
             buttonText: S.of(context).tiles_button_text_more,
             navigationPath: AppRouter.paymentRoute,
@@ -113,7 +101,7 @@ class CampusTilesService implements TilesService {
             navigationPath: AppRouter.timetableRoute,
             description: tileModel.text,
             title: tileModel.title,
-            iconPath: SvgIcons.bus,
+            icon: Icons.directions_bus_outlined,
             type: TileType.big,
             featureType: FeatureType.timeTable,
             featureInfo: tileModel.featureInfo,
@@ -125,7 +113,7 @@ class CampusTilesService implements TilesService {
             navigationPath: AppRouter.locationMapRoute,
             description: tileModel.text,
             title: tileModel.title,
-            iconPath: SvgIcons.pin,
+            icon: Icons.map_outlined,
             type: TileType.big,
             featureType: FeatureType.locationMap,
             featureInfo: tileModel.featureInfo,
@@ -134,7 +122,7 @@ class CampusTilesService implements TilesService {
         case 'info':
           final vm = CampusTileViewModel(
             title: tileModel.title,
-            iconPath: SvgIcons.info,
+            icon: Icons.info_outline,
             buttonText: S.of(context).tiles_button_text_more,
             description: tileModel.text,
             navigationPath: AppRouter.homeRoute,
@@ -146,7 +134,7 @@ class CampusTilesService implements TilesService {
         case 'fourtytwo':
           final vm = FourtytwoTileViewModel(
             title: tileModel.title,
-            iconPath: SvgIcons.school,
+            icon: Icons.school_outlined,
             buttonText: S.of(context).tiles_button_text_more,
             description: tileModel.text,
             navigationPath: AppRouter.fourtyTwoRoute,
@@ -158,7 +146,7 @@ class CampusTilesService implements TilesService {
         case 'kienzler-bikes':
           final vm = BikeTileViewModel(
             title: tileModel.title,
-            iconPath: SvgIcons.bike,
+            icon: Icons.directions_bike_outlined,
             buttonText: S.of(context).tiles_button_text_more,
             description: tileModel.text,
             navigationPath: AppRouter.kienzlerBikeRoute,

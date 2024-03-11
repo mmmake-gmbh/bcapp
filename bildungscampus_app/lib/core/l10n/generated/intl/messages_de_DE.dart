@@ -70,7 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "intro_welcome_view_login_button":
             MessageLookupByLibrary.simpleMessage("Login via CampusCard"),
         "intro_welcome_view_main_text": MessageLookupByLibrary.simpleMessage(
-            "Herzlich Willkommen\n\nbei \"Mein Bildungscampus\" - deinem mobilen Helfer rund um den Campus!"),
+            "Herzlich Willkommen\n\nbei \"Mein Bildungscampus\" — deinem mobilen Helfer rund um den Campus!"),
         "intro_welcome_view_registration_text_part1":
             MessageLookupByLibrary.simpleMessage("Noch keine CampusCard? "),
         "intro_welcome_view_registration_text_part2":
@@ -86,10 +86,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "login_view_title": MessageLookupByLibrary.simpleMessage("Login"),
         "map_view_title_backup":
             MessageLookupByLibrary.simpleMessage("Lageplan"),
-        "maps_building15_name":
-            MessageLookupByLibrary.simpleMessage("Bibliothek"),
-        "maps_building6_name": MessageLookupByLibrary.simpleMessage("Aula"),
-        "maps_building8_name": MessageLookupByLibrary.simpleMessage("Mensa"),
         "mensa_view_closed_text": MessageLookupByLibrary.simpleMessage(
             "An diesem Tag ist geschlossen"),
         "mensa_view_in_the_past_label_part1":
@@ -207,26 +203,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("für Studierende"),
         "timetable_view_title_backup":
             MessageLookupByLibrary.simpleMessage("Abfahrtsmonitor"),
-        "weather_above31":
-            MessageLookupByLibrary.simpleMessage("Heute tropische"),
-        "weather_above31_raining":
-            MessageLookupByLibrary.simpleMessage("Heute schwül-warme"),
-        "weather_between11and1":
-            MessageLookupByLibrary.simpleMessage("Heute kühl"),
-        "weather_between11and1_raining":
-            MessageLookupByLibrary.simpleMessage("Heute klamm-kühle"),
-        "weather_between21and11":
-            MessageLookupByLibrary.simpleMessage("Heute milde"),
-        "weather_between21and11_raining":
-            MessageLookupByLibrary.simpleMessage("Heute nass-milde"),
-        "weather_between31and21":
-            MessageLookupByLibrary.simpleMessage("Heute sommerliche"),
-        "weather_between31and21_raining":
-            MessageLookupByLibrary.simpleMessage("Heute feucht-fröhliche"),
-        "weather_under1":
-            MessageLookupByLibrary.simpleMessage("Heute eiskalte"),
-        "weather_under1_raining":
-            MessageLookupByLibrary.simpleMessage("Heute ungemütlich-kalte"),
-        "welcome_tile_hello": MessageLookupByLibrary.simpleMessage("Hallo,")
+        "welcome_tile_hello": MessageLookupByLibrary.simpleMessage("Hallo,"),
+        "welcome_tile_no_user_text":
+            MessageLookupByLibrary.simpleMessage("Wilkommen am Campus!")
       };
 }

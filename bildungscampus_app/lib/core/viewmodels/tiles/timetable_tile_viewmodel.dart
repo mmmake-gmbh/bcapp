@@ -7,7 +7,7 @@ class TimetableTileViewModel extends TextTileViewModel {
     required super.buttonText,
     required super.navigationPath,
     required super.title,
-    required super.iconPath,
+    required super.icon,
     required super.type,
     required super.featureType,
     required super.featureInfo,

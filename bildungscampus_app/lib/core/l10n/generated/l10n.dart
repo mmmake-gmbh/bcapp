@@ -50,136 +50,6 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Heute schwül-warme`
-  String get weather_above31_raining {
-    return Intl.message(
-      'Heute schwül-warme',
-      name: 'weather_above31_raining',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Heute tropische`
-  String get weather_above31 {
-    return Intl.message(
-      'Heute tropische',
-      name: 'weather_above31',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Heute feucht-fröhliche`
-  String get weather_between31and21_raining {
-    return Intl.message(
-      'Heute feucht-fröhliche',
-      name: 'weather_between31and21_raining',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Heute sommerliche`
-  String get weather_between31and21 {
-    return Intl.message(
-      'Heute sommerliche',
-      name: 'weather_between31and21',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Heute nass-milde`
-  String get weather_between21and11_raining {
-    return Intl.message(
-      'Heute nass-milde',
-      name: 'weather_between21and11_raining',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Heute milde`
-  String get weather_between21and11 {
-    return Intl.message(
-      'Heute milde',
-      name: 'weather_between21and11',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Heute klamm-kühle`
-  String get weather_between11and1_raining {
-    return Intl.message(
-      'Heute klamm-kühle',
-      name: 'weather_between11and1_raining',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Heute kühl`
-  String get weather_between11and1 {
-    return Intl.message(
-      'Heute kühl',
-      name: 'weather_between11and1',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Heute ungemütlich-kalte`
-  String get weather_under1_raining {
-    return Intl.message(
-      'Heute ungemütlich-kalte',
-      name: 'weather_under1_raining',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Heute eiskalte`
-  String get weather_under1 {
-    return Intl.message(
-      'Heute eiskalte',
-      name: 'weather_under1',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Bibliothek`
-  String get maps_building15_name {
-    return Intl.message(
-      'Bibliothek',
-      name: 'maps_building15_name',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Aula`
-  String get maps_building6_name {
-    return Intl.message(
-      'Aula',
-      name: 'maps_building6_name',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Mensa`
-  String get maps_building8_name {
-    return Intl.message(
-      'Mensa',
-      name: 'maps_building8_name',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `"Mein Bildungscampus" — der digitale Campus jederzeit griffbereit.`
   String get intro_overview_title {
     return Intl.message(
@@ -1040,10 +910,10 @@ class S {
     );
   }
 
-  /// `Herzlich Willkommen\n\nbei "Mein Bildungscampus" - deinem mobilen Helfer rund um den Campus!`
+  /// `Herzlich Willkommen\n\nbei "Mein Bildungscampus" — deinem mobilen Helfer rund um den Campus!`
   String get intro_welcome_view_main_text {
     return Intl.message(
-      'Herzlich Willkommen\n\nbei "Mein Bildungscampus" - deinem mobilen Helfer rund um den Campus!',
+      'Herzlich Willkommen\n\nbei "Mein Bildungscampus" — deinem mobilen Helfer rund um den Campus!',
       name: 'intro_welcome_view_main_text',
       desc: '',
       args: [],
@@ -1085,6 +955,16 @@ class S {
     return Intl.message(
       'Hier registrieren',
       name: 'intro_welcome_view_registration_text_part2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wilkommen am Campus!`
+  String get welcome_tile_no_user_text {
+    return Intl.message(
+      'Wilkommen am Campus!',
+      name: 'welcome_tile_no_user_text',
       desc: '',
       args: [],
     );

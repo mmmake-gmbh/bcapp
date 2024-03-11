@@ -69,13 +69,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "intro_welcome_view_login_button":
             MessageLookupByLibrary.simpleMessage("Login via CampusCard"),
         "intro_welcome_view_main_text": MessageLookupByLibrary.simpleMessage(
-            "Herzlich Willkommen\n\nbei \"Mein Bildungscampus\" - deinem mobilen Helfer rund um den Campus!"),
+            "Welcome\n\nat \"Mein Bildungscampus\" - your mobile assistant around the campus!"),
         "intro_welcome_view_registration_text_part1":
-            MessageLookupByLibrary.simpleMessage("Noch keine CampusCard? "),
+            MessageLookupByLibrary.simpleMessage("Don\'t have a CampusCard? "),
         "intro_welcome_view_registration_text_part2":
-            MessageLookupByLibrary.simpleMessage("Hier registrieren"),
+            MessageLookupByLibrary.simpleMessage("Register here"),
         "intro_welcome_view_skip_login_button":
-            MessageLookupByLibrary.simpleMessage("Weiter ohne Login"),
+            MessageLookupByLibrary.simpleMessage("Continue without login"),
         "keinzler_bike_view_title_backup":
             MessageLookupByLibrary.simpleMessage("Kienzler Fahrradbox"),
         "login_tile_button_text": MessageLookupByLibrary.simpleMessage("Login"),
@@ -85,32 +85,29 @@ class MessageLookup extends MessageLookupByLibrary {
         "login_view_title": MessageLookupByLibrary.simpleMessage("Login"),
         "map_view_title_backup":
             MessageLookupByLibrary.simpleMessage("Site Map"),
-        "maps_building15_name": MessageLookupByLibrary.simpleMessage("Library"),
-        "maps_building6_name": MessageLookupByLibrary.simpleMessage("Aula"),
-        "maps_building8_name": MessageLookupByLibrary.simpleMessage("Mensa"),
-        "mensa_view_closed_text": MessageLookupByLibrary.simpleMessage(
-            "An diesem Tag ist geschlossen"),
+        "mensa_view_closed_text":
+            MessageLookupByLibrary.simpleMessage("Closed today"),
         "mensa_view_in_the_past_label_part1":
-            MessageLookupByLibrary.simpleMessage("Dieser Tag liegt in der "),
+            MessageLookupByLibrary.simpleMessage("This day lies in the past."),
         "mensa_view_in_the_past_label_part2":
             MessageLookupByLibrary.simpleMessage("Vergangenheit."),
         "mensa_view_info_content_campuscard_label":
-            MessageLookupByLibrary.simpleMessage("CampusCard Aufladestation"),
+            MessageLookupByLibrary.simpleMessage("CampusCard Top up terminal"),
         "mensa_view_info_content_campuscard_value":
-            MessageLookupByLibrary.simpleMessage("JA"),
+            MessageLookupByLibrary.simpleMessage("YES"),
         "mensa_view_info_content_opening_hours":
-            MessageLookupByLibrary.simpleMessage("Öffnungzeiten"),
+            MessageLookupByLibrary.simpleMessage("Opening Hours"),
         "mensa_view_info_content_opening_hours_value":
             MessageLookupByLibrary.simpleMessage(
-                "Mo-Fr 11:00-14:30 Uhr\nAls Lernraum Mo-Fr 14.30-18 Uhr"),
+                "Mon-Fri 11:00 a.m.-2:30 p.m.\nAs Study Space Mon-Fri 2:30 p.m.-6:00 p.m."),
         "mensa_view_info_content_payment_label":
-            MessageLookupByLibrary.simpleMessage("Bezahlmöglichkeiten"),
+            MessageLookupByLibrary.simpleMessage("Payment options"),
         "mensa_view_info_content_payment_value":
-            MessageLookupByLibrary.simpleMessage("Gästekarte Verzehr"),
+            MessageLookupByLibrary.simpleMessage("Guestcard Eat & Drink"),
         "mensa_view_info_content_vegan_label":
-            MessageLookupByLibrary.simpleMessage("Vegan, Vegetarisch"),
+            MessageLookupByLibrary.simpleMessage("Vegan, Vegetarian"),
         "mensa_view_info_content_vegan_value":
-            MessageLookupByLibrary.simpleMessage("JA"),
+            MessageLookupByLibrary.simpleMessage("YES"),
         "mensa_view_info_dialog_details":
             MessageLookupByLibrary.simpleMessage("Details"),
         "mensa_view_info_dialog_title":
@@ -120,9 +117,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "mensa_view_meal_categories_dessert_vegan":
             MessageLookupByLibrary.simpleMessage("Dessert vegan"),
         "mensa_view_meal_categories_meat":
-            MessageLookupByLibrary.simpleMessage("Meat"),
+            MessageLookupByLibrary.simpleMessage("Meat/Fish"),
         "mensa_view_meal_categories_soup":
-            MessageLookupByLibrary.simpleMessage("Soup"),
+            MessageLookupByLibrary.simpleMessage("Soup Pot"),
         "mensa_view_meal_categories_vegan":
             MessageLookupByLibrary.simpleMessage("Vegan"),
         "mensa_view_meal_categories_vegetarian":
@@ -205,25 +202,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("for students"),
         "timetable_view_title_backup":
             MessageLookupByLibrary.simpleMessage("Departure Board"),
-        "weather_above31":
-            MessageLookupByLibrary.simpleMessage("Today scorching"),
-        "weather_above31_raining":
-            MessageLookupByLibrary.simpleMessage("Today sweltering"),
-        "weather_between11and1":
-            MessageLookupByLibrary.simpleMessage("Today cold"),
-        "weather_between11and1_raining":
-            MessageLookupByLibrary.simpleMessage("Today chilly"),
-        "weather_between21and11":
-            MessageLookupByLibrary.simpleMessage("Today mild"),
-        "weather_between21and11_raining":
-            MessageLookupByLibrary.simpleMessage("Today humid"),
-        "weather_between31and21":
-            MessageLookupByLibrary.simpleMessage("Today sunny"),
-        "weather_between31and21_raining":
-            MessageLookupByLibrary.simpleMessage("Today muggy"),
-        "weather_under1": MessageLookupByLibrary.simpleMessage("Today cold"),
-        "weather_under1_raining":
-            MessageLookupByLibrary.simpleMessage("Today freezing"),
-        "welcome_tile_hello": MessageLookupByLibrary.simpleMessage("Hello,")
+        "welcome_tile_hello": MessageLookupByLibrary.simpleMessage("Hello,"),
+        "welcome_tile_no_user_text":
+            MessageLookupByLibrary.simpleMessage("Wilkommen am Campus!")
       };
 }

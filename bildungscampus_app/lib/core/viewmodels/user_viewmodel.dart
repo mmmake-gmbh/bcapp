@@ -112,7 +112,7 @@ class UserViewModel extends BaseViewModel {
       }
 
       final split = lang.split('-');
-      _locale = Locale(split[0], split[1]);
+      return Locale(split[0], split[1]);
     }
 
     return null;
