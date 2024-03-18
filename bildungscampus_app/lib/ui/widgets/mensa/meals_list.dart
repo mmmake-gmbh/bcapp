@@ -5,9 +5,11 @@ import 'package:bildungscampus_app/ui/shared/svg_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class MealsList extends StatelessWidget {
   final DayPlan selectedDayPlan;
+  final double rate = 3.0; //christina's changes
 
   const MealsList({super.key, required this.selectedDayPlan});
 
@@ -147,6 +149,53 @@ class MealsList extends StatelessWidget {
                       height: 0,
                       letterSpacing: 0.13,
                     ),
+                  ),
+                  const SizedBox(
+                    height: 22,
+                  ),  //christina's changes
+                  Row(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start, // Align children to the start (left) of the row
+                        children: [
+                          Text(
+                            'Rating: $rate / 5.0', //selectedDayPlan.linie![idx].gericht.first.rating,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 13,
+                              fontFamily: 'DIN OT',
+                              fontWeight: FontWeight.w400,
+                              height: 0,
+                              letterSpacing: 0.13,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Spacer(), // Add a spacer to push the right container to the right corner
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end, // Align children to the end (right) of the row
+                        children: [
+                          IgnorePointer(
+                            ignoring: true, // Make the child non-interactive
+                            child: RatingBar.builder(
+                              initialRating: 3, //selectedDayPlan.linie![idx].gericht.first.rating,
+                              minRating: 0,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              itemSize: 18,
+                              itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                              itemBuilder: (context, _) => const Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              ),
+                              onRatingUpdate: (rating) {
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
