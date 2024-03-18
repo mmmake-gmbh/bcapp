@@ -5,11 +5,73 @@ import 'package:bildungscampus_app/ui/shared/svg_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class MealsList extends StatelessWidget {
   final DayPlan selectedDayPlan;
+  final double rate = 3.0; //christina's changes
 
   const MealsList({super.key, required this.selectedDayPlan});
+
+  Widget _buildLabel(String labelText, String price) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      margin: const EdgeInsets.only(right: 8),
+      decoration: BoxDecoration(
+        color: const Color(0xFF2B78A7),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            labelText,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+              fontFamily: 'DIN OT',
+              fontWeight: FontWeight.w700,
+              height: 0,
+              letterSpacing: 0.13,
+            ),
+          ),
+          const SizedBox(width: 4),
+          Text(
+            '$price €',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+              fontFamily: 'DIN OT',
+              fontWeight: FontWeight.w700,
+              height: 0,
+              letterSpacing: 0.13,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRow(String label, String price) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            color: Color(0xFF3B3B3B),
+            fontSize: 14,
+            fontFamily: 'DIN OT',
+            fontWeight: FontWeight.w700,
+            height: 0,
+            letterSpacing: 0.13,
+          ),
+        ),
+        _buildLabel('', price),
+      ],
+    );
+  }
+
 
   String getIconName(MealCategories categories) {
     switch (categories) {
@@ -147,6 +209,97 @@ class MealsList extends StatelessWidget {
                       height: 0,
                       letterSpacing: 0.13,
                     ),
+                  ),
+                  const SizedBox(
+                    height: 22,
+                  ),
+                  if ((selectedDayPlan.linie![idx].ausgabe).toString().contains('dessert'))
+                    Text(
+                      locale?.languageCode == 'en'
+                        ? 'Price'
+                        : 'Preis',
+                      style: const TextStyle(
+                        color: Color(0xFF2B78A7),
+                        fontSize: 14,
+                        fontFamily: 'DIN OT',
+                        fontWeight: FontWeight.w700,
+                        height: 0,
+                        letterSpacing: 0.13,
+                      ),
+                    )
+                  else
+                    Text(
+                      locale?.languageCode == 'en'
+                        ? 'Price per 100gr'
+                        : 'Preis pro 100gr',
+                      style: const TextStyle(
+                        color: Color(0xFF2B78A7),
+                        fontSize: 14,
+                        fontFamily: 'DIN OT',
+                        fontWeight: FontWeight.w700,
+                        height: 0,
+                        letterSpacing: 0.13,
+                      ),
+                    ),
+                  const SizedBox(
+                    height: 10,
+                  ), 
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildRow(locale?.languageCode == 'en' ? 'Students:' : 'Studierende:', (selectedDayPlan.linie?[idx].gericht.first.studi).toString()),
+                      const SizedBox(height: 5),
+                      _buildRow(locale?.languageCode == 'en' ? 'Employees:' : 'Mitarbeiter:', (selectedDayPlan.linie?[idx].gericht.first.bed).toString()),
+                      const SizedBox(height: 5),
+                      _buildRow(locale?.languageCode == 'en' ? 'Guests:' : 'Gäste:', (selectedDayPlan.linie?[idx].gericht.first.gast).toString()),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 22,
+                  ),  //christina's changes
+                  Row(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start, // Align children to the start (left) of the row
+                        children: [
+                          Text(
+                            locale?.languageCode == 'en' ? 'Rating: $rate / 5.0' : 'Bewertung: $rate / 5.0', //selectedDayPlan.linie![idx].gericht.first.rating,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 13,
+                              fontFamily: 'DIN OT',
+                              fontWeight: FontWeight.w400,
+                              height: 0,
+                              letterSpacing: 0.13,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Spacer(), // Add a spacer to push the right container to the right corner
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end, // Align children to the end (right) of the row
+                        children: [
+                          IgnorePointer(
+                            ignoring: true, // Make the child non-interactive
+                            child: RatingBar.builder(
+                              initialRating: 3, //selectedDayPlan.linie![idx].gericht.first.rating,
+                              minRating: 0,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              itemSize: 18,
+                              itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                              itemBuilder: (context, _) => const Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              ),
+                              onRatingUpdate: (rating) {
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
