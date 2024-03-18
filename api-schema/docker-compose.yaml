@@ -21,7 +21,7 @@ services:
     container_name: server_mock
     image: jormaechea/open-api-mocker
     volumes:
-      - ./api-schema:/app
+      - ../api-schema:/app
     # Port mapping, the mock server will be exposed at port 8000 of your localhost. Inside 
     # dockers network the port to reach will be 5000.
     ports:
@@ -43,6 +43,6 @@ services:
       SWAGGER_JSON: /app/schema.json
       BASE_URL: /swagger
     volumes:
-      - ./api-schema:/app
+      - ../api-schema:/app
     depends_on:
       - openapi_mock

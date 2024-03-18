@@ -1,6 +1,7 @@
-//import 'dart:convert';
+import 'dart:io';
 
 import 'package:bildungscampus_app/core/services/interfaces/settings_service.dart';
+import 'package:bildungscampus_app/develop.dart';
 import 'package:cidaas_flutter_sdk/cidaas_flutter_sdk.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
@@ -16,26 +17,28 @@ void main() async {
   // This opens the app in fullscreen mode.
   await Flame.device.fullScreen();
 
+  HttpOverrides.global = DevelopHttpOverrides();
+
   FlavorConfig(
-    flavor: Flavor.dev,
+    flavor: Flavor.production,
     color: Colors.deepPurpleAccent,
     values: FlavorValues(
-      apiGatewayUrl: "http://10.0.2.2:8080",
-      identityServerUrl: "http://localhost",
-      identityClientId: "empty",
-      identityClientSecret: "empty",
+      apiGatewayUrl: "https://bcapp-dev.bildungscampus.hn",
+      identityServerUrl: "https://bcapp-api-dev.bildungscampus.hn",
+      identityClientId: "bildungsCampusApp",
       identityScheme: 'com.schwarzit.bildungscampus.app',
-      useIdentity: false,
+      useIdentity: true,
+      identityClientSecret: "secret",
     ),
   );
 
   FlutterSecureStorage storage = const FlutterSecureStorage(
       aOptions: AndroidOptions(encryptedSharedPreferences: true));
   final config = CidaasConfig(
-      baseUrl: 'http://127.0.0.1',
-      clientId: 'empty',
-      clientSecret: 'empty',
-      redirectURI: 'http://127.0.0.1',
+      baseUrl: 'https://schwarzbc-dev.cidaas.de',
+      clientId: 'cf0b53f3-aa4f-4728-a18a-d3cc7a205f23',
+      clientSecret: '1d24895c-e99c-4e6f-a202-0f99d303ccd5',
+      redirectURI: 'https://schwarzbc-dev.cidaas.de',
       scopes: 'openid profile email offline_access');
   final openIdConfig = await CidaasLoginProvider.loadConfig(config);
 
