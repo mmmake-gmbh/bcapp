@@ -1,22 +1,23 @@
+import 'package:bildungscampus_app/core/models/mensa/mensa_forecast_data.dart';
 import 'package:bildungscampus_app/core/models/mensa/mensa_meal_plan.dart';
 import 'package:bildungscampus_app/core/viewmodels/mensa_viewmodel.dart';
 import 'package:bildungscampus_app/ui/widgets/mensa/calendar_timeline.dart';
 import 'package:bildungscampus_app/ui/widgets/mensa/meals_list.dart';
-//import 'package:bildungscampus_app/ui/widgets/mensa/prediction_chart.dart';
+import 'package:bildungscampus_app/ui/widgets/mensa/prediction_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-class MensaContent extends StatefulWidget {
+class MensaContentWidget extends StatefulWidget {
   final int? initialIndex;
 
-  const MensaContent({super.key, required this.initialIndex});
+  const MensaContentWidget({super.key, required this.initialIndex});
 
   @override
-  State<MensaContent> createState() => _MensaContentState();
+  State<MensaContentWidget> createState() => _MensaContentWidgetState();
 }
 
-class _MensaContentState extends State<MensaContent> {
+class _MensaContentWidgetState extends State<MensaContentWidget> {
   late PageController _pageController;
   late ItemScrollController _scrollController;
 
@@ -38,13 +39,11 @@ class _MensaContentState extends State<MensaContent> {
     return Column(
       children: [
         Selector<MensaViewModel, List<DayPlan>?>(
-          selector: (_, viewModel) => viewModel.mensa?.tagesplan,
+          selector: (_, viewModel) => viewModel.mensaMenu?.tagesplan,
           builder: (context, dayPlans, _) => CalendarTimeline(
             dayPlans: dayPlans ?? [],
             controller: _scrollController,
-            onClick: (idx) => _pageController.animateToPage(idx,
-                duration: const Duration(milliseconds: 400),
-                curve: Curves.easeIn),
+            onClick: (idx) => _pageController.jumpToPage(idx),
           ),
         ),
         Expanded(
@@ -59,11 +58,12 @@ class _MensaContentState extends State<MensaContent> {
 
                   _scrollController.scrollTo(
                       index: idx, duration: const Duration(milliseconds: 200));
-                  viewModel.dayPlanSelected(viewModel.mensa!.tagesplan[idx]);
+                  viewModel
+                      .dayPlanSelected(viewModel.mensaMenu!.tagesplan[idx]);
                 },
                 children: context
                         .read<MensaViewModel>()
-                        .mensa
+                        .mensaMenu
                         ?.tagesplan
                         .map(
                           (plan) => MealsList(
@@ -74,10 +74,27 @@ class _MensaContentState extends State<MensaContent> {
                     [],
               )),
         ),
-        /*SizedBox(
-          height: 150,
-          child: PredictionChart(),
-        ),*/
+        SizedBox(
+          height: 220,
+          child: Selector<
+              MensaViewModel,
+              ({
+                List<MensaForecastData> forecastData,
+                int maxPrediction,
+                int currentOccupancy
+              })>(
+            selector: (_, viewModel) => (
+              forecastData: viewModel.forecast,
+              maxPrediction: viewModel.maxforecast,
+              currentOccupancy: viewModel.currentOccupancy,
+            ),
+            builder: (context, data, _) => PredictionChart(
+              data: data.forecastData,
+              maxPrediction: data.maxPrediction,
+              currentOccupancy: data.currentOccupancy,
+            ),
+          ),
+        ),
       ],
     );
   }

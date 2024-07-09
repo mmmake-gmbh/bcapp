@@ -108,32 +108,35 @@ class StartTile extends StatelessWidget {
                     ConditionalInkWell(
                       condition: !isFullTileTap,
                       onTap: onTap as void Function()?,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (icon != null)
-                            Transform.translate(
-                              offset: const Offset(0, 4),
-                              child: Icon(icon, size: 16, color: titleColor),
-                            ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: AutoSizeText(
-                                tileTitle ?? '',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium!
-                                    .copyWith(
-                                      fontFamily: 'DINOT Bold',
-                                      color: titleColor,
-                                      height: 1.5,
-                                    ),
-                                maxLines: maxTitleLines,
+                      child: SizedBox(
+                        height: 48,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (icon != null)
+                              Transform.translate(
+                                offset: const Offset(0, 4),
+                                child: Icon(icon, size: 16, color: titleColor),
+                              ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: AutoSizeText(
+                                  tileTitle ?? '',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium!
+                                      .copyWith(
+                                        fontFamily: 'DINOT Bold',
+                                        color: titleColor,
+                                        height: 1.5,
+                                      ),
+                                  maxLines: 2,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   Expanded(child: child),

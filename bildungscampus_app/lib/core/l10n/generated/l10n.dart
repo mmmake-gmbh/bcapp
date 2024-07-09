@@ -60,10 +60,10 @@ class S {
     );
   }
 
-  /// `An den Campus fahren oder Alternativen planen?\nBleib Mobil, wir zeigen dir den weg.`
+  /// `Du bist am Campus? Nutze die App über das kostenlose WLAN "Welcome@Bildungscampus".`
   String get intro_overview2_title {
     return Intl.message(
-      'An den Campus fahren oder Alternativen planen?\nBleib Mobil, wir zeigen dir den weg.',
+      'Du bist am Campus? Nutze die App über das kostenlose WLAN "Welcome@Bildungscampus".',
       name: 'intro_overview2_title',
       desc: '',
       args: [],
@@ -135,6 +135,136 @@ class S {
     return Intl.message(
       ' akzeptiert.',
       name: 'intro_view_term_of_use_part5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Campus Login`
+  String get intro_view_card_payment_title {
+    return Intl.message(
+      'Campus Login',
+      name: 'intro_view_card_payment_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nutze die Campus internen Services mit einem Klick.`
+  String get intro_view_card_payment_text {
+    return Intl.message(
+      'Nutze die Campus internen Services mit einem Klick.',
+      name: 'intro_view_card_payment_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mensa`
+  String get intro_view_card_mensa_title {
+    return Intl.message(
+      'Mensa',
+      name: 'intro_view_card_mensa_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Informiere dich über den Speiseplan zu den tagesaktuellen Gerichten.`
+  String get intro_view_card_mensa_text {
+    return Intl.message(
+      'Informiere dich über den Speiseplan zu den tagesaktuellen Gerichten.',
+      name: 'intro_view_card_mensa_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Buchsuche`
+  String get intro_view_card_booksearch_title {
+    return Intl.message(
+      'Buchsuche',
+      name: 'intro_view_card_booksearch_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stöbere im Online-Katalog der Bibliothek LIV nach Medien.`
+  String get intro_view_card_booksearch_text {
+    return Intl.message(
+      'Stöbere im Online-Katalog der Bibliothek LIV nach Medien.',
+      name: 'intro_view_card_booksearch_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lageplan`
+  String get intro_view_card_siteplan_title {
+    return Intl.message(
+      'Lageplan',
+      name: 'intro_view_card_siteplan_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Finde dich schnell auf dem Campus zurecht.`
+  String get intro_view_card_siteplan_text {
+    return Intl.message(
+      'Finde dich schnell auf dem Campus zurecht.',
+      name: 'intro_view_card_siteplan_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Parken am Campus`
+  String get intro_view_card_parking_title {
+    return Intl.message(
+      'Parken am Campus',
+      name: 'intro_view_card_parking_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Prüfe die Parkplatzauslastung in Echtzeit.`
+  String get intro_view_card_parking_text {
+    return Intl.message(
+      'Prüfe die Parkplatzauslastung in Echtzeit.',
+      name: 'intro_view_card_parking_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Abfahrtsmonitor`
+  String get intro_view_card_monitor_title {
+    return Intl.message(
+      'Abfahrtsmonitor',
+      name: 'intro_view_card_monitor_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Finde alle Abfahrten von Bus & Bahn rund um den Campus.`
+  String get intro_view_card_monitor_text {
+    return Intl.message(
+      'Finde alle Abfahrten von Bus & Bahn rund um den Campus.',
+      name: 'intro_view_card_monitor_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Registrierung fehlgeschlagen. Bitte versuche es erneut!`
+  String get intro_view_registration_unsuccessful {
+    return Intl.message(
+      'Registrierung fehlgeschlagen. Bitte versuche es erneut!',
+      name: 'intro_view_registration_unsuccessful',
       desc: '',
       args: [],
     );
@@ -440,10 +570,10 @@ class S {
     );
   }
 
-  /// `We cannot open maps app!`
+  /// `Wir können die Maps-App nicht öffnen!`
   String get parkinglot_view_google_maps_error_text {
     return Intl.message(
-      'We cannot open maps app!',
+      'Wir können die Maps-App nicht öffnen!',
       name: 'parkinglot_view_google_maps_error_text',
       desc: '',
       args: [],
@@ -580,10 +710,10 @@ class S {
     );
   }
 
-  /// `CampusLogin`
+  /// `Campus Login`
   String get login_tile_title {
     return Intl.message(
-      'CampusLogin',
+      'Campus Login',
       name: 'login_tile_title',
       desc: '',
       args: [],
@@ -800,10 +930,10 @@ class S {
     );
   }
 
-  /// `Mo-Fr 11:00-14:30 Uhr\nAls Lernraum Mo-Fr 14.30-18 Uhr`
+  /// `Mo-Fr 11-14.30 Uhr\nZum Lernen 14.30-18 Uhr`
   String get mensa_view_info_content_opening_hours_value {
     return Intl.message(
-      'Mo-Fr 11:00-14:30 Uhr\nAls Lernraum Mo-Fr 14.30-18 Uhr',
+      'Mo-Fr 11-14.30 Uhr\nZum Lernen 14.30-18 Uhr',
       name: 'mensa_view_info_content_opening_hours_value',
       desc: '',
       args: [],
@@ -870,31 +1000,21 @@ class S {
     );
   }
 
-  /// `An diesem Tag ist geschlossen`
+  /// `Heute geschlossen `
   String get mensa_view_closed_text {
     return Intl.message(
-      'An diesem Tag ist geschlossen',
+      'Heute geschlossen ',
       name: 'mensa_view_closed_text',
       desc: '',
       args: [],
     );
   }
 
-  /// `Dieser Tag liegt in der `
-  String get mensa_view_in_the_past_label_part1 {
+  /// `Speiseplan noch nicht verfügbar`
+  String get mensa_view_not_available {
     return Intl.message(
-      'Dieser Tag liegt in der ',
-      name: 'mensa_view_in_the_past_label_part1',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Vergangenheit.`
-  String get mensa_view_in_the_past_label_part2 {
-    return Intl.message(
-      'Vergangenheit.',
-      name: 'mensa_view_in_the_past_label_part2',
+      'Speiseplan noch nicht verfügbar',
+      name: 'mensa_view_not_available',
       desc: '',
       args: [],
     );
@@ -940,10 +1060,10 @@ class S {
     );
   }
 
-  /// `Noch keine CampusCard? `
+  /// `Noch keine CampusCard?\n`
   String get intro_welcome_view_registration_text_part1 {
     return Intl.message(
-      'Noch keine CampusCard? ',
+      'Noch keine CampusCard?\n',
       name: 'intro_welcome_view_registration_text_part1',
       desc: '',
       args: [],
@@ -960,11 +1080,91 @@ class S {
     );
   }
 
-  /// `Wilkommen am Campus!`
+  /// `Willkommen am Campus!`
   String get welcome_tile_no_user_text {
     return Intl.message(
-      'Wilkommen am Campus!',
+      'Willkommen am Campus!',
       name: 'welcome_tile_no_user_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Biometrische Authentifizierung aktiviert`
+  String get setting_view_biometric_setting_text {
+    return Intl.message(
+      'Biometrische Authentifizierung aktiviert',
+      name: 'setting_view_biometric_setting_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stoßzeiten`
+  String get mensa_view_forecast_title {
+    return Intl.message(
+      'Stoßzeiten',
+      name: 'mensa_view_forecast_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mensa am Bildungscampus`
+  String get mensa_view_info_content_title {
+    return Intl.message(
+      'Mensa am Bildungscampus',
+      name: 'mensa_view_info_content_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `\n(im PaymentPortal zu buchen)`
+  String get parkinglot_view_pay_portal_text {
+    return Intl.message(
+      '\n(im PaymentPortal zu buchen)',
+      name: 'parkinglot_view_pay_portal_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Möchtest du zukünftig biometrischer Authentifizierung zur Anmeldung verwenden ?`
+  String get login_view_prompt_biometric_text {
+    return Intl.message(
+      'Möchtest du zukünftig biometrischer Authentifizierung zur Anmeldung verwenden ?',
+      name: 'login_view_prompt_biometric_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `JA`
+  String get login_view_prompt_biometric_accept_button {
+    return Intl.message(
+      'JA',
+      name: 'login_view_prompt_biometric_accept_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SPÄTER`
+  String get login_view_prompt_biometric_dismiss_button {
+    return Intl.message(
+      'SPÄTER',
+      name: 'login_view_prompt_biometric_dismiss_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Biometrische Authentifizierung`
+  String get login_view_biometric_authenticate_reason {
+    return Intl.message(
+      'Biometrische Authentifizierung',
+      name: 'login_view_biometric_authenticate_reason',
       desc: '',
       args: [],
     );

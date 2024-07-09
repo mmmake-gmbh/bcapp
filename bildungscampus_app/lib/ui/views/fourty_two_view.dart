@@ -1,6 +1,8 @@
 import 'package:bildungscampus_app/core/enums/feature_type.dart';
 import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
+import 'package:bildungscampus_app/core/utils/localized_text_utils.dart';
 import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/game/screens/start_game.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
 import 'package:bildungscampus_app/ui/views/feature_view.dart';
@@ -14,7 +16,9 @@ class FourtyTwoView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final url = context.read<AppViewModel>().gitHubLink;
+    final locale = context.select((UserViewModel model) => model.locale);
+    final url = LocalizedTextUtils.getLocalizedTextWithNull(
+        context.read<AppViewModel>().gitHubLink?.link, locale);
 
     return Scaffold(
       appBar: ReusableAppBars.standardAppBar(

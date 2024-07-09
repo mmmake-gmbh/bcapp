@@ -60,7 +60,7 @@ class _TimelineElementState extends State<TimelineElement>
   }
 
   @override
-  void didUpdateWidget(covariant TimelineElement oldWidget) {
+  void didUpdateWidget(covariant TimelineElement oldWidget) { //TODO: Check for performance (currently it runs animation for every widget)
     if (oldWidget.selectedDayPlan?.datum != widget.selectedDayPlan?.datum) {
       if (widget.selectedDayPlan?.datum == widget.dayPlan.datum) {
         _controller.reset();
@@ -85,8 +85,8 @@ class _TimelineElementState extends State<TimelineElement>
       child: Container(
         padding: const EdgeInsets.all(4),
         child: SizedBox(
-          height: 22,
-          width: 22,
+          height: 24,
+          width: 24,
           child: AnimatedBuilder(
             animation: _colorAnimation,
             builder: (context, _) => Text(

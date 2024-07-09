@@ -49,9 +49,36 @@ class MessageLookup extends MessageLookupByLibrary {
         "home_view_tiles_weather_title":
             MessageLookupByLibrary.simpleMessage("Campus Weather"),
         "intro_overview2_title": MessageLookupByLibrary.simpleMessage(
-            "Drive to campus or plan alternatives?\nStay mobile, we\'ll show you the way."),
+            "You are on Campus? Use the app via the free WLAN \"Welcome@Bildungscampus\"."),
         "intro_overview_title": MessageLookupByLibrary.simpleMessage(
             "\"Mein Bildungscampus\" — the digital campus always at your fingertips."),
+        "intro_view_card_booksearch_text": MessageLookupByLibrary.simpleMessage(
+            "Search for helpful literature in the media stock of the LIV."),
+        "intro_view_card_booksearch_title":
+            MessageLookupByLibrary.simpleMessage("Book Search"),
+        "intro_view_card_mensa_text": MessageLookupByLibrary.simpleMessage(
+            "Check out the menu for the daily specials."),
+        "intro_view_card_mensa_title":
+            MessageLookupByLibrary.simpleMessage("Canteen"),
+        "intro_view_card_monitor_text": MessageLookupByLibrary.simpleMessage(
+            "Find all public transport departures around the Bildungscampus at your fingertips in real time."),
+        "intro_view_card_monitor_title":
+            MessageLookupByLibrary.simpleMessage("Departure Board"),
+        "intro_view_card_parking_text": MessageLookupByLibrary.simpleMessage(
+            "Check the capacity of parking spaces in real time."),
+        "intro_view_card_parking_title":
+            MessageLookupByLibrary.simpleMessage("Parking on Campus"),
+        "intro_view_card_payment_text": MessageLookupByLibrary.simpleMessage(
+            "Use the internal campus services at a click."),
+        "intro_view_card_payment_title":
+            MessageLookupByLibrary.simpleMessage("Campus Login"),
+        "intro_view_card_siteplan_text": MessageLookupByLibrary.simpleMessage(
+            "Find your way around the campus quickly."),
+        "intro_view_card_siteplan_title":
+            MessageLookupByLibrary.simpleMessage("Site Plan"),
+        "intro_view_registration_unsuccessful":
+            MessageLookupByLibrary.simpleMessage(
+                "Registration failed. Please try again!"),
         "intro_view_skip_intro":
             MessageLookupByLibrary.simpleMessage("Skip intro"),
         "intro_view_stop_intro":
@@ -71,7 +98,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "intro_welcome_view_main_text": MessageLookupByLibrary.simpleMessage(
             "Welcome\n\nat \"Mein Bildungscampus\" - your mobile assistant around the campus!"),
         "intro_welcome_view_registration_text_part1":
-            MessageLookupByLibrary.simpleMessage("Don\'t have a CampusCard? "),
+            MessageLookupByLibrary.simpleMessage("Don\'t have a CampusCard?\n"),
         "intro_welcome_view_registration_text_part2":
             MessageLookupByLibrary.simpleMessage("Register here"),
         "intro_welcome_view_skip_login_button":
@@ -81,29 +108,39 @@ class MessageLookup extends MessageLookupByLibrary {
         "login_tile_button_text": MessageLookupByLibrary.simpleMessage("Login"),
         "login_tile_text": MessageLookupByLibrary.simpleMessage(
             "Log in now to access the content"),
-        "login_tile_title": MessageLookupByLibrary.simpleMessage("CampusLogin"),
+        "login_tile_title":
+            MessageLookupByLibrary.simpleMessage("Campus Login"),
+        "login_view_biometric_authenticate_reason":
+            MessageLookupByLibrary.simpleMessage("Biometric authentication"),
+        "login_view_prompt_biometric_accept_button":
+            MessageLookupByLibrary.simpleMessage("YES"),
+        "login_view_prompt_biometric_dismiss_button":
+            MessageLookupByLibrary.simpleMessage("DISMISS"),
+        "login_view_prompt_biometric_text":
+            MessageLookupByLibrary.simpleMessage(
+                "Do you want to use biometric to login next time?"),
         "login_view_title": MessageLookupByLibrary.simpleMessage("Login"),
         "map_view_title_backup":
             MessageLookupByLibrary.simpleMessage("Site Map"),
         "mensa_view_closed_text":
             MessageLookupByLibrary.simpleMessage("Closed today"),
-        "mensa_view_in_the_past_label_part1":
-            MessageLookupByLibrary.simpleMessage("This day lies in the past."),
-        "mensa_view_in_the_past_label_part2":
-            MessageLookupByLibrary.simpleMessage("Vergangenheit."),
+        "mensa_view_forecast_title":
+            MessageLookupByLibrary.simpleMessage("Popular times"),
         "mensa_view_info_content_campuscard_label":
-            MessageLookupByLibrary.simpleMessage("CampusCard Top up terminal"),
+            MessageLookupByLibrary.simpleMessage("CampusCard Terminal"),
         "mensa_view_info_content_campuscard_value":
             MessageLookupByLibrary.simpleMessage("YES"),
         "mensa_view_info_content_opening_hours":
             MessageLookupByLibrary.simpleMessage("Opening Hours"),
         "mensa_view_info_content_opening_hours_value":
             MessageLookupByLibrary.simpleMessage(
-                "Mon-Fri 11:00 a.m.-2:30 p.m.\nAs Study Space Mon-Fri 2:30 p.m.-6:00 p.m."),
+                "Mon-Fri 11 a.m.-2.30 p.m.\nFor Studying Mon-Fri 2.30 p.m.-6 p.m."),
         "mensa_view_info_content_payment_label":
             MessageLookupByLibrary.simpleMessage("Payment options"),
         "mensa_view_info_content_payment_value":
             MessageLookupByLibrary.simpleMessage("Guestcard Eat & Drink"),
+        "mensa_view_info_content_title":
+            MessageLookupByLibrary.simpleMessage("Mensa at Bildungscampus"),
         "mensa_view_info_content_vegan_label":
             MessageLookupByLibrary.simpleMessage("Vegan, Vegetarian"),
         "mensa_view_info_content_vegan_value":
@@ -124,6 +161,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Vegan"),
         "mensa_view_meal_categories_vegetarian":
             MessageLookupByLibrary.simpleMessage("Vegetarian"),
+        "mensa_view_not_available":
+            MessageLookupByLibrary.simpleMessage("Menu not yet available"),
         "mensa_view_timeline_menu_label":
             MessageLookupByLibrary.simpleMessage("Menu"),
         "mensa_view_title_backup":
@@ -151,6 +190,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("We cannot open maps app!"),
         "parkinglot_view_google_maps_text":
             MessageLookupByLibrary.simpleMessage("Google Maps"),
+        "parkinglot_view_pay_portal_text": MessageLookupByLibrary.simpleMessage(
+            "\n(to be booked in the payment portal)"),
         "parkinglot_view_students_category_description_text":
             MessageLookupByLibrary.simpleMessage(
                 "Students of Bildungscampus with a CampusCard can park here for free until and including August 2021."),
@@ -183,6 +224,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("for"),
         "setting_view_account_setting":
             MessageLookupByLibrary.simpleMessage("Manage your user account"),
+        "setting_view_biometric_setting_text":
+            MessageLookupByLibrary.simpleMessage(
+                "Biometric authentication enabled"),
         "setting_view_campus_card_setting":
             MessageLookupByLibrary.simpleMessage("Manage CampusCard"),
         "setting_view_logout_setting":
@@ -204,6 +248,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Departure Board"),
         "welcome_tile_hello": MessageLookupByLibrary.simpleMessage("Hello,"),
         "welcome_tile_no_user_text":
-            MessageLookupByLibrary.simpleMessage("Wilkommen am Campus!")
+            MessageLookupByLibrary.simpleMessage("Welcome to Campus!")
       };
 }

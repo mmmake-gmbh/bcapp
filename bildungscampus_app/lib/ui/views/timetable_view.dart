@@ -12,23 +12,24 @@ class TimeTableView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final url = context.read<AppViewModel>().timeTableLink;
+    final locale = context.select((UserViewModel model) => model.locale);
+    final externalLink = context.read<AppViewModel>().timeTableLink;
+
     final titleList =
         context.read<AppViewModel>().getAppMenuTitle(FeatureType.timeTable);
 
-    final locale = context.select((UserViewModel model) => model.locale);
     var title = LocalizedTextUtils.getLocalizedText(titleList, locale);
     if (title.isEmpty) {
       title = S.of(context).timetable_view_title_backup;
     }
 
-    if (url == null) {
+    if (externalLink == null) {
       return const SizedBox.shrink();
     }
     return SimpleWebViewView(
       featureType: FeatureType.timeTable,
       title: title,
-      url: url,
+      externalLink: externalLink,
       headers: const {},
     );
   }

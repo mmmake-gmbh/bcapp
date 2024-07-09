@@ -97,13 +97,18 @@ class AppRouter {
         );
       case paymentRoute:
         return MaterialPageRoute(
-          builder: (context) => _setupProvidersAndFlavorBanner(
-            LoginWebViewView(
-              featureType: FeatureType.payment,
-              titleBackup: S.of(context).payment_view_title_backup,
-              url: context.read<AppViewModel>().paymentLink,
-            ),
-          ),
+          builder: (context) {
+            final externalLink = context.read<AppViewModel>().paymentLink;
+
+            return _setupProvidersAndFlavorBanner(
+              LoginWebViewView(
+                featureType: FeatureType.payment,
+                titleBackup: S.of(context).payment_view_title_backup,
+                externalLink: externalLink,
+                currentNavigation: paymentRoute,
+              ),
+            );
+          },
           settings: settings,
         );
       case contactRoute:
@@ -113,13 +118,18 @@ class AppRouter {
         );
       case kienzlerBikeRoute:
         return MaterialPageRoute(
-          builder: (context) => _setupProvidersAndFlavorBanner(
-            LoginWebViewView(
-              featureType: FeatureType.kienzlerBike,
-              titleBackup: S.of(context).keinzler_bike_view_title_backup,
-              url: context.read<AppViewModel>().fahradBoxLink,
-            ),
-          ),
+          builder: (context) {
+            final externalLink = context.read<AppViewModel>().fahradBoxLink;
+
+            return _setupProvidersAndFlavorBanner(
+              LoginWebViewView(
+                featureType: FeatureType.kienzlerBike,
+                titleBackup: S.of(context).keinzler_bike_view_title_backup,
+                externalLink: externalLink,
+                currentNavigation: kienzlerBikeRoute,
+              ),
+            );
+          },
           settings: settings,
         );
       case loginRoute:
@@ -142,8 +152,9 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => _setupProvidersAndFlavorBanner(
             SettingWebView(
-              url: args?.url,
+              externalLink: args?.externalLink,
               title: args?.title,
+              currentNavigation: homeRoute,
             ),
           ),
           settings: settings,

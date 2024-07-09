@@ -27,7 +27,7 @@ class CalendarTimeline extends StatelessWidget {
         (viewModel) => viewModel.initialDayPlanIndex);
 
     return SizedBox(
-      height: 104,
+      height: 110,
       child: Padding(
         padding:
             const EdgeInsets.only(top: 16, bottom: 12, left: 12, right: 12),
@@ -38,6 +38,8 @@ class CalendarTimeline extends StatelessWidget {
                 itemScrollController: controller,
                 initialScrollIndex: initialIndex ?? 0,
                 scrollDirection: Axis.horizontal,
+                physics: const ClampingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
                 itemCount: dayPlans.length,
                 itemBuilder: (context, idx) => Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 6),

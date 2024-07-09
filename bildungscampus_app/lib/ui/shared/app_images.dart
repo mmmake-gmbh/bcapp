@@ -1,7 +1,7 @@
 class AppImages {
   static const String bildungCampus = 'assets/images/bildungs_campus.png';
   static const String unityPlaceholder = 'assets/images/placeholder_unity.jpg';
-  static const String startScreen = 'assets/images/header-image-start.png';
+  static const String startScreen = 'assets/images/header-image-start.jpg';
   static const String logoWhite = 'assets/images/scs_logo_white.svg';
   static const String logoBlue = 'assets/images/scs_logo_blue.svg';
   static const String introOverview =
@@ -20,4 +20,5 @@ class AppImages {
   static const String arSpatialLoading = 'assets/images/ar_scan_progress.gif';
   static const String mensa = 'assets/images/mensa.png';
   static const String logoStiftung = 'assets/images/logo_schwarz_stiftung.png';
+  static const String logoFraunhofer = 'assets/images/iao_85mm.png';
 }

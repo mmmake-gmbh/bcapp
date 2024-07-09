@@ -29,11 +29,12 @@ class ParkingLotPriceItem {
 class ParkingLotPriceItemV2 {
   final List<LocalizedText> title;
   final List<LocalizedText> description;
+  final bool navigateToPaymentPortal;
 
-  ParkingLotPriceItemV2({
-    required this.title,
-    required this.description,
-  });
+  ParkingLotPriceItemV2(
+      {required this.title,
+      required this.description,
+      required this.navigateToPaymentPortal});
 
   /// Returns a new [ParkingLot] instance and imports its values from
   /// [json] if it's non-null, null if [json] is null.
@@ -43,11 +44,13 @@ class ParkingLotPriceItemV2 {
             json["title"].map((x) => LocalizedText.fromJson(x))),
         description: List<LocalizedText>.from(
             json[r'description'].map((x) => LocalizedText.fromJson(x))),
+        navigateToPaymentPortal: json[r'navigateToPaymentPortal'],
       );
 
   Map<String, dynamic> toJson() => {
         "title": List<dynamic>.from(title.map((x) => x.toJson())),
         "description": List<dynamic>.from(description.map((x) => x.toJson())),
+        "navigateToPaymentPortal": navigateToPaymentPortal,
       };
 
   String getTitle(Locale? locale) {

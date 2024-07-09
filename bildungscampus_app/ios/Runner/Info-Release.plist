@@ -51,5 +51,7 @@
 	</array>
 	<key>UIStatusBarHidden</key>
 	<false/>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Allow usage of FaceID to loggin into the app</string>
 </dict>
 </plist>

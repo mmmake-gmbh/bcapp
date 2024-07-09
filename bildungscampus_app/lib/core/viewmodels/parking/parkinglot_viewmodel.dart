@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:bildungscampus_app/core/models/parking/parkinglot.dart';
@@ -18,8 +19,9 @@ class ParkingLotViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> navigateTo() async {
-    String query = '${parkingLot.street}, ${parkingLot.city}';
+  Future<bool> navigateTo(Locale? locale) async {
+    String query =
+        '${parkingLot.getTitle(locale)}, ${parkingLot.street}, ${parkingLot.city}';
     final fallbackUri =
         Uri.https('maps.google.com', '/maps', {'q': query}).toString();
 

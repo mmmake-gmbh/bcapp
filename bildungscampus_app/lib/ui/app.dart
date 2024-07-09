@@ -47,8 +47,8 @@ class MyApp extends StatelessWidget {
         title: 'Mein Bildungscampus',
         theme: ThemeData(
           brightness: Brightness.light,
-          colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: AppColors.primaryOneMaterialColor,
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: AppColors.primaryOneMaterialColor,
           ),
           fontFamily: 'DINOT Medium',
           visualDensity: VisualDensity.adaptivePlatformDensity,

@@ -147,8 +147,8 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         backgroundColor: Colors.white,
-        toolbarOpacity: 0.9,
         leadingWidth: 85,
         leading: Selector<AppViewModel, WeatherData?>(
           selector: (context, viewModel) => viewModel.currentWeather,
@@ -256,11 +256,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
             ),
             tooltip: S.of(context).home_view_setting_button_tooltip,
             onPressed: () {
-              final isLogged = context.read<UserViewModel>().isLogged;
-
-              final route =
-                  isLogged ? AppRouter.settingRoute : AppRouter.loginRoute;
-              Navigator.of(context).pushNamed(route);
+              Navigator.of(context).pushNamed(AppRouter.settingRoute);
             },
           ),
         ],
@@ -273,7 +269,6 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
       body: Stack(
         children: [
           SafeArea(
-            bottom: false,
             child: SizedBox(
               height: double.infinity,
               child: Stack(
@@ -306,62 +301,64 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
                         physics: Platform.isIOS
                             ? const AlwaysScrollableScrollPhysics()
                             : const BouncingScrollPhysics(),
-                        child: Column(
-                          children: [
-                            StaggeredGrid.count(
-                              crossAxisCount: 4,
-                              axisDirection: AxisDirection.down,
-                              mainAxisSpacing: 16.0,
-                              crossAxisSpacing: 16.0,
-                              children: _getTiles(
-                                  model.tiles!, userModel.locale, context),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 6, right: 6, top: 12),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  InkWell(
-                                    onTap: () => Navigator.of(context)
-                                        .pushNamed(AppRouter.contactRoute),
-                                    child: Text(
-                                      S.of(context).contact_view_appmenu_title,
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      final url = context
-                                          .read<PrivacyViewModel>()
-                                          .privacyAgreementLink;
-                                      launchUrlString(url);
-                                    },
-                                    child: Text(
-                                      S.of(context).privacy_view_appmenu_title,
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      final url = context
-                                          .read<PrivacyViewModel>()
-                                          .termsOfUseLink;
-                                      launchUrlString(url);
-                                    },
-                                    child: Text(
-                                      S
-                                          .of(context)
-                                          .termsofuse_view_appmenu_title,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                        child: StaggeredGrid.count(
+                          crossAxisCount: 4,
+                          axisDirection: AxisDirection.down,
+                          mainAxisSpacing: 16.0,
+                          crossAxisSpacing: 16.0,
+                          children: _getTiles(
+                              model.tiles!, userModel.locale, context),
                         ),
                       ),
                     );
                   }),
+                  Positioned(
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                    child: Container(
+                      padding: EdgeInsets.only(
+                          left: 12,
+                          right: 12,
+                          top: 12,
+                          bottom: Platform.isAndroid ? 20 : 0),
+                      color: Colors.white.withOpacity(0.85),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () => Navigator.of(context)
+                                .pushNamed(AppRouter.contactRoute),
+                            child: Text(
+                              S.of(context).contact_view_appmenu_title,
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              final url = context
+                                  .read<PrivacyViewModel>()
+                                  .privacyAgreementLink;
+                              launchUrlString(url);
+                            },
+                            child: Text(
+                              S.of(context).privacy_view_appmenu_title,
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              final url = context
+                                  .read<PrivacyViewModel>()
+                                  .termsOfUseLink;
+                              launchUrlString(url);
+                            },
+                            child: Text(
+                              S.of(context).termsofuse_view_appmenu_title,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

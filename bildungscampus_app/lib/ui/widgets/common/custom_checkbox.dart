@@ -8,12 +8,12 @@ class CustomCheckbox extends StatelessWidget {
   const CustomCheckbox(
       {super.key, required this.value, required this.onChanged});
 
-  Color getCheckboxColor(Set<MaterialState> states) {
-    const Set<MaterialState> interactiveStates = <MaterialState>{
-      MaterialState.pressed,
-      MaterialState.hovered,
-      MaterialState.focused,
-      MaterialState.selected
+  Color getCheckboxColor(Set<WidgetState> states) {
+    const Set<WidgetState> interactiveStates = <WidgetState>{
+      WidgetState.pressed,
+      WidgetState.hovered,
+      WidgetState.focused,
+      WidgetState.selected
     };
     if (states.any(interactiveStates.contains)) {
       return AppColors.primaryTwoColor;
@@ -28,7 +28,7 @@ class CustomCheckbox extends StatelessWidget {
       child: Checkbox(
         value: value,
         onChanged: onChanged,
-        fillColor: MaterialStateProperty.resolveWith(getCheckboxColor),
+        fillColor: WidgetStateProperty.resolveWith(getCheckboxColor),
         checkColor: AppColors.primaryOneColor,
         side: BorderSide.none,
         shape: const RoundedRectangleBorder(

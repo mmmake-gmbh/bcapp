@@ -51,11 +51,16 @@ class _WelcomeTileState extends State<WelcomeTile>
       style: TextStyle(fontSize: 70, height: 1),
     );
 
-    final firstLine = userName != null && userName.isNotEmpty
+    final firstLineRaw = userName != null && userName.isNotEmpty
         ? S.of(context).welcome_tile_hello
         : S.of(context).welcome_tile_no_user_text;
+    final firstLine = "\u{00A0}\u{00A0}$firstLineRaw\u{00A0}\u{00A0}";
 
-    final secondLine = userName != null && userName.isNotEmpty ? userName : "";
+    final secondLineRaw =
+        userName != null && userName.isNotEmpty ? userName : "";
+    final secondLine = secondLineRaw.isNotEmpty
+        ? "\u{00A0}\u{00A0}$secondLineRaw\u{00A0}\u{00A0}"
+        : "";
 
     return Container(
       padding: const EdgeInsets.all(4.0),
@@ -67,25 +72,33 @@ class _WelcomeTileState extends State<WelcomeTile>
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                AutoSizeText(
-                  firstLine,
-                  maxLines: 1,
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                      fontFamily: 'DINOT Bold',
-                      color: Colors.white,
-                      backgroundColor: AppColors.welcomeTileTextBgColor),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 3.0),
+                Container(
+                  color: AppColors.welcomeTileTextBgColor,
+                  padding: const EdgeInsets.all(1.0),
                   child: AutoSizeText(
-                    secondLine,
+                    firstLine,
                     maxLines: 1,
                     style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                        fontFamily: 'DINOT Bold',
-                        color: Colors.white,
-                        backgroundColor: AppColors.welcomeTileTextBgColor),
+                          fontFamily: 'DINOT Bold',
+                          color: Colors.white,
+                        ),
                   ),
                 ),
+                if (secondLine.isNotEmpty)
+                  Container(
+                    color: AppColors.welcomeTileTextBgColor,
+                    margin: const EdgeInsets.only(top: 3.0),
+                    padding: const EdgeInsets.all(1.0),
+                    child: AutoSizeText(
+                      secondLine,
+                      maxLines: 1,
+                      style:
+                          Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                fontFamily: 'DINOT Bold',
+                                color: Colors.white,
+                              ),
+                    ),
+                  ),
               ],
             ),
           ),

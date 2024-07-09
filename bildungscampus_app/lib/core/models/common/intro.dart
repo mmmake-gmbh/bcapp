@@ -1,13 +1,13 @@
+import 'package:bildungscampus_app/core/models/common/intro_card.dart';
+
 class Intro {
   final String title;
   final String subtitle;
-  final String imageTitle;
-  final String imagePath;
+  final List<IntroCard> cards;
 
   Intro({
     required this.title,
     required this.subtitle,
-    required this.imageTitle,
-    required this.imagePath,
+    required this.cards,
   });
 }

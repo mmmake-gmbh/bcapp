@@ -1,208 +1,215 @@
 import 'dart:developer';
 
+import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
+import 'package:bildungscampus_app/core/models/mensa/mensa_forecast_data.dart';
+import 'package:bildungscampus_app/ui/shared/app_images.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class PredictionChart extends StatefulWidget {
-  const PredictionChart({super.key});
+class PredictionChart extends StatelessWidget {
+  final List<MensaForecastData> data;
+  final int maxPrediction;
+  final int currentOccupancy;
 
-  @override
-  State<PredictionChart> createState() => _PredictionChartState();
-}
-
-class _PredictionChartState extends State<PredictionChart> {
-  late List<BarChartGroupData> showingBarGroups;
-
-  @override
-  void initState() {
-    super.initState();
-
-    final barGroup1 = makeGroupData(0, [5]);
-    final barGroup2 = makeGroupData(1, [16]);
-    final barGroup3 = makeGroupData(2, [18]);
-    final barGroup4 = makeGroupData(3, [20]);
-    final barGroup5 = makeGroupData(4, [17]);
-    final barGroup6 = makeGroupData(5, [19]);
-    final barGroup7 = makeGroupData(6, [20]);
-    final barGroup8 = makeGroupData(7, [15]);
-    final barGroup9 = makeGroupData(8, [13]);
-    final barGroup10 = makeGroupData(9, [8]);
-    final barGroup11 = makeGroupData(10, [8]);
-    final barGroup12 = makeGroupData(11, [6]);
-    final barGroup13 = makeGroupData(12, [4]);
-    final barGroup14 = makeGroupData(13, [2]);
-
-    final items = [
-      barGroup1,
-      barGroup2,
-      barGroup3,
-      barGroup4,
-      barGroup5,
-      barGroup6,
-      barGroup7,
-      barGroup8,
-      barGroup9,
-      barGroup10,
-      barGroup11,
-      barGroup12,
-      barGroup13,
-      barGroup14,
-    ];
-
-    showingBarGroups = items;
-  }
+  const PredictionChart({
+    super.key,
+    required this.data,
+    required this.maxPrediction,
+    required this.currentOccupancy,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Padding(
-          padding: EdgeInsets.only(top: 8.0, left: 24),
-          child: Text(
-            "Mensa Auslastung",
-            style: TextStyle(
-              color: Color(0xFF3B3B3B),
-              fontSize: 16,
-              fontFamily: 'DIN OT',
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Expanded(
-          child: BarChart(
-            BarChartData(
-              maxY: 20,
-              barTouchData: BarTouchData(
-                touchTooltipData: BarTouchTooltipData(
-                    tooltipBgColor: Colors.grey,
-                    getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                      return BarTooltipItem(
-                        '${group.x}',
-                        const TextStyle(
-                          color: Colors.pink,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      );
-                    }),
-              ),
-              titlesData: FlTitlesData(
-                  show: true,
-                  rightTitles: const AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
-                  ),
-                  topTitles: const AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
-                  ),
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      getTitlesWidget: bottomTitles,
-                      reservedSize: 42,
-                    ),
-                  ),
-                  leftTitles:
-                      const AxisTitles() /*AxisTitles(
-                                sideTitles: SideTitles(
-                                  showTitles: true,
-                                  reservedSize: 28,
-                                  interval: 1,
-                                  getTitlesWidget: leftTitles,
-                                ),
-                              ),*/
-                  ),
-              borderData: FlBorderData(
-                show: false,
-                border: Border.symmetric(
-                  horizontal: BorderSide(
-                    color: Colors.black.withOpacity(0.2),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade600,
+            spreadRadius: 1,
+            blurRadius: 15,
+          )
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, left: 24, right: 24),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  S.of(context).mensa_view_forecast_title,
+                  style: const TextStyle(
+                    color: Color(0xFF3B3B3B),
+                    fontSize: 16,
+                    fontFamily: 'DIN OT',
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-              ),
-              barGroups: showingBarGroups,
-              gridData: FlGridData(
-                show: true,
-                drawVerticalLine: false,
-                horizontalInterval: 0.01,
-                checkToShowHorizontalLine: (value) => value <= 0.01,
-                getDrawingHorizontalLine: (value) {
-                  log("value: $value");
-                  return FlLine(
-                    dashArray: [1, 17],
-                    color: Colors.black.withOpacity(0.3),
-                    strokeWidth: 3,
-                  );
-                },
-              ),
-              groupsSpace: 3,
-              alignment: BarChartAlignment.center,
+                SizedBox(
+                  height: 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 4),
+                        child: Text("Powered by",
+                            style: TextStyle(
+                              color: Color(0xFF3B3B3B),
+                              fontSize: 12,
+                              fontFamily: 'DIN OT',
+                              fontWeight: FontWeight.w700,
+                            )),
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Image.asset(
+                        AppImages.logoFraunhofer,
+                        height: 20,
+                        fit: BoxFit.contain,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
+          const SizedBox(
+            height: 8,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: BarChart(
+                BarChartData(
+                  maxY: maxPrediction.toDouble(),
+                  barTouchData: BarTouchData(enabled: false),
+                  titlesData: FlTitlesData(
+                      show: true,
+                      rightTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      topTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          getTitlesWidget: bottomTitles,
+                          reservedSize: 30,
+                        ),
+                      ),
+                      leftTitles: const AxisTitles()),
+                  borderData: FlBorderData(
+                    show: false,
+                    border: Border.symmetric(
+                      horizontal: BorderSide(
+                        color: Colors.black.withOpacity(0.2),
+                      ),
+                    ),
+                  ),
+                  barGroups: _prepareBarGroups(data),
+                  gridData: FlGridData(
+                    show: true,
+                    drawVerticalLine: false,
+                    horizontalInterval: 0.2,
+                    checkToShowHorizontalLine: (value) => value <= 1,
+                    getDrawingHorizontalLine: (value) {
+                      return FlLine(
+                        dashArray: [1, 24],
+                        color: Colors.black.withOpacity(0.3),
+                        strokeWidth: 4,
+                      );
+                    },
+                  ),
+                  groupsSpace: 4,
+                  alignment: BarChartAlignment.start,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+        ],
+      ),
+    );
+  }
+
+  bool _isCurrentGroup(int xPosition) {
+    final now = DateTime.now();
+
+    final firstDate = DateTime(now.year, now.month, now.day, 11, 30);
+    final endDate = DateTime(now.year, now.month, now.day, 14, 30);
+    final positionStartDate = firstDate.add(Duration(minutes: xPosition * 15));
+    final positionEndDate = positionStartDate.add(const Duration(minutes: 15));
+
+    return now.isAfter(positionStartDate) &&
+        now.isBefore(positionEndDate) &&
+        now.isBefore(endDate);
+  }
+
+  BarChartGroupData _makeGroupData(int x, double yValue) {
+    final isCurrentGroup = _isCurrentGroup(x);
+    log("x: $x, y: $yValue, currentOccupancy: $currentOccupancy, isCurrentGroup: $isCurrentGroup");
+    final stackItems = isCurrentGroup
+        ? [
+            BarChartRodStackItem(
+                0, currentOccupancy.toDouble(), const Color(0xFF11C1B0)),
+            if (yValue > currentOccupancy.toDouble())
+              BarChartRodStackItem(
+                  currentOccupancy.toDouble(), yValue, const Color(0xFF60A9D6)),
+          ]
+        : [
+            BarChartRodStackItem(
+                currentOccupancy.toDouble(), yValue, const Color(0xFF60A9D6)),
+          ];
+
+    return BarChartGroupData(
+      barsSpace: 5,
+      x: x,
+      barRods: [
+        BarChartRodData(
+          toY: isCurrentGroup && currentOccupancy > yValue
+              ? currentOccupancy.toDouble()
+              : yValue,
+          width: 21,
+          color: const Color(0xFF60A9D6),
+          rodStackItems: stackItems,
         ),
       ],
     );
   }
 
-  BarChartGroupData makeGroupData(int x, List<double> yList) {
-    return BarChartGroupData(
-      //showingTooltipIndicators: x == 5 ? [0] : [],
-      barsSpace: 3,
-      x: x,
-      barRods: yList
-          .map(
-            (y1) => BarChartRodData(
-              toY: y1,
-              color: const Color(0xCC60A9D6),
-              width: 15,
-            ),
-          )
-          .toList(),
-    );
+  List<BarChartGroupData> _prepareBarGroups(List<MensaForecastData> data) {
+    final items = data
+        .asMap()
+        .entries
+        .map((entry) =>
+            _makeGroupData(entry.key, entry.value.prediction.toDouble()))
+        .toList();
+
+    return items;
   }
 
-/*
-  Widget leftTitles(double value, TitleMeta meta) {
-    const style = TextStyle(
-      color: Color(0xff7589a2),
-      fontWeight: FontWeight.bold,
-      fontSize: 14,
-    );
-    String text;
-    if (value == 0) {
-      text = '1K';
-    } else if (value == 10) {
-      text = '5K';
-    } else if (value == 19) {
-      text = '10K';
-    } else {
-      return Container();
-    }
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      space: 0,
-      child: Text(text, style: style),
-    );
-  }*/
   Widget bottomTitles(double value, TitleMeta meta) {
     final titles = <String>[
-      '09',
-      '10',
-      '11',
-      '12',
-      '13',
-      '14',
-      '15',
-      '16',
-      '17',
-      '18',
-      '19',
-      '20',
-      '21',
-      '22'
+      '11:30',
+      '11:45',
+      '12:00',
+      '12:15',
+      '12:30',
+      '12:45',
+      '13:00',
+      '13:15',
+      '13:30',
+      '13:45',
+      '14:00',
+      '14:15',
+      '14:30'
     ];
 
     final Widget text = Text(
@@ -217,7 +224,7 @@ class _PredictionChartState extends State<PredictionChart> {
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      space: 0, //margin top
+      space: 4, //margin top
       child: value % 4 == 0 ? text : const Text(""),
     );
   }

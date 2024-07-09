@@ -37,6 +37,8 @@ class AppViewModel extends BaseViewModel {
   static const String campusCardSettingLinkKey = 'CampusCardSetting';
   static const String gitHubLinkKey = 'GitHub';
   static const String fahrradBoxLinkKey = 'FahrradBox';
+  static const String registrationLinkKey = 'Registrierung';
+  static const String mensaGuestCardLinkKey = 'MensaCard';
 
   final AppContentRepository _contentRepository =
       locator<AppContentRepository>();
@@ -62,18 +64,23 @@ class AppViewModel extends BaseViewModel {
       FeatureInfo(
           slides: [], version: "", isActive: false, date: DateTime.now());
 
-  String? get locationMapLink => _externalLinkByKey(locationMapKey);
-  String? get timeTableLink => _externalLinkByKey(timeTableLinkKey);
-  String? get campusRadLink => _externalLinkByKey(campusRadLinkKey);
-  String? get zaegLink => _externalLinkByKey(zeagLinkKey);
-  String? get bookSearchLink => _externalLinkByKey(bookSearchLinkKey);
-  String? get paymentLink => _externalLinkByKey(paymentKey);
-  String? get accountSettingLink => _externalLinkByKey(accountSettingLinkKey);
-  String? get sessionsSettingLink => _externalLinkByKey(sessionsSettingLinkKey);
-  String? get campusCardSettingLink =>
+  ExternalLink? get locationMapLink => _externalLinkByKey(locationMapKey);
+  ExternalLink? get timeTableLink => _externalLinkByKey(timeTableLinkKey);
+  ExternalLink? get campusRadLink => _externalLinkByKey(campusRadLinkKey);
+  ExternalLink? get zaegLink => _externalLinkByKey(zeagLinkKey);
+  ExternalLink? get bookSearchLink => _externalLinkByKey(bookSearchLinkKey);
+  ExternalLink? get paymentLink => _externalLinkByKey(paymentKey);
+  ExternalLink? get accountSettingLink =>
+      _externalLinkByKey(accountSettingLinkKey);
+  ExternalLink? get sessionsSettingLink =>
+      _externalLinkByKey(sessionsSettingLinkKey);
+  ExternalLink? get campusCardSettingLink =>
       _externalLinkByKey(campusCardSettingLinkKey);
-  String? get gitHubLink => _externalLinkByKey(gitHubLinkKey);
-  String? get fahradBoxLink => _externalLinkByKey(fahrradBoxLinkKey);
+  ExternalLink? get gitHubLink => _externalLinkByKey(gitHubLinkKey);
+  ExternalLink? get fahradBoxLink => _externalLinkByKey(fahrradBoxLinkKey);
+  ExternalLink? get registrationLink => _externalLinkByKey(registrationLinkKey);
+  ExternalLink? get mensaGuestCardLink =>
+      _externalLinkByKey(mensaGuestCardLinkKey);
 
   AppViewModel(FlutterSecureStorage storage) {
     _secureStorage = storage;
@@ -178,10 +185,10 @@ class AppViewModel extends BaseViewModel {
     return parkingLots;
   }
 
-  String? _externalLinkByKey(String key) {
+  ExternalLink? _externalLinkByKey(String key) {
     if (_externalLinks != null &&
         _externalLinks!.any((link) => link.name == key)) {
-      return externalLinks!.firstWhere((link) => link.name == key).link;
+      return externalLinks!.firstWhere((link) => link.name == key);
     }
     return null;
   }

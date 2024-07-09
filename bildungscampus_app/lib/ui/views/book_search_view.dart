@@ -12,23 +12,23 @@ class BookSearchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final url = context.read<AppViewModel>().bookSearchLink;
+    final locale = context.select((UserViewModel model) => model.locale);
+    final externalLink = context.read<AppViewModel>().bookSearchLink;
     final titleList =
         context.read<AppViewModel>().getAppMenuTitle(FeatureType.bookSearch);
 
-    final locale = context.select((UserViewModel model) => model.locale);
     var title = LocalizedTextUtils.getLocalizedText(titleList, locale);
     if (title.isEmpty) {
       title = S.of(context).booksearch_view_title_backup;
     }
 
-    if (url == null) {
+    if (externalLink == null) {
       return const SizedBox.shrink();
     }
     return SimpleWebViewView(
       featureType: FeatureType.bookSearch,
       title: title,
-      url: url,
+      externalLink: externalLink,
       headers: const {},
     );
   }

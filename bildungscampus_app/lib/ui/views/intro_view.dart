@@ -4,6 +4,7 @@ import 'package:bildungscampus_app/core/repositories/intro/intro_repository.dart
 import 'package:bildungscampus_app/locator.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
+import 'package:bildungscampus_app/ui/widgets/intro/intro_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -63,7 +64,7 @@ class _InitialViewState extends State<IntroView> {
             ],
           ),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+        padding: const EdgeInsets.symmetric(vertical: 30),
         child: SafeArea(
           child: Column(
             children: [
@@ -73,12 +74,12 @@ class _InitialViewState extends State<IntroView> {
                   itemCount: _introPages.length,
                   itemBuilder: (ctx, idx, readIndex) {
                     final page = _introPages[idx];
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Column(
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Column(
                             children: [
                               Text(
                                 page.title,
@@ -107,21 +108,22 @@ class _InitialViewState extends State<IntroView> {
                                 ),
                             ],
                           ),
-                        ),
-                        const SizedBox(height: 30),
-                        Expanded(
-                          child: Column(children: [
-                            if (page.imageTitle.isNotEmpty)
-                              Text(page.imageTitle),
-                            Expanded(
-                              child: Image.asset(
-                                page.imagePath,
-                                fit: BoxFit.fitWidth,
-                              ),
-                            )
-                          ]),
-                        ),
-                      ],
+                          const SizedBox(height: 30),
+                          Expanded(
+                            child: Column(
+                                children: page.cards
+                                    .map((card) => Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 8),
+                                          child: IntroCard(
+                                              icon: card.icon,
+                                              titleText: card.title,
+                                              text: card.text),
+                                        ))
+                                    .toList()),
+                          ),
+                        ],
+                      ),
                     );
                   },
                   options: CarouselOptions(

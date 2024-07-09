@@ -1,8 +1,10 @@
 import 'package:bildungscampus_app/core/enums/parkinglot_category.dart';
 import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
+import 'package:bildungscampus_app/ui/app_router.dart';
 import 'package:bildungscampus_app/ui/shared/svg_icons.dart';
 import 'package:bildungscampus_app/ui/widgets/parking/parking_badge.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +27,7 @@ class ParkingListViewItem extends StatelessWidget {
         margin: EdgeInsets.zero,
         elevation: 10,
         shadowColor: const Color.fromRGBO(0, 0, 0, 0.25),
-        surfaceTintColor: Colors.white,
+        color: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
@@ -71,7 +73,7 @@ class ParkingListViewItem extends StatelessWidget {
                                   onPressed: () async {
                                     final navigated = await context
                                         .read<ParkingLotViewModel>()
-                                        .navigateTo();
+                                        .navigateTo(locale);
 
                                     if (!navigated && context.mounted) {
                                       ScaffoldMessenger.of(context)
@@ -236,8 +238,46 @@ class ParkingListViewItem extends StatelessWidget {
                                       Expanded(
                                         child: Text(priceItem.getTitle(locale)),
                                       ),
-                                      Text(
-                                        priceItem.getDescription(locale),
+                                      RichText(
+                                        text: TextSpan(
+                                            text: priceItem
+                                                .getDescription(locale),
+                                            style: DefaultTextStyle.of(context)
+                                                .style,
+                                            children: [
+                                              if (priceItem
+                                                  .navigateToPaymentPortal)
+                                                TextSpan(
+                                                    text: S
+                                                        .of(context)
+                                                        .parkinglot_view_pay_portal_text,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .labelLarge!
+                                                        .copyWith(
+                                                          fontSize: 12.0,
+                                                          height: 1.33,
+                                                          letterSpacing: 0.3,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .underline,
+                                                          color: AppColors
+                                                              .primaryTwoColor,
+                                                          decorationColor:
+                                                              AppColors
+                                                                  .primaryTwoColor,
+                                                        ),
+                                                    recognizer:
+                                                        TapGestureRecognizer()
+                                                          ..onTap = () {
+                                                            final navigator =
+                                                                Navigator.of(
+                                                                    context);
+                                                            navigator.pushNamed(
+                                                                AppRouter
+                                                                    .paymentRoute);
+                                                          })
+                                            ]),
                                         textAlign: TextAlign.right,
                                       ),
                                     ],

@@ -1,9 +1,15 @@
 import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
+import 'package:bildungscampus_app/core/utils/localized_text_utils.dart';
+import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/ui/shared/app_images.dart';
 import 'package:bildungscampus_app/ui/widgets/navigation/reusable_appbars.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class MensaInfoDialogContent extends StatelessWidget {
+class MensaInfoDialogContent extends StatefulWidget {
   final double appBarHeight;
 
   const MensaInfoDialogContent({super.key, required this.appBarHeight});
@@ -24,12 +30,45 @@ class MensaInfoDialogContent extends StatelessWidget {
   );
 
   @override
+  State<MensaInfoDialogContent> createState() => _MensaInfoDialogContentState();
+}
+
+class _MensaInfoDialogContentState extends State<MensaInfoDialogContent> {
+  late TapGestureRecognizer _guestCardTapGestureRecognizer;
+
+  @override
+  void initState() {
+    _guestCardTapGestureRecognizer = TapGestureRecognizer()
+      ..onTap = guestCardOnTapHandler;
+    super.initState();
+  }
+
+  void guestCardOnTapHandler() {
+    final locale = context.read<UserViewModel>().locale;
+    final mensaGuestCardLink = LocalizedTextUtils.getLocalizedTextWithNull(
+        context.read<AppViewModel>().mensaGuestCardLink?.link, locale);
+
+    if (mensaGuestCardLink == null) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Fehler beim Öffnen des Links"))); //TODO: Translation
+      return;
+    }
+    launchUrl(Uri.parse(mensaGuestCardLink));
+  }
+
+  @override
+  void dispose() {
+    _guestCardTapGestureRecognizer.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          height: appBarHeight,
+          height: widget.appBarHeight,
           color: const Color(0xFF2B78A7),
           child: Flex(
             direction: Axis.horizontal,
@@ -74,9 +113,9 @@ class MensaInfoDialogContent extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Mensa Bildungscampus",
-                    style: TextStyle(
+                  Text(
+                    S.of(context).mensa_view_info_content_title,
+                    style: const TextStyle(
                       color: Color(0xFF193E69),
                       fontSize: 20,
                       fontFamily: 'DIN OT',
@@ -86,7 +125,7 @@ class MensaInfoDialogContent extends StatelessWidget {
                     textAlign: TextAlign.left,
                   ),
                   SelectableText(
-                    "Bildungscampus 8,\n74076 Heilbronn",
+                    "Bildungscampus 8\n74076 Heilbronn",
                     style: TextStyle(
                       color: Colors.black.withOpacity(0.5400000214576721),
                       fontSize: 14,
@@ -126,7 +165,7 @@ class MensaInfoDialogContent extends StatelessWidget {
                       Expanded(
                         child: Text(
                           S.of(context).mensa_view_info_content_opening_hours,
-                          style: leftTextStyle,
+                          style: MensaInfoDialogContent.leftTextStyle,
                         ),
                       ),
                       Text(
@@ -134,7 +173,7 @@ class MensaInfoDialogContent extends StatelessWidget {
                             .of(context)
                             .mensa_view_info_content_opening_hours_value,
                         textAlign: TextAlign.right,
-                        style: rightTextStyle,
+                        style: MensaInfoDialogContent.rightTextStyle,
                       ),
                     ],
                   ),
@@ -146,13 +185,13 @@ class MensaInfoDialogContent extends StatelessWidget {
                       Expanded(
                         child: Text(
                           S.of(context).mensa_view_info_content_vegan_label,
-                          style: leftTextStyle,
+                          style: MensaInfoDialogContent.leftTextStyle,
                         ),
                       ),
                       Text(
                         S.of(context).mensa_view_info_content_vegan_value,
                         textAlign: TextAlign.right,
-                        style: rightTextStyle,
+                        style: MensaInfoDialogContent.rightTextStyle,
                       ),
                     ],
                   ),
@@ -166,13 +205,13 @@ class MensaInfoDialogContent extends StatelessWidget {
                           S
                               .of(context)
                               .mensa_view_info_content_campuscard_label,
-                          style: leftTextStyle,
+                          style: MensaInfoDialogContent.leftTextStyle,
                         ),
                       ),
                       Text(
                         S.of(context).mensa_view_info_content_campuscard_value,
                         textAlign: TextAlign.right,
-                        style: rightTextStyle,
+                        style: MensaInfoDialogContent.rightTextStyle,
                       ),
                     ],
                   ),
@@ -184,7 +223,7 @@ class MensaInfoDialogContent extends StatelessWidget {
                       Expanded(
                         child: Text(
                           S.of(context).mensa_view_info_content_payment_label,
-                          style: leftTextStyle,
+                          style: MensaInfoDialogContent.leftTextStyle,
                         ),
                       ),
                       Text.rich(
@@ -192,21 +231,22 @@ class MensaInfoDialogContent extends StatelessWidget {
                         TextSpan(
                           children: [
                             TextSpan(
-                                text: 'CampusCard\n', style: rightTextStyle),
+                                text: 'CampusCard\n',
+                                style: MensaInfoDialogContent.rightTextStyle),
                             TextSpan(
-                              text: S
-                                  .of(context)
-                                  .mensa_view_info_content_payment_value,
-                              style: const TextStyle(
-                                color: Color(0xFF2B78A7),
-                                fontSize: 12,
-                                fontFamily: 'DIN OT',
-                                fontWeight: FontWeight.w500,
-                                decoration: TextDecoration.underline,
-                                decorationColor: Color(0xFF2B78A7),
-                                letterSpacing: 0.30,
-                              ),
-                            ),
+                                text: S
+                                    .of(context)
+                                    .mensa_view_info_content_payment_value,
+                                style: const TextStyle(
+                                  color: Color(0xFF2B78A7),
+                                  fontSize: 12,
+                                  fontFamily: 'DIN OT',
+                                  fontWeight: FontWeight.w500,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Color(0xFF2B78A7),
+                                  letterSpacing: 0.30,
+                                ),
+                                recognizer: _guestCardTapGestureRecognizer),
                           ],
                         ),
                       ),

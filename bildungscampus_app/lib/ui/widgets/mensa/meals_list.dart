@@ -48,7 +48,8 @@ class MealsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (selectedDayPlan.isDisabled(DateTime.now())) {
-      if (!selectedDayPlan.datum.isBefore(DateTime.now())) {
+      if (selectedDayPlan.datum.weekday == DateTime.saturday ||
+          selectedDayPlan.datum.weekday == DateTime.sunday) {
         return Center(
           child: Text(
             S.of(context).mensa_view_closed_text,
@@ -60,35 +61,19 @@ class MealsList extends StatelessWidget {
             ),
           ),
         );
-      }
-
-      return Center(
-        child: Text.rich(
-          TextSpan(
-            children: [
-              TextSpan(
-                text: S.of(context).mensa_view_in_the_past_label_part1,
-                style: const TextStyle(
-                  color: Color(0xFF979797),
-                  fontSize: 16,
-                  fontFamily: 'DIN OT',
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              TextSpan(
-                text: S.of(context).mensa_view_in_the_past_label_part2,
-                style: const TextStyle(
-                  color: Color(0xFF979797),
-                  fontSize: 16,
-                  fontFamily: 'DIN OT',
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
+      } else {
+        return Center(
+          child: Text(
+            S.of(context).mensa_view_not_available,
+            style: const TextStyle(
+              color: Color(0xFF979797),
+              fontSize: 16,
+              fontFamily: 'DIN OT',
+              fontWeight: FontWeight.w500,
+            ),
           ),
-          textAlign: TextAlign.center,
-        ),
-      );
+        );
+      }
     }
     return ListView.builder(
       itemCount: selectedDayPlan.linie?.length,
@@ -98,7 +83,7 @@ class MealsList extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           elevation: 10,
           shadowColor: Colors.black26,
-          surfaceTintColor: Colors.white,
+          color: Colors.white,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
             child: Selector<UserViewModel, Locale?>(

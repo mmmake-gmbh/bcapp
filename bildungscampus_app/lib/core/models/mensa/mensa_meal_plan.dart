@@ -85,7 +85,7 @@ class Meal {
       };
 }
 
-enum MealCategories { dessert, dessertVegan, soup, meat, vegan, vegatarian }
+enum MealCategories { soup, meat, vegatarian, vegan, dessert, dessertVegan }
 
 final ausgabeValues = EnumValues({
   "Dessert": MealCategories.dessert,

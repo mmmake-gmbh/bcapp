@@ -93,6 +93,8 @@ class PrivacyView extends StatelessWidget {
                                                     decoration: TextDecoration
                                                         .underline,
                                                     color: AppColors
+                                                        .primaryTwoLightColor,
+                                                    decorationColor: AppColors
                                                         .primaryTwoLightColor),
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
@@ -137,6 +139,8 @@ class PrivacyView extends StatelessWidget {
                                                     decoration: TextDecoration
                                                         .underline,
                                                     color: AppColors
+                                                        .primaryTwoLightColor,
+                                                    decorationColor: AppColors
                                                         .primaryTwoLightColor),
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
@@ -172,18 +176,18 @@ class PrivacyView extends StatelessWidget {
                           ),
                         ).copyWith(
                           backgroundColor:
-                              MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.disabled)) {
+                              WidgetStateProperty.resolveWith<Color>(
+                            (Set<WidgetState> states) {
+                              if (states.contains(WidgetState.disabled)) {
                                 return AppColors.disabledButtonBgColor;
                               }
                               return AppColors.primaryTwoColor;
                             },
                           ),
                           foregroundColor:
-                              MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.disabled)) {
+                              WidgetStateProperty.resolveWith<Color>(
+                            (Set<WidgetState> states) {
+                              if (states.contains(WidgetState.disabled)) {
                                 return AppColors.disabledButtonTextColor;
                               }
                               return Colors.white;

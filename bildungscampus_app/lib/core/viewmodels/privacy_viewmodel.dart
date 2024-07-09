@@ -44,13 +44,18 @@ class PrivacyViewModel extends ChangeNotifier {
       return;
     }
     if (externalLinks.any((link) => link.name == termOfUseKey)) {
-      _termOfUseLink =
-          externalLinks.firstWhere((link) => link.name == termOfUseKey).link;
+      _termOfUseLink = externalLinks
+          .firstWhere((link) => link.name == termOfUseKey)
+          .link
+          .firstWhere((text) => text.lang == 'de')
+          .text;
     }
     if (externalLinks.any((link) => link.name == privacyAgreementKey)) {
       _privacyAgreementLink = externalLinks
           .firstWhere((link) => link.name == privacyAgreementKey)
-          .link;
+          .link
+          .firstWhere((text) => text.lang == 'de')
+          .text;
     }
     notifyListeners();
   }

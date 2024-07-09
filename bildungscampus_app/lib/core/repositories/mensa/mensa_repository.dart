@@ -1,5 +1,5 @@
-import 'package:bildungscampus_app/core/models/mensa/mensa_meal_plan.dart';
+import 'package:bildungscampus_app/core/models/mensa/mensa_content.dart';
 
 abstract class MensaRepository {
-  Future<MensaMealPlan> getMealPlan();
+  Future<MensaContent> getMensaContent();
 }

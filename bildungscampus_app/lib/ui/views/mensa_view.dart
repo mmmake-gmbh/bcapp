@@ -6,7 +6,7 @@ import 'package:bildungscampus_app/core/viewmodels/mensa_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
 import 'package:bildungscampus_app/ui/views/feature_view.dart';
-import 'package:bildungscampus_app/ui/widgets/mensa/mensa_content.dart';
+import 'package:bildungscampus_app/ui/widgets/mensa/mensa_content_widget.dart';
 import 'package:bildungscampus_app/ui/widgets/mensa/mensa_info_dialog_content.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -91,7 +91,7 @@ class _MensaViewState extends State<MensaView> {
           return FeatureView(
             featureType: FeatureType.mensa,
             children: [
-              MensaContent(
+              MensaContentWidget(
                 initialIndex:
                     context.read<MensaViewModel>().initialDayPlanIndex,
               )
