@@ -1,6 +1,7 @@
 import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/models/mensa/mensa_meal_plan.dart';
 import 'package:bildungscampus_app/core/viewmodels/mensa_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/ui/widgets/mensa/timeline_element.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -21,10 +22,38 @@ class CalendarTimeline extends StatelessWidget {
   final Color _disabledTextColor = const Color(0xFF979797);
   final Color _mainTextColor = const Color(0xFF193E69);
 
+  String getDayOfMonthSuffix(DateTime date) {
+    final dayNum = date.day;
+
+    if (dayNum >= 11 && dayNum <= 13) {
+      return 'th';
+    }
+
+    switch (dayNum % 10) {
+      case 1:
+        return 'st';
+      case 2:
+        return 'nd';
+      case 3:
+        return 'rd';
+      default:
+        return 'th';
+    }
+  }
+
+  String getDateFormat(Locale? locale, DateTime date) {
+    final dateFormat = locale?.languageCode == "en"
+        ? "EEEE MMMM d'${getDayOfMonthSuffix(date)}' yyyy"
+        : "EEEE d. MMMM yyyy";
+    return dateFormat;
+  }
+
   @override
   Widget build(BuildContext context) {
     final initialIndex = context.select<MensaViewModel, int?>(
         (viewModel) => viewModel.initialDayPlanIndex);
+
+    final locale = context.read<UserViewModel>().locale;
 
     return SizedBox(
       height: 110,
@@ -105,7 +134,7 @@ class CalendarTimeline extends StatelessWidget {
                   return const SizedBox.shrink();
                 }
                 return Text(
-                  '${S.of(context).mensa_view_timeline_menu_label} – ${DateFormat("EEEE d. MMMM yyyy").format(selectedDayPlan.datum)}',
+                  '${S.of(context).mensa_view_timeline_menu_label} – ${DateFormat(getDateFormat(locale, selectedDayPlan.datum)).format(selectedDayPlan.datum)}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.black.withOpacity(0.5400000214576721),

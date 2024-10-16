@@ -87,7 +87,7 @@ class _WelcomeTileState extends State<WelcomeTile>
                 if (secondLine.isNotEmpty)
                   Container(
                     color: AppColors.welcomeTileTextBgColor,
-                    margin: const EdgeInsets.only(top: 3.0),
+                    margin: const EdgeInsets.only(top: 2.0),
                     padding: const EdgeInsets.all(1.0),
                     child: AutoSizeText(
                       secondLine,

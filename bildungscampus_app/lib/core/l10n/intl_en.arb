@@ -46,9 +46,8 @@
   "privacy_view_headline_text": "Terms of Use & Privacy Policy",
   "privacy_view_terms_of_use_text_part1": "I accept the ",
   "privacy_view_terms_of_use_text_part2": "Terms of Use",
-  "privacy_view_privacy_agreement_text_part1": "I have read and understood the ",
-  "privacy_view_privacy_agreement_text_part2": "Privacy Policy",
-  "privacy_view_privacy_agreement_text_part3": "",
+  "privacy_view_privacy_agreement_text_part1": "Privacy policy can be found ",
+  "privacy_view_privacy_agreement_text_part2": "here",
   "privacy_view_accept_button_text": "Let’s go",
   "privacy_view_tile_appendix": "for",
   "timetable_view_title_backup": "Departure Board",
@@ -134,5 +133,6 @@
   "login_view_prompt_biometric_text": "Do you want to use biometric to login next time?",
   "login_view_prompt_biometric_accept_button": "YES",
   "login_view_prompt_biometric_dismiss_button": "DISMISS",
-  "login_view_biometric_authenticate_reason": "Biometric authentication"
+  "login_view_biometric_authenticate_reason": "Biometric authentication",
+  "contact_view_show_licenses_button_text": "Show all licenses"
 }

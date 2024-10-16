@@ -5,9 +5,9 @@ import 'package:bildungscampus_app/core/utils/localized_text_utils.dart';
 import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
+import 'package:bildungscampus_app/ui/widgets/carousel_slider/carousel_slider.dart';
 import 'package:bildungscampus_app/ui/widgets/common/custom_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide CarouselController;
 import 'package:provider/provider.dart';
 
 class NewFlag extends StatefulWidget {

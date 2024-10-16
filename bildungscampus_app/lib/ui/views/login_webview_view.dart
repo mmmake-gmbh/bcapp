@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class LoginWebViewView extends StatefulWidget {
@@ -45,6 +46,18 @@ class _LoginWebViewViewState extends State<LoginWebViewView> {
   final loginPageUrlPart = "user-ui-bc/login";
   final loggingUrlPart = "authz-srv/authz";
 
+  static const logoutHost = "bildungscampus.life";
+  final logoutUrl = "docs.bildungscampus.life/display/PORTAL";
+  final externalUrlDomain = "bildungscampus.hn";
+
+  final additionalHosts = [
+    'www.paypalobjects.com',
+    'paypal.com',
+    'www.recaptcha.net',
+    'www.computop-paygate.com',
+    logoutHost
+  ];
+
   Future<void> useBiometricWhenActivated() async {
     final navigator = Navigator.of(context);
     final userModel = context.read<UserViewModel>();
@@ -64,7 +77,7 @@ class _LoginWebViewViewState extends State<LoginWebViewView> {
       }
 
       final canCheckBiometric = await auth.canCheckBiometrics;
-      log("Biometric supported: $canCheckBiometric");
+      log("Biometric can check: $canCheckBiometric");
 
       if (canCheckBiometric) {
         final authenticated = await auth.authenticate(
@@ -80,15 +93,24 @@ class _LoginWebViewViewState extends State<LoginWebViewView> {
 
           return;
         }
+
+        await refreshTokenAndCookie();
       }
     } on PlatformException catch (e) {
       log(e.toString());
     }
   }
 
-  Future<void> refreshTokenAndLoadRequest() async {
+  Future<void> refreshTokenAndCookie() async {
     final userViewModel = context.read<UserViewModel>();
-    await userViewModel.refreshAccessTokenAndCookie();
+    if (userViewModel.useBiometricLoginActivated &&
+        userViewModel.isAccessTokenExpired()) {
+      await userViewModel.refreshAccessTokenAndCookie();
+    }
+  }
+
+  Future<void> loadRequest() async {
+    final userViewModel = context.read<UserViewModel>();
 
     final headers = getHeadersFromSSoCookie(userViewModel.ssoCookie);
     log("headers: $headers");
@@ -144,18 +166,42 @@ class _LoginWebViewViewState extends State<LoginWebViewView> {
             isLoading.value = true;
             final uri = Uri.parse(url!);
 
-            if (request.url.contains(uri.host) ||
-                request.url.contains(loggingUrlPart)) {
-              log("navigated");
-
-              return NavigationDecision.navigate;
-            }
-
             if (request.url.contains(loginPageUrlPart)) {
               Navigator.of(context).pushReplacementNamed(AppRouter.loginRoute,
                   arguments: widget.currentNavigation);
 
               return NavigationDecision.prevent;
+            }
+
+            if (request.url.contains(logoutUrl)) {
+              context
+                  .read<UserViewModel>()
+                  .logout(alreadyLoggedOut: true)
+                  .then((logoutReturn) {
+                if (mounted) {
+                  Navigator.of(context)
+                      .pushReplacementNamed(AppRouter.homeRoute);
+                }
+              });
+
+              return NavigationDecision.prevent;
+            }
+
+            if (Uri.parse(request.url).host.contains(externalUrlDomain)) {
+              log("external");
+
+              launchUrlString(request.url);
+
+              return NavigationDecision.prevent;
+            }
+
+            if (request.url.contains(uri.host) ||
+                request.url.contains(loggingUrlPart) ||
+                additionalHosts.any(
+                    (host) => Uri.parse(request.url).host.contains(host))) {
+              log("navigated");
+
+              return NavigationDecision.navigate;
             }
 
             log("prevent");
@@ -212,7 +258,7 @@ class _LoginWebViewViewState extends State<LoginWebViewView> {
               if (url != null)
                 FutureBuilder(
                   builder: (context, _) => const SizedBox.shrink(),
-                  future: refreshTokenAndLoadRequest(),
+                  future: loadRequest(),
                 )
             ],
           );

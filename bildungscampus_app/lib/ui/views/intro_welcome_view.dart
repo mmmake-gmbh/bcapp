@@ -56,7 +56,7 @@ class _IntroWelcomeViewState extends State<IntroWelcomeView> {
             ],
           ),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 0),
+        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -5,24 +5,24 @@ import 'package:flutter/material.dart';
 
 class PrivacyViewModel extends ChangeNotifier {
   static const String internalPrivacyAgreementLink =
-      'https://bildungscampus.hn/mein-bildungscampus-datenschutzerklaerung';
+      'https://bildungscampus.hn/mein-bildungscampus-datenschutzerklaerung?hidebanner=true';
   static const String internalTermOfUseLink =
-      'https://bildungscampus.hn/mein-bildungscampus-nutzungsbedingungen';
+      'https://bildungscampus.hn/mein-bildungscampus-v126-nutzungsbedingungen';
 
   final SettingsService _settingsService = locator<SettingsService>();
   static const String termOfUseKey = 'TermsOfUse';
   static const String privacyAgreementKey = 'Privacy';
 
   late bool _termsOfUse;
-  late bool _privacyAgreement;
+  //late bool _privacyAgreement;
 
   String? _termOfUseLink;
   String? _privacyAgreementLink;
 
   bool get termsOfUse => _termsOfUse;
-  bool get privacyAgreement => _privacyAgreement;
+  //bool get privacyAgreement => _privacyAgreement;
 
-  bool get formValid => termsOfUse && privacyAgreement;
+  bool get formValid => termsOfUse; // && privacyAgreement;
 
   String get termsOfUseLink =>
       _termOfUseLink != null && _termOfUseLink!.isNotEmpty
@@ -36,20 +36,20 @@ class PrivacyViewModel extends ChangeNotifier {
   Future<void> load() async {
     final settings = await _settingsService.loadSettings();
     _termsOfUse = settings.termOfUse;
-    _privacyAgreement = settings.privacyAgreement;
+    //_privacyAgreement = settings.privacyAgreement;
   }
 
   void updateExternalLinks(List<ExternalLink>? externalLinks) {
     if (externalLinks == null) {
       return;
     }
-    if (externalLinks.any((link) => link.name == termOfUseKey)) {
+    /*if (externalLinks.any((link) => link.name == termOfUseKey)) {
       _termOfUseLink = externalLinks
           .firstWhere((link) => link.name == termOfUseKey)
           .link
           .firstWhere((text) => text.lang == 'de')
           .text;
-    }
+    }*/
     if (externalLinks.any((link) => link.name == privacyAgreementKey)) {
       _privacyAgreementLink = externalLinks
           .firstWhere((link) => link.name == privacyAgreementKey)
@@ -68,13 +68,13 @@ class PrivacyViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setPrivacyAgreement(bool? state) async {
+  /*Future<void> setPrivacyAgreement(bool? state) async {
     final newState = state ?? false;
     await _settingsService.setPrivacyAgreement(newState);
     _privacyAgreement = newState;
 
     notifyListeners();
-  }
+  }*/
 
   Future<void> acceptTerms() async {
     await _settingsService.setHideIntro(true);

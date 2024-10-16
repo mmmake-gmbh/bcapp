@@ -1,4 +1,5 @@
-import 'dart:developer';
+import 'dart:developer' as dev;
+import 'dart:math';
 
 import 'package:bildungscampus_app/core/models/mensa/mensa_content.dart';
 import 'package:bildungscampus_app/core/models/mensa/mensa_forecast_data.dart';
@@ -24,25 +25,23 @@ class MensaViewModel extends BaseViewModel {
 
     final initialMensa = _mensa!.menu;
     final date = DateTime.now();
-    final yesterday = getDate(date).add(const Duration(days: -1));
+    final yesterday = _getDate(date).add(const Duration(days: -1));
     final thisSunday =
-        getDate(date.add(Duration(days: DateTime.daysPerWeek - date.weekday)));
+        _getDate(date.add(Duration(days: DateTime.daysPerWeek - date.weekday)));
     final nextMonday = thisSunday.add(const Duration(days: 8));
     final filteredPlan = initialMensa.tagesplan
         .where((plan) =>
             plan.datum.isAfter(yesterday) &&
             plan.datum.isBeforeDate(nextMonday))
         .toList();
+    for (var dayPlan in filteredPlan) {
+      dayPlan.linie?.sort((a, b) => a.ausgabe.index.compareTo(b.ausgabe.index));
+    }
 
     return MensaMealPlan(ort: initialMensa.ort, tagesplan: filteredPlan);
   }
 
-  DayPlan? get selectedDayPlan {
-    final plan = _selectedDayPlan;
-    plan?.linie?.sort((a, b) => a.ausgabe.index.compareTo(b.ausgabe.index));
-
-    return plan;
-  }
+  DayPlan? get selectedDayPlan => _selectedDayPlan;
 
   int? get initialDayPlanIndex => _initialDayPlanIndex;
   List<MensaForecastData> get forecast {
@@ -51,20 +50,20 @@ class MensaViewModel extends BaseViewModel {
             .where((d) =>
                 d.time
                     .isAfter(DateTime(now.year, now.month, now.day, 11, 29)) &&
-                d.time
-                    .isBefore(DateTime(now.year, now.month, now.day, 14, 31)) &&
-                d.time.minute % 15 == 0)
+                d.time.isBefore(DateTime(now.year, now.month, now.day, 14, 31)))
             .toList() ??
         [];
   }
 
-  int get maxforecast => forecast
-      .map((d) => d.prediction)
-      .reduce((curr, next) => curr > next ? curr : next);
+  int get maxforecast => max(
+      forecast
+          .map((d) => d.prediction)
+          .reduce((curr, next) => curr > next ? curr : next),
+      currentOccupancy);
 
   int get currentOccupancy => _mensa?.occupancy.currentOccupancy ?? 0;
 
-  DateTime getDate(DateTime d) => DateTime(d.year, d.month, d.day);
+  DateTime _getDate(DateTime d) => DateTime(d.year, d.month, d.day);
 
   Future<void> load() async {
     try {
@@ -77,7 +76,7 @@ class MensaViewModel extends BaseViewModel {
         _initialDayPlanIndex = mensaMenu?.tagesplan.indexOf(_selectedDayPlan!);
       }
     } catch (e) {
-      log('error during content load', error: e);
+      dev.log('error during content load', error: e);
     }
   }
 

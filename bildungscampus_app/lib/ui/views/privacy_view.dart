@@ -1,23 +1,67 @@
+import 'dart:async';
+
 import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/viewmodels/privacy_viewmodel.dart';
+//import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
 import 'package:bildungscampus_app/ui/widgets/common/custom_checkbox.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+//import 'package:onetrust_publishers_native_cmp/onetrust_publishers_native_cmp.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-class PrivacyView extends StatelessWidget {
+class PrivacyView extends StatefulWidget {
   const PrivacyView({super.key});
 
-  void _formButtonPressed(BuildContext context) async {
-    await context.read<PrivacyViewModel>().acceptTerms();
+  @override
+  State<PrivacyView> createState() => _PrivacyViewState();
+}
 
-    if (context.mounted) {
+class _PrivacyViewState extends State<PrivacyView> {
+  StreamSubscription<dynamic>? bannerUiStream;
+
+  Future<void> _formButtonPressed(BuildContext context) async {
+    final privacyViewModel = context.read<PrivacyViewModel>();
+    //final userViewModel = context.read<UserViewModel>();
+    await privacyViewModel.acceptTerms();
+
+    //final bannerShown = await userViewModel.showPrivacyBanner();
+
+    if (mounted) {
+      //if (mounted && !bannerShown) {
       Navigator.of(context)
           .pushNamedAndRemoveUntil(AppRouter.homeRoute, (route) => false);
     }
+  }
+
+  @override
+  void initState() {
+    //TODO: Check Statistics they updateConsent = y
+    /*
+    bannerUiStream =
+        OTPublishersNativeSDK.listenForUIInteractions().listen((event) {
+      print(event);
+
+      if (event.containsKey('uiEvent') &&
+          event['uiEvent'] == 'allSDKViewsDismissed') {
+        //MobileSDK.shared.updateConsent(value: "y");
+
+        if (mounted) {
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil(AppRouter.homeRoute, (route) => false);
+        }
+      }
+    });*/
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    bannerUiStream?.cancel();
+    super.dispose();
   }
 
   @override
@@ -64,101 +108,79 @@ class PrivacyView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CustomCheckbox(
                                   value: viewmodel.termsOfUse,
                                   onChanged: (newValue) => context
                                       .read<PrivacyViewModel>()
                                       .setTermsOfUse(newValue ?? false)),
-                              Expanded(
-                                child: RichText(
-                                  text: TextSpan(
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall,
-                                      children: [
-                                        TextSpan(
+                              RichText(
+                                textAlign: TextAlign.start,
+                                text: TextSpan(
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                    children: [
+                                      const TextSpan(text: '\n\n\n\n\n\n'),
+                                      TextSpan(
+                                        text: S
+                                            .of(context)
+                                            .privacy_view_terms_of_use_text_part1,
+                                      ),
+                                      TextSpan(
                                           text: S
                                               .of(context)
-                                              .privacy_view_terms_of_use_text_part1,
-                                        ),
-                                        TextSpan(
-                                            text: S
-                                                .of(context)
-                                                .privacy_view_terms_of_use_text_part2,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!
-                                                .copyWith(
-                                                    fontWeight: FontWeight.bold,
-                                                    decoration: TextDecoration
-                                                        .underline,
-                                                    color: AppColors
-                                                        .primaryTwoLightColor,
-                                                    decorationColor: AppColors
-                                                        .primaryTwoLightColor),
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = () {
-                                                final url = context
-                                                    .read<PrivacyViewModel>()
-                                                    .termsOfUseLink;
-                                                launchUrlString(url);
-                                              }),
-                                      ]),
-                                ),
+                                              .privacy_view_terms_of_use_text_part2,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                  color: AppColors
+                                                      .primaryTwoLightColor,
+                                                  decorationColor: AppColors
+                                                      .primaryTwoLightColor),
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              final url = context
+                                                  .read<PrivacyViewModel>()
+                                                  .termsOfUseLink;
+                                              launchUrlString(url);
+                                            }),
+                                      const TextSpan(text: '\n\n\n\n\n\n'),
+                                      TextSpan(
+                                        text: S
+                                            .of(context)
+                                            .privacy_view_privacy_agreement_text_part1,
+                                      ),
+                                      TextSpan(
+                                          text: S
+                                              .of(context)
+                                              .privacy_view_privacy_agreement_text_part2,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                  color: AppColors
+                                                      .primaryTwoLightColor,
+                                                  decorationColor: AppColors
+                                                      .primaryTwoLightColor),
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              final url = context
+                                                  .read<PrivacyViewModel>()
+                                                  .privacyAgreementLink;
+                                              launchUrlString(url);
+                                            }),
+                                    ]),
                               )
                             ],
                           ),
-                          const SizedBox(height: 60),
-                          Row(
-                            children: [
-                              CustomCheckbox(
-                                  value: viewmodel.privacyAgreement,
-                                  onChanged: (newValue) => context
-                                      .read<PrivacyViewModel>()
-                                      .setPrivacyAgreement(newValue)),
-                              Expanded(
-                                child: RichText(
-                                  text: TextSpan(
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall,
-                                      children: [
-                                        TextSpan(
-                                          text: S
-                                              .of(context)
-                                              .privacy_view_privacy_agreement_text_part1,
-                                        ),
-                                        TextSpan(
-                                            text: S
-                                                .of(context)
-                                                .privacy_view_privacy_agreement_text_part2,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!
-                                                .copyWith(
-                                                    fontWeight: FontWeight.bold,
-                                                    decoration: TextDecoration
-                                                        .underline,
-                                                    color: AppColors
-                                                        .primaryTwoLightColor,
-                                                    decorationColor: AppColors
-                                                        .primaryTwoLightColor),
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = () {
-                                                final url = context
-                                                    .read<PrivacyViewModel>()
-                                                    .privacyAgreementLink;
-                                                launchUrlString(url);
-                                              }),
-                                        TextSpan(
-                                          text: S
-                                              .of(context)
-                                              .privacy_view_privacy_agreement_text_part3,
-                                        ),
-                                      ]),
-                                ),
-                              )
-                            ],
-                          )
                         ],
                       ),
                     ),
@@ -167,7 +189,7 @@ class PrivacyView extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: (!viewmodel.formValid)
                             ? null
-                            : () => _formButtonPressed(context),
+                            : () async => await _formButtonPressed(context),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primaryTwoColor,
                           textStyle: Theme.of(context).textTheme.bodyLarge!,

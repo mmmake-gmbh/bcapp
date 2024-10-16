@@ -5,10 +5,12 @@ import 'package:bildungscampus_app/core/enums/feature_type.dart';
 import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/models/common/feature_info.dart';
 import 'package:bildungscampus_app/core/models/weather/weather_data.dart';
+import 'package:bildungscampus_app/core/services/interfaces/settings_service.dart';
 import 'package:bildungscampus_app/core/utils/tile_utils.dart';
 import 'package:bildungscampus_app/core/viewmodels/base_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/privacy_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
+import 'package:bildungscampus_app/locator.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
 import 'package:bildungscampus_app/ui/shared/svg_icons.dart';
 import 'package:bildungscampus_app/ui/widgets/common/new_flag.dart';
@@ -35,6 +37,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
   bool initialStateHasError = false;
   Timer? timer;
+  final SettingsService _settingsService = locator<SettingsService>();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -74,8 +77,19 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
 
     final appViewModel = context.read<AppViewModel>();
+    final userViewModel = context.read<UserViewModel>();
 
-    Future.microtask(() => appViewModel.load(context));
+    Future.microtask(() async {
+      if (mounted) {
+        await appViewModel.load(context);
+      }
+
+      //final settings = await _settingsService.loadSettings();
+
+      //if (settings.hideIntro) {
+      //  await userViewModel.showPrivacyBanner();
+      //}
+    });
     startTimer();
     initialStateHasError = false;
   }

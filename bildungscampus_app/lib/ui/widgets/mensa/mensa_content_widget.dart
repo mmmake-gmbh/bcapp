@@ -1,5 +1,6 @@
 import 'package:bildungscampus_app/core/models/mensa/mensa_forecast_data.dart';
 import 'package:bildungscampus_app/core/models/mensa/mensa_meal_plan.dart';
+import 'package:bildungscampus_app/core/utils/date_utils.dart';
 import 'package:bildungscampus_app/core/viewmodels/mensa_viewmodel.dart';
 import 'package:bildungscampus_app/ui/widgets/mensa/calendar_timeline.dart';
 import 'package:bildungscampus_app/ui/widgets/mensa/meals_list.dart';
@@ -20,6 +21,7 @@ class MensaContentWidget extends StatefulWidget {
 class _MensaContentWidgetState extends State<MensaContentWidget> {
   late PageController _pageController;
   late ItemScrollController _scrollController;
+  static const double minChildSize = 0.11;
 
   @override
   void initState() {
@@ -36,64 +38,84 @@ class _MensaContentWidgetState extends State<MensaContentWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        Selector<MensaViewModel, List<DayPlan>?>(
-          selector: (_, viewModel) => viewModel.mensaMenu?.tagesplan,
-          builder: (context, dayPlans, _) => CalendarTimeline(
-            dayPlans: dayPlans ?? [],
-            controller: _scrollController,
-            onClick: (idx) => _pageController.jumpToPage(idx),
-          ),
-        ),
-        Expanded(
-          child: Container(
-              color: const Color(0xFFFAFAFA),
-              padding: const EdgeInsets.only(
-                  top: 16, left: 24, right: 24, bottom: 0),
-              child: PageView(
-                controller: _pageController,
-                onPageChanged: (idx) {
-                  final viewModel = context.read<MensaViewModel>();
+        Column(
+          children: [
+            Selector<MensaViewModel, List<DayPlan>?>(
+              selector: (_, viewModel) => viewModel.mensaMenu?.tagesplan,
+              builder: (context, dayPlans, _) => CalendarTimeline(
+                dayPlans: dayPlans ?? [],
+                controller: _scrollController,
+                onClick: (idx) => _pageController.jumpToPage(idx),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                  color: const Color(0xFFFAFAFA),
+                  padding: const EdgeInsets.only(
+                      top: 16, left: 24, right: 24, bottom: 0),
+                  child: PageView(
+                    controller: _pageController,
+                    onPageChanged: (idx) {
+                      final viewModel = context.read<MensaViewModel>();
 
-                  _scrollController.scrollTo(
-                      index: idx, duration: const Duration(milliseconds: 200));
-                  viewModel
-                      .dayPlanSelected(viewModel.mensaMenu!.tagesplan[idx]);
-                },
-                children: context
-                        .read<MensaViewModel>()
-                        .mensaMenu
-                        ?.tagesplan
-                        .map(
-                          (plan) => MealsList(
-                            selectedDayPlan: plan,
-                          ),
-                        )
-                        .toList() ??
-                    [],
-              )),
+                      _scrollController.scrollTo(
+                          index: idx,
+                          duration: const Duration(milliseconds: 200));
+                      viewModel
+                          .dayPlanSelected(viewModel.mensaMenu!.tagesplan[idx]);
+                    },
+                    children: context
+                            .read<MensaViewModel>()
+                            .mensaMenu
+                            ?.tagesplan
+                            .map(
+                              (plan) => MealsList(
+                                selectedDayPlan: plan,
+                              ),
+                            )
+                            .toList() ??
+                        [],
+                  )),
+            ),
+          ],
         ),
-        SizedBox(
-          height: 220,
-          child: Selector<
-              MensaViewModel,
-              ({
-                List<MensaForecastData> forecastData,
-                int maxPrediction,
-                int currentOccupancy
-              })>(
-            selector: (_, viewModel) => (
-              forecastData: viewModel.forecast,
-              maxPrediction: viewModel.maxforecast,
-              currentOccupancy: viewModel.currentOccupancy,
-            ),
-            builder: (context, data, _) => PredictionChart(
-              data: data.forecastData,
-              maxPrediction: data.maxPrediction,
-              currentOccupancy: data.currentOccupancy,
-            ),
+        Selector<
+            MensaViewModel,
+            ({
+              List<MensaForecastData> forecastData,
+              int maxPrediction,
+              int currentOccupancy,
+              DateTime? selectedDayPlanDate,
+            })>(
+          selector: (_, viewModel) => (
+            forecastData: viewModel.forecast,
+            maxPrediction: viewModel.maxforecast,
+            currentOccupancy: viewModel.currentOccupancy,
+            selectedDayPlanDate: viewModel.selectedDayPlan?.datum,
           ),
+          builder: (context, data, _) {
+            if (data.selectedDayPlanDate == null ||
+                !data.selectedDayPlanDate!.isSameDate(DateTime.now())) {
+              return const SizedBox.shrink();
+            }
+
+            return DraggableScrollableSheet(
+              maxChildSize: 0.4,
+              initialChildSize: minChildSize,
+              minChildSize: minChildSize,
+              snap: true,
+              builder:
+                  (BuildContext context, ScrollController scrollController) =>
+                      PredictionChart(
+                data: data.forecastData,
+                maxPrediction: data.maxPrediction,
+                currentOccupancy: data.currentOccupancy,
+                sheetScrollController: scrollController,
+              ),
+            );
+          },
         ),
       ],
     );

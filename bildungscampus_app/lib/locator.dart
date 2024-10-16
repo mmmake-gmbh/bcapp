@@ -27,10 +27,10 @@ import 'package:bildungscampus_app/core/services/startscreen/tiles_service.dart'
 
 GetIt locator = GetIt.instance;
 
-void setupLocator(
-    {required FlutterSecureStorage secureStorage,
-    required CidaasConfig cidaasConfig,
-    required OpenIdConfiguration openIdConfig}) {
+void setupLocator({
+  required FlutterSecureStorage secureStorage,
+  required CidaasConfig cidaasConfig,
+}) {
   locator.registerLazySingleton<TilesService>(() => CampusTilesService());
   locator.registerLazySingleton<AuthService>(() => OAuthAuthService());
   locator.registerLazySingleton<SettingsService>(() => LocalSettingsService());
@@ -43,11 +43,8 @@ void setupLocator(
   locator.registerLazySingleton<WeatherService>(() => ApiWeatherService());
   locator.registerLazySingleton<PrivacyViewModel>(() => PrivacyViewModel());
   locator.registerSingleton(() => secureStorage);
-  locator.registerSingleton(CidaasLoginProvider(
-      securityStorage: secureStorage,
-      cidaasConf: cidaasConfig,
-      openIdConfiguration: openIdConfig));
   locator.registerLazySingleton(() => AppViewModel(secureStorage));
-  locator.registerLazySingleton(() => UserViewModel(secureStorage));
+  locator
+      .registerLazySingleton(() => UserViewModel(secureStorage, cidaasConfig));
   locator.registerLazySingleton(() => MensaViewModel());
 }

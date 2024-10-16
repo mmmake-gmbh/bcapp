@@ -6,11 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-class MealsList extends StatelessWidget {
+class MealsList extends StatefulWidget {
   final DayPlan selectedDayPlan;
 
-  const MealsList({super.key, required this.selectedDayPlan});
+  const MealsList({
+    super.key,
+    required this.selectedDayPlan,
+  });
 
+  @override
+  State<MealsList> createState() => _MealsListState();
+}
+
+class _MealsListState extends State<MealsList> {
   String getIconName(MealCategories categories) {
     switch (categories) {
       case MealCategories.dessert:
@@ -47,9 +55,9 @@ class MealsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (selectedDayPlan.isDisabled(DateTime.now())) {
-      if (selectedDayPlan.datum.weekday == DateTime.saturday ||
-          selectedDayPlan.datum.weekday == DateTime.sunday) {
+    if (widget.selectedDayPlan.isDisabled(DateTime.now())) {
+      if (widget.selectedDayPlan.datum.weekday == DateTime.saturday ||
+          widget.selectedDayPlan.datum.weekday == DateTime.sunday) {
         return Center(
           child: Text(
             S.of(context).mensa_view_closed_text,
@@ -76,7 +84,8 @@ class MealsList extends StatelessWidget {
       }
     }
     return ListView.builder(
-      itemCount: selectedDayPlan.linie?.length,
+      padding: const EdgeInsets.only(bottom: 140),
+      itemCount: widget.selectedDayPlan.linie?.length,
       itemBuilder: (context, idx) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 5),
         child: Card(
@@ -94,7 +103,7 @@ class MealsList extends StatelessWidget {
                   Row(
                     children: [
                       SvgPicture.asset(
-                        getIconName(selectedDayPlan.linie![idx].ausgabe),
+                        getIconName(widget.selectedDayPlan.linie![idx].ausgabe),
                         colorFilter: const ColorFilter.mode(
                           Color(0xFF2B78A7),
                           BlendMode.srcIn,
@@ -104,8 +113,8 @@ class MealsList extends StatelessWidget {
                         width: 8,
                       ),
                       Text(
-                        getTranslations(
-                            context, selectedDayPlan.linie![idx].ausgabe),
+                        getTranslations(context,
+                            widget.selectedDayPlan.linie![idx].ausgabe),
                         style: const TextStyle(
                           color: Color(0xFF2B78A7),
                           fontSize: 16,
@@ -122,8 +131,9 @@ class MealsList extends StatelessWidget {
                   ),
                   Text(
                     locale?.languageCode == 'en'
-                        ? selectedDayPlan.linie![idx].gericht.first.textEn
-                        : selectedDayPlan.linie![idx].gericht.first.text,
+                        ? widget
+                            .selectedDayPlan.linie![idx].gericht.first.textEn
+                        : widget.selectedDayPlan.linie![idx].gericht.first.text,
                     style: const TextStyle(
                       color: Color(0xFF3B3B3B),
                       fontSize: 14,

@@ -46,9 +46,8 @@
   "privacy_view_headline_text": "Nutzungsbedingungen & Datenschutzerklärung",
   "privacy_view_terms_of_use_text_part1": "Ich akzeptiere die ",
   "privacy_view_terms_of_use_text_part2": "Nutzungsbedingungen",
-  "privacy_view_privacy_agreement_text_part1": "Ich habe die ",
-  "privacy_view_privacy_agreement_text_part2": "Datenschutzerklärung",
-  "privacy_view_privacy_agreement_text_part3": " gelesen und verstanden",
+  "privacy_view_privacy_agreement_text_part1": "Datenschutzhinweise finden Sie ",
+  "privacy_view_privacy_agreement_text_part2": "hier",
   "privacy_view_accept_button_text": "Los geht's",
   "privacy_view_tile_appendix": "für",
   "timetable_view_title_backup": "Abfahrtsmonitor",
@@ -131,8 +130,9 @@
   "mensa_view_forecast_title": "Stoßzeiten",
   "mensa_view_info_content_title": "Mensa am Bildungscampus",
   "parkinglot_view_pay_portal_text": "\n(im PaymentPortal zu buchen)",
-  "login_view_prompt_biometric_text": "Möchtest du zukünftig biometrischer Authentifizierung zur Anmeldung verwenden ?",
+  "login_view_prompt_biometric_text": "Möchtest du zukünftig biometrischer Authentifizierung zur Anmeldung verwenden?",
   "login_view_prompt_biometric_accept_button": "JA",
   "login_view_prompt_biometric_dismiss_button": "SPÄTER",
-  "login_view_biometric_authenticate_reason": "Biometrische Authentifizierung"
+  "login_view_biometric_authenticate_reason": "Biometrische Authentifizierung",
+  "contact_view_show_licenses_button_text": "Alle Lizenzen anzeigen"
 }

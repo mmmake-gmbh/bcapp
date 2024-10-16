@@ -1,19 +1,21 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:flutter/services.dart';
+import 'package:cidaas_flutter_sdk/cidaas_flutter_sdk.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:bildungscampus_app/core/enums/user_type.dart';
 import 'package:bildungscampus_app/core/viewmodels/base_viewmodel.dart';
-import 'package:bildungscampus_app/locator.dart';
-import 'package:cidaas_flutter_sdk/cidaas_flutter_sdk.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+//import 'package:onetrust_publishers_native_cmp/onetrust_publishers_native_cmp.dart';
 
 class UserViewModel extends BaseViewModel {
-  final CidaasLoginProvider _cidaasProvider = locator<CidaasLoginProvider>();
-  late FlutterSecureStorage _secureStorage;
+  CidaasLoginProvider? _cidaasProvider;
+  late final FlutterSecureStorage _secureStorage;
+  late final CidaasConfig _cidaasConfig;
 
   final String storedLanguageKey = 'storedLanguage';
   final String biometricActivatedKey = 'biometricActivated';
@@ -26,50 +28,96 @@ class UserViewModel extends BaseViewModel {
   Locale? _locale;
   bool _useBiometricLogin = false;
   bool _isBiometricInitialized = false;
+  DateTime? _tokenExpirationDate;
 
   bool get isLogged => _isLogged;
   String? get userName => _userName;
   UserType get userType => _mapUserType(_profileInfo);
-  String? get ssoCookie => _ssoCookie;
+  String? get ssoCookie => isAccessTokenExpired() ? null : _ssoCookie;
+  DateTime? get tokenExpirationDate => _tokenExpirationDate;
 
   Locale? get locale => _locale;
 
   bool get useBiometricLoginActivated => _useBiometricLogin;
   bool get isBiometricInitialized => _isBiometricInitialized;
 
-  UserViewModel(FlutterSecureStorage storage) {
+  CidaasLoginProvider? get cidaasProvider => _cidaasProvider;
+
+  // Tracking & Privacy
+  //bool _privacyBannerLoaded = false;
+
+  //bool get privacyBannerLoaded => _privacyBannerLoaded;
+
+  UserViewModel(FlutterSecureStorage storage, CidaasConfig config) {
     _secureStorage = storage;
+    _cidaasConfig = config;
     initLoggedInData();
+    //initPrivacyBanner();
   }
 
   Future<void> initLoggedInData() async {
-    final storedToken = await _cidaasProvider.getStoredAccessToken();
+    final savedLocale = await _getLocale();
+    final deviceLocale = Platform.localeName.toLowerCase().startsWith('en')
+        ? const Locale('en')
+        : const Locale('de');
+
+    _locale = savedLocale ?? deviceLocale;
+    notifyListeners();
+
+    final openIdConfiguration =
+        await CidaasLoginProvider.loadConfig(_cidaasConfig);
+
+    _cidaasProvider = CidaasLoginProvider(
+        securityStorage: _secureStorage,
+        cidaasConf: _cidaasConfig,
+        openIdConfiguration: openIdConfiguration);
+
+    final storedToken = await _cidaasProvider!.getStoredAccessToken();
     _userName = _getUserName(storedToken);
     _ssoCookie = _getSsoCookie(storedToken);
     _profileInfo = _getProfileInfo(storedToken);
-    _isLogged = storedToken?.idToken != null && _ssoCookie != null;
+    _tokenExpirationDate = _getTokenExpirationDate(storedToken);
+    log('tokenExpDate: $_tokenExpirationDate');
 
-    _locale = await _getLocale();
     _useBiometricLogin = await _isBiometricLoginActivated();
     _isBiometricInitialized = await _isBiometricLoginInitialized();
 
+    if (!_useBiometricLogin && isAccessTokenExpired()) {
+      await logout();
+    }
+
+    _isLogged = !isAccessTokenExpired();
     notifyListeners();
   }
 
-  Future<bool> logout(BuildContext context) async {
-    final logout = await _cidaasProvider.doLogout(context);
+  Future<bool> logout({bool alreadyLoggedOut = false}) async {
+    bool logout = false;
+    if (alreadyLoggedOut) {
+      logout = true;
+      await _cidaasProvider?.authStorageHelper.deleteToken();
+    } else {
+      logout = await _cidaasProvider?.doLogout(null) ?? true;
+    }
 
     if (logout) {
       _isLogged = false;
       _userName = null;
       _ssoCookie = null;
       _profileInfo = null;
-      await resetBiometricInitialization();
+      _tokenExpirationDate = null;
 
       notifyListeners();
     }
 
     return logout;
+  }
+
+  bool isAccessTokenExpired() {
+    if (_tokenExpirationDate == null) {
+      return true;
+    }
+
+    return _tokenExpirationDate!.isBefore(DateTime.now());
   }
 
   String? _getSsoCookie(TokenEntity? storedToken) {
@@ -101,6 +149,20 @@ class UserViewModel extends BaseViewModel {
     return "${tokenInfo['given_name']} ${tokenInfo['family_name']}";
   }
 
+  DateTime? _getTokenExpirationDate(TokenEntity? storedToken) {
+    final tokenInfo = _mapAccessToken(storedToken);
+
+    final expValue = tokenInfo?['exp'];
+    if (tokenInfo == null || expValue == null) {
+      return null;
+    }
+
+    log("expRawValue: $expValue");
+
+    return DateTime.fromMillisecondsSinceEpoch(expValue * 1000, isUtc: true)
+        .toLocal();
+  }
+
   String? _getProfileInfo(TokenEntity? storedToken) {
     final tokenInfo = _mapIdToken(storedToken);
 
@@ -121,6 +183,18 @@ class UserViewModel extends BaseViewModel {
     }
 
     return JwtDecoder.decode(storedToken.idToken!);
+  }
+
+  Map<String, dynamic>? _mapAccessToken(TokenEntity? storedToken) {
+    if (storedToken?.accessToken == null || storedToken!.accessToken!.isEmpty) {
+      return null;
+    }
+
+    if (storedToken.accessToken!.split('.').length != 3) {
+      return null;
+    }
+
+    return JwtDecoder.decode(storedToken.accessToken!);
   }
 
   UserType _mapUserType(String? userProfile) {
@@ -187,13 +261,14 @@ class UserViewModel extends BaseViewModel {
   }
 
   Future<void> refreshAccessTokenAndCookie() async {
-    final storedToken = await _cidaasProvider.getStoredAccessToken();
+    log("refreshAccessTokenAndCookie");
+
+    final storedToken = await _cidaasProvider!.getStoredAccessToken();
     if (storedToken?.accessToken != null &&
         storedToken?.refreshToken != null &&
-        !_isRefreshTokenExpired(storedToken!.refreshToken!) &&
-        _cidaasProvider.isAccessTokenExpired(storedToken.accessToken!)) {
+        !_isRefreshTokenExpired(storedToken!.refreshToken!)) {
       log("cidaas -> refreshToken");
-      await _cidaasProvider
+      await _cidaasProvider!
           .renewAccessTokenByRefreshToken(storedToken.refreshToken!);
     }
     await renewSsoCookie();
@@ -201,17 +276,16 @@ class UserViewModel extends BaseViewModel {
 
   Future<void> renewSsoCookie() async {
     try {
-      final storedToken = await _cidaasProvider.getStoredAccessToken();
+      final storedToken = await _cidaasProvider!.getStoredAccessToken();
       final queryStrings = <String, String>{
         'response_type': 'code',
-        'client_id': _cidaasProvider.cidaasConf.clientId,
-        'scope': _cidaasProvider.cidaasConf.scopes,
-        'redirect_uri': '${_cidaasProvider.cidaasConf.baseUrl}/bildungscampus',
+        'client_id': _cidaasConfig.clientId,
+        'scope': _cidaasConfig.scopes,
+        'redirect_uri': '${_cidaasConfig.baseUrl}/bildungscampus',
         'prompt': 'none'
       };
-      final url =
-          Uri.parse('${_cidaasProvider.cidaasConf.baseUrl}/authz-srv/authz')
-              .replace(queryParameters: queryStrings);
+      final url = Uri.parse('${_cidaasConfig.baseUrl}/authz-srv/authz')
+          .replace(queryParameters: queryStrings);
 
       log("renewSsoCookie: $url");
 
@@ -248,11 +322,73 @@ class UserViewModel extends BaseViewModel {
       storedToken.ssoCookie = newSsoCookieValue;
       _ssoCookie = newSsoCookieValue;
 
-      _cidaasProvider.authStorageHelper.persistTokenEntity(storedToken);
+      _cidaasProvider!.authStorageHelper.persistTokenEntity(storedToken);
     } catch (e) {
       log(e.toString());
     }
   }
+  /*
+  Future<void> initPrivacyBanner() async {
+    String appId;
+
+    if (_privacyBannerLoaded) {
+      return;
+    }
+
+    log('initPrivacyBanner');
+
+    if (Platform.isAndroid) {
+      appId = "0190e505-0717-7404-82d7-eaf8e84ae3cf-test";
+    } else if (Platform.isIOS) {
+      appId = "0190e505-34db-7029-8425-2aac4825b443-test";
+    } else {
+      Exception("Platform not found!");
+      return;
+    }
+    try {
+      _privacyBannerLoaded = await OTPublishersNativeSDK.startSDK(
+          "cdn.cookielaw.org", appId, locale?.languageCode ?? "de");
+    } on PlatformException {
+      print("Error communicating with platform code");
+    }
+
+    notifyListeners();
+  }
+
+  Future<bool> showPrivacyBanner() async {
+    var startupATTStatus =
+        await OTPublishersNativeSDK.getATTrackingAuthorizationStatus();
+
+    log('ATTStatus: $startupATTStatus');
+
+    final shouldShowBanner = await OTPublishersNativeSDK.shouldShowBanner();
+
+    if (Platform.isIOS &&
+        startupATTStatus == OTATTrackingAuthorizationStatus.notDetermined) {
+      final consentStatusValue =
+          await OTPublishersNativeSDK.showConsentUI(OTDevicePermission.idfa);
+      log('ATT show consent UI (result: $consentStatusValue)');
+      if (consentStatusValue != null) {
+        final consentStatus =
+            OTATTrackingAuthorizationStatus.values[consentStatusValue];
+
+        startupATTStatus = consentStatus;
+        //TODO: Do something if the tracking is not allowed ?
+      }
+    }
+    log("ShouldShowBanner: $shouldShowBanner");
+    if (_privacyBannerLoaded && shouldShowBanner) {
+      OTPublishersNativeSDK.showBannerUI();
+    }
+
+    return shouldShowBanner;
+  }
+
+  void showPreferenceCenter() {
+    if (_privacyBannerLoaded) {
+      OTPublishersNativeSDK.showPreferenceCenterUI();
+    }
+  }*/
 
   static final _regexSplitSetCookies = RegExp(',(?=[^ ])');
 

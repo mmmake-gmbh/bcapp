@@ -440,31 +440,21 @@ class S {
     );
   }
 
-  /// `Ich habe die `
+  /// `Datenschutzhinweise finden Sie `
   String get privacy_view_privacy_agreement_text_part1 {
     return Intl.message(
-      'Ich habe die ',
+      'Datenschutzhinweise finden Sie ',
       name: 'privacy_view_privacy_agreement_text_part1',
       desc: '',
       args: [],
     );
   }
 
-  /// `Datenschutzerklärung`
+  /// `hier`
   String get privacy_view_privacy_agreement_text_part2 {
     return Intl.message(
-      'Datenschutzerklärung',
+      'hier',
       name: 'privacy_view_privacy_agreement_text_part2',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// ` gelesen und verstanden`
-  String get privacy_view_privacy_agreement_text_part3 {
-    return Intl.message(
-      ' gelesen und verstanden',
-      name: 'privacy_view_privacy_agreement_text_part3',
       desc: '',
       args: [],
     );
@@ -1130,10 +1120,10 @@ class S {
     );
   }
 
-  /// `Möchtest du zukünftig biometrischer Authentifizierung zur Anmeldung verwenden ?`
+  /// `Möchtest du zukünftig biometrischer Authentifizierung zur Anmeldung verwenden?`
   String get login_view_prompt_biometric_text {
     return Intl.message(
-      'Möchtest du zukünftig biometrischer Authentifizierung zur Anmeldung verwenden ?',
+      'Möchtest du zukünftig biometrischer Authentifizierung zur Anmeldung verwenden?',
       name: 'login_view_prompt_biometric_text',
       desc: '',
       args: [],
@@ -1165,6 +1155,16 @@ class S {
     return Intl.message(
       'Biometrische Authentifizierung',
       name: 'login_view_biometric_authenticate_reason',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Alle Lizenzen anzeigen`
+  String get contact_view_show_licenses_button_text {
+    return Intl.message(
+      'Alle Lizenzen anzeigen',
+      name: 'contact_view_show_licenses_button_text',
       desc: '',
       args: [],
     );

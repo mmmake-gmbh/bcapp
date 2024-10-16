@@ -33,6 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "contact_view_appmenu_title":
             MessageLookupByLibrary.simpleMessage("Legal Notice"),
         "contact_view_open_email_failed_message": m0,
+        "contact_view_show_licenses_button_text":
+            MessageLookupByLibrary.simpleMessage("Show all licenses"),
         "contact_view_title_backup":
             MessageLookupByLibrary.simpleMessage("Contact"),
         "error_dialog_text": MessageLookupByLibrary.simpleMessage(
@@ -211,11 +213,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Terms of Use & Privacy Policy"),
         "privacy_view_privacy_agreement_text_part1":
             MessageLookupByLibrary.simpleMessage(
-                "I have read and understood the "),
+                "Privacy policy can be found "),
         "privacy_view_privacy_agreement_text_part2":
-            MessageLookupByLibrary.simpleMessage("Privacy Policy"),
-        "privacy_view_privacy_agreement_text_part3":
-            MessageLookupByLibrary.simpleMessage(""),
+            MessageLookupByLibrary.simpleMessage("here"),
         "privacy_view_terms_of_use_text_part1":
             MessageLookupByLibrary.simpleMessage("I accept the "),
         "privacy_view_terms_of_use_text_part2":

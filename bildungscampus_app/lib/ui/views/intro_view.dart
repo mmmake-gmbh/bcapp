@@ -4,9 +4,9 @@ import 'package:bildungscampus_app/core/repositories/intro/intro_repository.dart
 import 'package:bildungscampus_app/locator.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
+import 'package:bildungscampus_app/ui/widgets/carousel_slider/carousel_slider.dart';
 import 'package:bildungscampus_app/ui/widgets/intro/intro_card.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide CarouselController;
 
 class IntroView extends StatefulWidget {
   const IntroView({super.key});

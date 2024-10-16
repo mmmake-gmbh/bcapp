@@ -1,7 +1,9 @@
+import 'dart:developer';
+
 import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/models/common/localized_text.dart';
 import 'package:bildungscampus_app/core/models/info/external_link.dart';
-import 'package:bildungscampus_app/core/models/settings/setting_view_args.dart';
+import 'package:bildungscampus_app/core/utils/localized_text_utils.dart';
 import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
@@ -10,10 +12,20 @@ import 'package:bildungscampus_app/ui/shared/svg_icons.dart';
 import 'package:bildungscampus_app/ui/widgets/navigation/reusable_appbars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
-class SettingView extends StatelessWidget {
+class SettingView extends StatefulWidget {
   const SettingView({super.key});
+
+  @override
+  State<SettingView> createState() => _SettingViewState();
+}
+
+class _SettingViewState extends State<SettingView> {
+  final auth = LocalAuthentication();
+  bool _showBiometrics = false;
 
   Future<void> onTileTap(
       {required BuildContext context,
@@ -22,13 +34,13 @@ class SettingView extends StatelessWidget {
     final navigator = Navigator.of(context);
     final snackbar = ScaffoldMessenger.of(context);
     final logoutText = Text(S.of(context).setting_view_logout_unsuccessful);
+    final locale = context.read<UserViewModel>().locale;
     if (settingValue == null) {
       return;
     }
 
     if (settingValue.name == 'logout') {
-      final logoutSuccessful =
-          await context.read<UserViewModel>().logout(context);
+      final logoutSuccessful = await context.read<UserViewModel>().logout();
 
       if (logoutSuccessful) {
         navigator.pushNamed(AppRouter.homeRoute);
@@ -41,9 +53,29 @@ class SettingView extends StatelessWidget {
         arguments: AppRouter.homeRoute,
       );
     } else {
-      final args = SettingViewArgs(externalLink: settingValue, title: title);
-      navigator.pushNamed(AppRouter.settingWebRoute, arguments: args);
+      final url =
+          LocalizedTextUtils.getLocalizedText(settingValue.link, locale);
+
+      log("settingView url: $url");
+      await launchUrlString(url);
     }
+  }
+
+  Future<void> checkBiometrics() async {
+    final biometricSupported = await auth.isDeviceSupported();
+
+    final canCheckBiometric = await auth.canCheckBiometrics;
+
+    setState(
+      () => _showBiometrics = biometricSupported && canCheckBiometric,
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    checkBiometrics();
   }
 
   @override
@@ -98,22 +130,50 @@ class SettingView extends StatelessWidget {
                         S.of(context).setting_view_biometric_setting_text,
                       ),
                       value: activated,
-                      onChanged: (newValue) {
-                        final viewModel = context.read<UserViewModel>();
+                      onChanged: !_showBiometrics
+                          ? null
+                          : (newValue) async {
+                              final viewModel = context.read<UserViewModel>();
+                              final localized = S.of(context);
 
-                        if (viewModel.useBiometricLoginActivated != newValue) {
-                          viewModel.updateBiometricLogin(newValue);
-                        }
-                      }),
+                              if (!newValue && _showBiometrics) {
+                                final authenticated = await auth.authenticate(
+                                  localizedReason: localized
+                                      .login_view_biometric_authenticate_reason,
+                                  options: const AuthenticationOptions(
+                                    stickyAuth: true,
+                                    biometricOnly: true,
+                                  ),
+                                );
+
+                                if (!authenticated) {
+                                  return;
+                                }
+                              }
+
+                              if (viewModel.useBiometricLoginActivated !=
+                                  newValue) {
+                                viewModel.updateBiometricLogin(newValue);
+                              }
+                            }),
                 );
               }
+              /*if ((isLogged && index == 5) || (!isLogged && index == 2)) {
+                return ListTile(
+                  title: const Text(
+                    'Datenschutzeinstellungen', //TODO: Translation
+                  ),
+                  onTap: () {
+                    //context.read<UserViewModel>().showPreferenceCenter();
+                  },
+                  trailing: const Icon(Icons.settings),
+                );
+              }*/
               if (isLogged && index == 5) {
                 return const SizedBox.shrink();
               }
               return ListTile(
                 title: Text(settings[index].key),
-                titleTextStyle: const TextStyle(
-                    color: AppColors.settingListTileTitleColor, fontSize: 16.0),
                 trailing: SvgPicture.asset(
                   SvgIcons.ungroup,
                   height: 18,

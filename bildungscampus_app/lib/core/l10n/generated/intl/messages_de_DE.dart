@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "contact_view_appmenu_title":
             MessageLookupByLibrary.simpleMessage("Impressum"),
         "contact_view_open_email_failed_message": m0,
+        "contact_view_show_licenses_button_text":
+            MessageLookupByLibrary.simpleMessage("Alle Lizenzen anzeigen"),
         "contact_view_title_backup":
             MessageLookupByLibrary.simpleMessage("Kontakt"),
         "error_dialog_text": MessageLookupByLibrary.simpleMessage(
@@ -119,7 +121,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "login_view_prompt_biometric_dismiss_button":
             MessageLookupByLibrary.simpleMessage("SPÄTER"),
         "login_view_prompt_biometric_text": MessageLookupByLibrary.simpleMessage(
-            "Möchtest du zukünftig biometrischer Authentifizierung zur Anmeldung verwenden ?"),
+            "Möchtest du zukünftig biometrischer Authentifizierung zur Anmeldung verwenden?"),
         "login_view_title": MessageLookupByLibrary.simpleMessage("Login"),
         "map_view_title_backup":
             MessageLookupByLibrary.simpleMessage("Lageplan"),
@@ -212,11 +214,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacy_view_headline_text": MessageLookupByLibrary.simpleMessage(
             "Nutzungsbedingungen & Datenschutzerklärung"),
         "privacy_view_privacy_agreement_text_part1":
-            MessageLookupByLibrary.simpleMessage("Ich habe die "),
+            MessageLookupByLibrary.simpleMessage(
+                "Datenschutzhinweise finden Sie "),
         "privacy_view_privacy_agreement_text_part2":
-            MessageLookupByLibrary.simpleMessage("Datenschutzerklärung"),
-        "privacy_view_privacy_agreement_text_part3":
-            MessageLookupByLibrary.simpleMessage(" gelesen und verstanden"),
+            MessageLookupByLibrary.simpleMessage("hier"),
         "privacy_view_terms_of_use_text_part1":
             MessageLookupByLibrary.simpleMessage("Ich akzeptiere die "),
         "privacy_view_terms_of_use_text_part2":

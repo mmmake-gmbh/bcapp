@@ -87,11 +87,14 @@ class ContactView extends StatelessWidget {
                         },
                         child: SelectableText(
                           model.email,
-                          style:
-                              Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                    color: AppColors.primaryTwoLightColor,
-                                    decoration: TextDecoration.underline,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(
+                                color: AppColors.primaryTwoLightColor,
+                                decoration: TextDecoration.underline,
+                                decorationColor: AppColors.primaryTwoLightColor,
+                              ),
                         ),
                       ),
                       const SizedBox(
@@ -105,6 +108,46 @@ class ContactView extends StatelessWidget {
                               Theme.of(context).textTheme.bodyLarge!.copyWith(
                                     color: Colors.white,
                                   ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(
+                            context,
+                          ).push(MaterialPageRoute<void>(
+                            builder: (BuildContext context) => Theme(
+                              data: Theme.of(context).copyWith(
+                                appBarTheme: const AppBarTheme(
+                                  backgroundColor: AppColors.primaryOneColor,
+                                  foregroundColor: Colors.white,
+                                ),
+                              ),
+                              child: LicensePage(
+                                applicationIcon: Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Image.asset(
+                                    "assets/appicon/app_scs.png",
+                                    height: 80,
+                                    width: 80,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ));
+                        },
+                        child: Center(
+                          child: Text(
+                            S
+                                .of(context)
+                                .contact_view_show_licenses_button_text,
+                            style:
+                                Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                      color: AppColors.primaryTwoLightColor,
+                                    ),
+                          ),
                         ),
                       ),
                     ],

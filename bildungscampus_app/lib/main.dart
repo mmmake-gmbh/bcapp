@@ -37,10 +37,8 @@ void main() async {
       clientSecret: 'empty',
       redirectURI: 'http://127.0.0.1',
       scopes: 'openid profile email offline_access');
-  final openIdConfig = await CidaasLoginProvider.loadConfig(config);
 
-  setupLocator(
-      secureStorage: storage, openIdConfig: openIdConfig, cidaasConfig: config);
+  setupLocator(secureStorage: storage, cidaasConfig: config);
   final settingsService = locator<SettingsService>();
   final localSettings = await settingsService.loadSettings();
 

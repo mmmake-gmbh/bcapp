@@ -1,5 +1,5 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
+import 'package:bildungscampus_app/ui/widgets/carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart' hide CarouselController;
 
 class CarouselTileContent<T> extends StatefulWidget {
   final List<T> items;
