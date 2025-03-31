@@ -22,7 +22,7 @@ class MensaInfoDialogContent extends StatefulWidget {
   );
 
   static final rightTextStyle = TextStyle(
-    color: Colors.black.withOpacity(0.5400000214576721),
+    color: Colors.black.withValues(alpha: 0.5400000214576721),
     fontSize: 12,
     fontFamily: 'DIN OT',
     fontWeight: FontWeight.w500,
@@ -49,8 +49,9 @@ class _MensaInfoDialogContentState extends State<MensaInfoDialogContent> {
         context.read<AppViewModel>().mensaGuestCardLink?.link, locale);
 
     if (mensaGuestCardLink == null) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Fehler beim Öffnen des Links"))); //TODO: Translation
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content:
+              Text(S.of(context).mensa_view_info_dialog_cannot_open_link)));
       return;
     }
     launchUrl(Uri.parse(mensaGuestCardLink));
@@ -127,7 +128,7 @@ class _MensaInfoDialogContentState extends State<MensaInfoDialogContent> {
                   SelectableText(
                     "Bildungscampus 8\n74076 Heilbronn",
                     style: TextStyle(
-                      color: Colors.black.withOpacity(0.5400000214576721),
+                      color: Colors.black.withValues(alpha: 0.5400000214576721),
                       fontSize: 14,
                       fontFamily: 'DIN OT',
                       fontWeight: FontWeight.w500,

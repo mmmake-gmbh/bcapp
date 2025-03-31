@@ -413,7 +413,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.schwarz.bildungscampus.application;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = MMMAKE_BildungsCampus_Distribution_2023_11_13;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MMMAKE_BildungsCampus_Distribution_2023_11_13;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MMMAKE_BildungsCampus_Distribution_2024_12_18;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -571,7 +571,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.schwarz.bildungscampus.application;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = MMMAKE_BildungsCampus_Distribution_2023_11_13;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MMMAKE_BildungsCampus_Distribution_2023_11_13;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MMMAKE_BildungsCampus_Distribution_2024_12_18;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -616,7 +616,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.schwarz.bildungscampus.application;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = MMMAKE_BildungsCampus_Distribution_2023_11_13;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MMMAKE_BildungsCampus_Distribution_2023_11_13;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MMMAKE_BildungsCampus_Distribution_2024_12_18;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -718,7 +718,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.schwarz.bildungscampus.application.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = MMMAKE_BildungsCampus_Distribution_2023_11_13;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MMMAKE_BildungsCampus_Distribution_2023_11_13;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MMMAKE_BildungsCampus_Distribution_2024_12_18;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -817,7 +817,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.schwarz.bildungscampus.application.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = MMMAKE_BildungsCampus_Distribution_2023_11_13;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MMMAKE_BildungsCampus_Distribution_2023_11_13;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MMMAKE_BildungsCampus_Distribution_2024_12_18;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -913,7 +913,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.schwarz.bildungscampus.application.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = MMMAKE_BildungsCampus_Distribution_2023_11_13;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MMMAKE_BildungsCampus_Distribution_2023_11_13;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MMMAKE_BildungsCampus_Distribution_2024_12_18;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

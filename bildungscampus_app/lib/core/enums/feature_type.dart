@@ -13,5 +13,6 @@ enum FeatureType {
   welcome,
   weather,
   mensa,
-  kienzlerBike
+  kienzlerBike,
+  serviceDesk,
 }

@@ -40,6 +40,7 @@ class AppRouter {
   static const String settingWebRoute = "/setting-web";
   static const String fourtyTwoRoute = "/fourtytwo";
   static const String kienzlerBikeRoute = "/bike";
+  static const String campusServiceDeskRoute = "/service-desk";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -106,6 +107,23 @@ class AppRouter {
                 titleBackup: S.of(context).payment_view_title_backup,
                 externalLink: externalLink,
                 currentNavigation: paymentRoute,
+              ),
+            );
+          },
+          settings: settings,
+        );
+      case campusServiceDeskRoute:
+        return MaterialPageRoute(
+          builder: (context) {
+            final externalLink =
+                context.read<AppViewModel>().campusServiceDeskLink;
+
+            return _setupProvidersAndFlavorBanner(
+              LoginWebViewView(
+                featureType: FeatureType.serviceDesk,
+                titleBackup: S.of(context).service_desk_view_title_backup,
+                externalLink: externalLink,
+                currentNavigation: campusServiceDeskRoute,
               ),
             );
           },

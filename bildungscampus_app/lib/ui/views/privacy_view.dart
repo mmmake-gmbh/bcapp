@@ -29,7 +29,7 @@ class _PrivacyViewState extends State<PrivacyView> {
 
     //final bannerShown = await userViewModel.showPrivacyBanner();
 
-    if (mounted) {
+    if (context.mounted) {
       //if (mounted && !bannerShown) {
       Navigator.of(context)
           .pushNamedAndRemoveUntil(AppRouter.homeRoute, (route) => false);

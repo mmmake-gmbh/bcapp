@@ -1,5 +1,4 @@
 import 'package:bildungscampus_app/core/enums/feature_type.dart';
-import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/models/common/feature_info.dart';
 import 'package:bildungscampus_app/core/viewmodels/app_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/base_start_tile_viewmodel.dart';
@@ -11,13 +10,13 @@ import 'package:bildungscampus_app/core/viewmodels/tiles/locationmap_tile_viewmo
 import 'package:bildungscampus_app/core/viewmodels/tiles/mensa_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/parking_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/payment_tile_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/tiles/service_desk_tile_view_model.dart';
+import 'package:bildungscampus_app/core/viewmodels/tiles/text_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/timetable_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/welcome_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
-import 'package:bildungscampus_app/ui/app_router.dart';
 import 'package:bildungscampus_app/ui/shared/app_colors.dart';
 import 'package:bildungscampus_app/ui/widgets/tiles/start_tile.dart';
-import 'package:bildungscampus_app/ui/widgets/tiles/text_tile_content.dart';
 import 'package:bildungscampus_app/ui/widgets/tiles/welcome_tile.dart';
 import 'package:cidaas_flutter_sdk/cidaas_flutter_sdk.dart';
 import 'package:flutter/material.dart';
@@ -26,10 +25,11 @@ import 'package:provider/provider.dart';
 class TileUtils {
   static Widget mapTile(
       BaseStartTileViewModel model, Locale? locale, BuildContext context) {
-    if (model is WelcomeTileViewModel) {
+    /*if (model is WelcomeTileViewModel) {
       final args = ModalRoute.of(context)!.settings.arguments as TokenEntity?;
       return WelcomeTile(firstLogin: args?.ssoCookie != null);
-    } else if (model is MensaTileViewModel) {
+    } else */
+    if (model is MensaTileViewModel) {
       return StartTile.withTextContent(
         model,
         locale: locale,
@@ -120,17 +120,17 @@ class TileUtils {
           Navigator.of(context).pushNamed(model.navigationPath);
         },
       );
-    } else if (model is PaymentTileViewModel) {
-      const contentColor = Colors.white;
-
+    } else if (model is PaymentTileViewModel ||
+        model is BikeTileViewModel ||
+        model is ServiceDeskTileViewModel) {
       return Consumer<UserViewModel>(
         builder: ((context, userViewModel, _) {
           if (userViewModel.isLogged) {
             return StartTile.withTextContent(
-              model,
+              model as TextTileViewModel,
               locale: locale,
               bgColor: AppColors.campusCardTileBgColor,
-              contentColor: contentColor,
+              contentColor: Colors.white,
               isFullTileTap: true,
               isFeatureInfoShown: _isFeatureInfoShown(
                   context, model.featureInfo, model.featureType),
@@ -140,70 +140,7 @@ class TileUtils {
             );
           }
 
-          return StartTile(
-            titleColor: contentColor,
-            tileTitle: S.of(context).login_tile_title,
-            icon: Icons.lock_outline,
-            isFullTileTap: true,
-            maxTitleLines: 1,
-            backgroundColor: AppColors.primaryOneColor,
-            child: TextTileContent(
-                textColor: contentColor,
-                text: S.of(context).login_tile_text,
-                textAlignment: TextAlign.center,
-                buttonText: S.of(context).login_tile_button_text,
-                buttonTextColor: contentColor),
-            onTap: () {
-              final navigator = Navigator.of(context);
-              navigator.pushNamed(
-                AppRouter.loginRoute,
-                arguments: AppRouter.paymentRoute,
-              );
-            },
-          );
-        }),
-      );
-    } else if (model is BikeTileViewModel) {
-      const contentColor = Colors.white;
-
-      return Consumer<UserViewModel>(
-        builder: ((context, userViewModel, _) {
-          if (userViewModel.isLogged) {
-            return StartTile.withTextContent(
-              model,
-              locale: locale,
-              bgColor: AppColors.campusCardTileBgColor,
-              contentColor: contentColor,
-              isFullTileTap: true,
-              isFeatureInfoShown: _isFeatureInfoShown(
-                  context, model.featureInfo, model.featureType),
-              onTap: () {
-                Navigator.of(context).pushNamed(model.navigationPath);
-              },
-            );
-          }
-
-          return StartTile(
-            titleColor: contentColor,
-            tileTitle: S.of(context).login_tile_title,
-            icon: Icons.lock_outline,
-            isFullTileTap: true,
-            maxTitleLines: 1,
-            backgroundColor: AppColors.primaryOneColor,
-            child: TextTileContent(
-                textColor: contentColor,
-                text: S.of(context).login_tile_text,
-                textAlignment: TextAlign.center,
-                buttonText: S.of(context).login_tile_button_text,
-                buttonTextColor: contentColor),
-            onTap: () {
-              final navigator = Navigator.of(context);
-              navigator.pushNamed(
-                AppRouter.loginRoute,
-                arguments: AppRouter.paymentRoute,
-              );
-            },
-          );
+          return const SizedBox.shrink();
         }),
       );
     }

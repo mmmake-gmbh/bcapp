@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class WelcomeTile extends StatefulWidget {
-  const WelcomeTile({super.key, required this.firstLogin});
+  const WelcomeTile(
+      {super.key, required this.firstLogin, required this.isLogged});
 
   final bool firstLogin;
+  final bool isLogged;
 
   @override
   State<WelcomeTile> createState() => _WelcomeTileState();
@@ -51,13 +53,16 @@ class _WelcomeTileState extends State<WelcomeTile>
       style: TextStyle(fontSize: 70, height: 1),
     );
 
-    final firstLineRaw = userName != null && userName.isNotEmpty
-        ? S.of(context).welcome_tile_hello
-        : S.of(context).welcome_tile_no_user_text;
+    final firstLineRaw =
+        widget.isLogged && userName != null && userName.isNotEmpty
+            ? S.of(context).welcome_tile_hello
+            : S.of(context).welcome_tile_no_user_text;
     final firstLine = "\u{00A0}\u{00A0}$firstLineRaw\u{00A0}\u{00A0}";
 
     final secondLineRaw =
-        userName != null && userName.isNotEmpty ? userName : "";
+        widget.isLogged && userName != null && userName.isNotEmpty
+            ? userName
+            : "";
     final secondLine = secondLineRaw.isNotEmpty
         ? "\u{00A0}\u{00A0}$secondLineRaw\u{00A0}\u{00A0}"
         : "";

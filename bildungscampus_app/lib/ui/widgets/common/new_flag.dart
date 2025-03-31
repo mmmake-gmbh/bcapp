@@ -33,6 +33,15 @@ class _NewFlagState extends State<NewFlag> {
     _controller = CarouselController();
   }
 
+  String getHeadline(Locale? locale) {
+    if (widget.featureInfo != null && widget.featureInfo!.headline.isNotEmpty) {
+      return LocalizedTextUtils.getLocalizedText(
+          widget.featureInfo!.headline, locale);
+    }
+
+    return S.of(context).new_flag_widget_title;
+  }
+
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
@@ -59,7 +68,7 @@ class _NewFlagState extends State<NewFlag> {
                 children: [
                   const SizedBox(height: 40),
                   Text(
-                    S.of(context).new_flag_widget_title,
+                    getHeadline(locale),
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontSize: 24.0,
                           fontFamily: 'DINOT Bold',

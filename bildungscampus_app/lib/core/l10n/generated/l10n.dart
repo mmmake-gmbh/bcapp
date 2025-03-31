@@ -1169,6 +1169,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Campus Servicedesk`
+  String get service_desk_view_title_backup {
+    return Intl.message(
+      'Campus Servicedesk',
+      name: 'service_desk_view_title_backup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Daten nicht verfügbar`
+  String get mensa_view_data_not_available {
+    return Intl.message(
+      'Daten nicht verfügbar',
+      name: 'mensa_view_data_not_available',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fehler beim Öffnen des Links`
+  String get mensa_view_info_dialog_cannot_open_link {
+    return Intl.message(
+      'Fehler beim Öffnen des Links',
+      name: 'mensa_view_info_dialog_cannot_open_link',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

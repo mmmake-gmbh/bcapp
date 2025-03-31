@@ -134,5 +134,8 @@
   "login_view_prompt_biometric_accept_button": "YES",
   "login_view_prompt_biometric_dismiss_button": "DISMISS",
   "login_view_biometric_authenticate_reason": "Biometric authentication",
-  "contact_view_show_licenses_button_text": "Show all licenses"
+  "contact_view_show_licenses_button_text": "Show all licenses",
+  "service_desk_view_title_backup": "Campus Servicedesk",
+  "mensa_view_data_not_available": "Data not available",
+  "mensa_view_info_dialog_cannot_open_link": "Error opening the link"
 }

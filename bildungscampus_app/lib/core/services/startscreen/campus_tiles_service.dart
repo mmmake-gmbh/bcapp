@@ -15,10 +15,12 @@ import 'package:bildungscampus_app/core/viewmodels/tiles/locationmap_tile_viewmo
 import 'package:bildungscampus_app/core/viewmodels/tiles/mensa_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/parking_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/payment_tile_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/tiles/service_desk_tile_view_model.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/timetable_tile_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/tiles/welcome_tile_viewmodel.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class CampusTilesService implements TilesService {
   @override
@@ -43,6 +45,7 @@ class CampusTilesService implements TilesService {
               date: DateTime.now(),
               slides: [],
               isActive: false,
+              headline: [],
             ),
           );
           return vm;
@@ -92,6 +95,18 @@ class CampusTilesService implements TilesService {
             navigationPath: AppRouter.paymentRoute,
             type: TileType.big,
             featureType: FeatureType.payment,
+            featureInfo: tileModel.featureInfo,
+          );
+          return vm;
+        case 'servicedesk':
+          final vm = ServiceDeskTileViewModel(
+            title: tileModel.title,
+            icon: MdiIcons.fileDocumentEditOutline,
+            description: tileModel.text,
+            buttonText: S.of(context).tiles_button_text_more,
+            navigationPath: AppRouter.campusServiceDeskRoute,
+            type: TileType.big,
+            featureType: FeatureType.serviceDesk,
             featureInfo: tileModel.featureInfo,
           );
           return vm;

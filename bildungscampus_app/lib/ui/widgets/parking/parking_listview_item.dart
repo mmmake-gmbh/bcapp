@@ -119,47 +119,48 @@ class ParkingListViewItem extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            S
-                                .of(context)
-                                .parking_view_parkinglistitem_occupancy_text(
-                                    model.parkingLot.availableCapacity
-                                        .toString()),
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .copyWith(
-                                  color: AppColors.primaryOneColor,
+                      if (model.parkingLot.totalCapacity > 0)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              S
+                                  .of(context)
+                                  .parking_view_parkinglistitem_occupancy_text(
+                                      model.parkingLot.availableCapacity
+                                          .toString()),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                    color: AppColors.primaryOneColor,
+                                  ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Row(
+                              children: [
+                                if (model.parkingLot.disabledTotalCapacity > 0)
+                                  ParkingBadge(
+                                      text: model
+                                          .parkingLot.disabledAvailableCapacity
+                                          .toString(),
+                                      iconPath: SvgIcons.wheelchair),
+                                const SizedBox(
+                                  width: 6,
                                 ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Row(
-                            children: [
-                              if (model.parkingLot.disabledTotalCapacity > 0)
-                                ParkingBadge(
-                                    text: model
-                                        .parkingLot.disabledAvailableCapacity
-                                        .toString(),
-                                    iconPath: SvgIcons.wheelchair),
-                              const SizedBox(
-                                width: 6,
-                              ),
-                              if (model.parkingLot.eAutoTotalCapacity > 0)
-                                ParkingBadge(
-                                    text: model
-                                        .parkingLot.eAutoAvailableCapacity
-                                        .toString(),
-                                    iconPath: SvgIcons.thunder),
-                            ],
-                          )
-                        ],
-                      ),
+                                if (model.parkingLot.eAutoTotalCapacity > 0)
+                                  ParkingBadge(
+                                      text: model
+                                          .parkingLot.eAutoAvailableCapacity
+                                          .toString(),
+                                      iconPath: SvgIcons.thunder),
+                              ],
+                            )
+                          ],
+                        ),
                     ],
                   ),
                   Column(

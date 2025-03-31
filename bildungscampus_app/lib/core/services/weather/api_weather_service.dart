@@ -1,5 +1,6 @@
+import 'dart:developer';
+
 import 'package:bildungscampus_app/core/models/weather/weather_data.dart';
-import 'package:bildungscampus_app/core/models/weather/weather_sensor.dart';
 import 'package:bildungscampus_app/core/repositories/weather/weather_repository.dart';
 import 'package:bildungscampus_app/core/services/weather/weather_service.dart';
 import 'package:bildungscampus_app/locator.dart';
@@ -12,19 +13,14 @@ class ApiWeatherService extends WeatherService {
     WeatherData result;
 
     try {
-      final weatherData = await _weatherRepository.getLastestWeather();
-      final temp = weatherData
-          .firstWhere((x) => x!.sensor == WeatherSensorSensorEnum.temperature)!;
+      final weatherData = await _weatherRepository.getLatestWeather();
+      final outdoorTemp = weatherData.timeseries.outdoortemperature.firstOrNull;
 
-      final rain = weatherData
-          .firstWhere((x) => x!.sensor == WeatherSensorSensorEnum.rain)!;
+      final temp = double.tryParse(outdoorTemp?.value ?? "0");
 
-      result = WeatherData(
-        value: temp.value,
-        unit: temp.unit ?? '',
-        isRaining: rain.value == 1,
-      );
+      result = WeatherData(value: temp ?? 0, unit: '°C');
     } catch (error) {
+      log("WeatherService: $error");
       result = const WeatherData(
         value: 0,
         unit: '',

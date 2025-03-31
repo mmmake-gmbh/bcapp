@@ -71,7 +71,7 @@ class SpaceGame extends FlameGame with HasCollisionDetection {
         // size: 100,
         background: CircleComponent(
           radius: 60,
-          paint: Paint()..color = Colors.red.withOpacity(0.5),
+          paint: Paint()..color = Colors.red.withValues(alpha: 0.5),
         ),
         knob: CircleComponent(radius: 60),
       );
@@ -111,7 +111,7 @@ class SpaceGame extends FlameGame with HasCollisionDetection {
       final button = ButtonComponent(
         button: CircleComponent(
           radius: 60,
-          paint: Paint()..color = Colors.white.withOpacity(0.5),
+          paint: Paint()..color = Colors.white.withValues(alpha: 0.5),
         ),
         anchor: Anchor.bottomRight,
         position: Vector2(fixedResolution.x - 30, fixedResolution.y - 30),

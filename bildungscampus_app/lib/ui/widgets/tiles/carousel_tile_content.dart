@@ -65,8 +65,9 @@ class _CarouselTileContentState<T> extends State<CarouselTileContent<T>> {
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: _currentIndex == index
-                        ? widget.contentColor.withOpacity(0.9)
-                        : widget.contentColor.withOpacity(0.4)),
+                        ? widget.contentColor.withValues(alpha: 0.9)
+                        : widget.contentColor
+                      ..withValues(alpha: 0.4)),
               ),
               onTap: () {
                 _controller.jumpToPage(index);

@@ -134,5 +134,8 @@
   "login_view_prompt_biometric_accept_button": "JA",
   "login_view_prompt_biometric_dismiss_button": "SPÄTER",
   "login_view_biometric_authenticate_reason": "Biometrische Authentifizierung",
-  "contact_view_show_licenses_button_text": "Alle Lizenzen anzeigen"
+  "contact_view_show_licenses_button_text": "Alle Lizenzen anzeigen",
+  "service_desk_view_title_backup": "Campus Servicedesk",
+  "mensa_view_data_not_available": "Daten nicht verfügbar",
+  "mensa_view_info_dialog_cannot_open_link": "Fehler beim Öffnen des Links"
 }

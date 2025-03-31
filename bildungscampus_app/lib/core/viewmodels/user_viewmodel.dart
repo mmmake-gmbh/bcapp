@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:flutter/services.dart';
 import 'package:cidaas_flutter_sdk/cidaas_flutter_sdk.dart';
 import 'package:http/http.dart' as http;
 
@@ -33,7 +31,8 @@ class UserViewModel extends BaseViewModel {
   bool get isLogged => _isLogged;
   String? get userName => _userName;
   UserType get userType => _mapUserType(_profileInfo);
-  String? get ssoCookie => isAccessTokenExpired() ? null : _ssoCookie;
+  String? get ssoCookie =>
+      !_useBiometricLogin && isAccessTokenExpired() ? null : _ssoCookie;
   DateTime? get tokenExpirationDate => _tokenExpirationDate;
 
   Locale? get locale => _locale;
@@ -61,6 +60,7 @@ class UserViewModel extends BaseViewModel {
         ? const Locale('en')
         : const Locale('de');
 
+    log('savedLocale: $savedLocale ,deviceLocale: $deviceLocale');
     _locale = savedLocale ?? deviceLocale;
     notifyListeners();
 
@@ -77,7 +77,7 @@ class UserViewModel extends BaseViewModel {
     _ssoCookie = _getSsoCookie(storedToken);
     _profileInfo = _getProfileInfo(storedToken);
     _tokenExpirationDate = _getTokenExpirationDate(storedToken);
-    log('tokenExpDate: $_tokenExpirationDate');
+    log('tokenExpDate: $_tokenExpirationDate; refreshToken: ${storedToken?.refreshToken}');
 
     _useBiometricLogin = await _isBiometricLoginActivated();
     _isBiometricInitialized = await _isBiometricLoginInitialized();
@@ -86,7 +86,8 @@ class UserViewModel extends BaseViewModel {
       await logout();
     }
 
-    _isLogged = !isAccessTokenExpired();
+    _isLogged =
+        _useBiometricLogin && isSsoCookieValid() || !isAccessTokenExpired();
     notifyListeners();
   }
 
@@ -266,12 +267,12 @@ class UserViewModel extends BaseViewModel {
     final storedToken = await _cidaasProvider!.getStoredAccessToken();
     if (storedToken?.accessToken != null &&
         storedToken?.refreshToken != null &&
-        !_isRefreshTokenExpired(storedToken!.refreshToken!)) {
+        !_isJwtTokenExpired(storedToken!.accessToken!)) {
       log("cidaas -> refreshToken");
-      await _cidaasProvider!
-          .renewAccessTokenByRefreshToken(storedToken.refreshToken!);
+      await _cidaasProvider!.renewAccessTokenByRefreshToken(
+          storedToken.refreshToken!, storedToken.ssoCookie);
     }
-    await renewSsoCookie();
+    //await renewSsoCookie();
   }
 
   Future<void> renewSsoCookie() async {
@@ -313,6 +314,7 @@ class UserViewModel extends BaseViewModel {
 
       final cookies = response.headers['set-cookie'];
       if (cookies == null || cookies.isEmpty) {
+        log("No new cookie");
         return;
       }
 
@@ -399,36 +401,15 @@ class UserViewModel extends BaseViewModel {
     return ssoCookie;
   }
 
-  bool _isRefreshTokenExpired(String refreshToken) {
-    if (refreshToken.split('.').length != 3) {
+  bool _isJwtTokenExpired(String token) {
+    if (token.split('.').length != 3) {
       //Invalid access_token
       return true;
     }
-    final String decClaimSet = _decodeBase64(refreshToken.split('.')[1]);
-    final dynamic tokenInfo = json.decode(decClaimSet);
+    final dynamic tokenInfo = JwtDecoder.decode(token);
     final DateTime expiresAt =
         DateTime.fromMillisecondsSinceEpoch(tokenInfo['exp'] * 1000);
     final Duration difference = expiresAt.difference(DateTime.now());
     return (difference.inSeconds < 60) ? true : false;
-  }
-
-  /// Decodes the given base64 string [str]
-  static String _decodeBase64(String str) {
-    String output = str.replaceAll('-', '+').replaceAll('_', '/');
-
-    switch (output.length % 4) {
-      case 0:
-        break;
-      case 2:
-        output += '==';
-        break;
-      case 3:
-        output += '=';
-        break;
-      default:
-        throw Exception('Illegal base64url string!"');
-    }
-
-    return utf8.decode(base64Url.decode(output));
   }
 }

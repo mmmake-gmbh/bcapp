@@ -39,6 +39,7 @@ class AppViewModel extends BaseViewModel {
   static const String fahrradBoxLinkKey = 'FahrradBox';
   static const String registrationLinkKey = 'Registrierung';
   static const String mensaGuestCardLinkKey = 'MensaCard';
+  static const String campusServiceDeskLinkKey = 'CampusServiceDesk';
 
   final AppContentRepository _contentRepository =
       locator<AppContentRepository>();
@@ -62,7 +63,11 @@ class AppViewModel extends BaseViewModel {
   FeatureInfo get overallFeatureInfo =>
       _overallFeatureInfo ??
       FeatureInfo(
-          slides: [], version: "", isActive: false, date: DateTime.now());
+          slides: [],
+          version: "",
+          isActive: false,
+          date: DateTime.now(),
+          headline: []);
 
   ExternalLink? get locationMapLink => _externalLinkByKey(locationMapKey);
   ExternalLink? get timeTableLink => _externalLinkByKey(timeTableLinkKey);
@@ -81,6 +86,8 @@ class AppViewModel extends BaseViewModel {
   ExternalLink? get registrationLink => _externalLinkByKey(registrationLinkKey);
   ExternalLink? get mensaGuestCardLink =>
       _externalLinkByKey(mensaGuestCardLinkKey);
+  ExternalLink? get campusServiceDeskLink =>
+      _externalLinkByKey(campusServiceDeskLinkKey);
 
   AppViewModel(FlutterSecureStorage storage) {
     _secureStorage = storage;
@@ -148,12 +155,11 @@ class AppViewModel extends BaseViewModel {
     if (updateAll) {
       _tiles = _tilesService
           .createViewModels(content, weather, context)
-          .where((tile) => UserTypeUtils.isUserTypedAllowed(
-              tile.allowedUserType, user.userType))
+          .where((tile) =>
+              UserTypeUtils.isUserTypedAllowed(
+                  tile.allowedUserType, user.userType) &&
+              tile.featureType != FeatureType.welcome)
           .toList();
-
-      final menu = content.tiles.where((tile) => tile.showInMenu).toList();
-      menu.sort((a, b) => a.menuOrder.compareTo(b.menuOrder));
 
       _contactInfo = content.contactInfo;
       _campusInfo = content.campusInfo;

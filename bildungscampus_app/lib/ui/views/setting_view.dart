@@ -96,6 +96,7 @@ class _SettingViewState extends State<SettingView> {
         name: "logout",
         link: [LocalizedText(lang: "de", text: "logout")],
         openExternalInBrowser: false,
+        whitelistUrls: [],
       )
     }.entries.toList();
 
@@ -104,6 +105,7 @@ class _SettingViewState extends State<SettingView> {
         name: "login",
         link: [LocalizedText(lang: "de", text: "login")],
         openExternalInBrowser: false,
+        whitelistUrls: [],
       )
     }.entries.toList();
 

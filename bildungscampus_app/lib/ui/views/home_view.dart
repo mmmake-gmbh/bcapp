@@ -5,16 +5,24 @@ import 'package:bildungscampus_app/core/enums/feature_type.dart';
 import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/models/common/feature_info.dart';
 import 'package:bildungscampus_app/core/models/weather/weather_data.dart';
-import 'package:bildungscampus_app/core/services/interfaces/settings_service.dart';
+//import 'package:bildungscampus_app/core/services/interfaces/settings_service.dart';
 import 'package:bildungscampus_app/core/utils/tile_utils.dart';
 import 'package:bildungscampus_app/core/viewmodels/base_viewmodel.dart';
 import 'package:bildungscampus_app/core/viewmodels/privacy_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/tiles/bike_tile_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/tiles/payment_tile_viewmodel.dart';
+import 'package:bildungscampus_app/core/viewmodels/tiles/service_desk_tile_view_model.dart';
 import 'package:bildungscampus_app/core/viewmodels/user_viewmodel.dart';
-import 'package:bildungscampus_app/locator.dart';
+//import 'package:bildungscampus_app/locator.dart';
 import 'package:bildungscampus_app/ui/app_router.dart';
 import 'package:bildungscampus_app/ui/shared/svg_icons.dart';
 import 'package:bildungscampus_app/ui/widgets/common/new_flag.dart';
 import 'package:bildungscampus_app/ui/widgets/common/standard_error_dialog.dart';
+import 'package:bildungscampus_app/ui/widgets/tiles/start_tile.dart';
+import 'package:bildungscampus_app/ui/widgets/tiles/text_tile_content.dart';
+import 'package:bildungscampus_app/ui/widgets/tiles/welcome_tile.dart';
+import 'package:cidaas_flutter_sdk/cidaas_flutter_sdk.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -37,19 +45,57 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
   bool initialStateHasError = false;
   Timer? timer;
-  final SettingsService _settingsService = locator<SettingsService>();
+  //final SettingsService _settingsService = locator<SettingsService>();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List<StaggeredGridTile> _getTiles(
-      List<BaseViewModel> tiles, Locale? locale, BuildContext context) {
-    final newTiles = [...tiles];
+  StaggeredGridTile _loginTile() => StaggeredGridTile.count(
+        crossAxisCellCount: 2,
+        mainAxisCellCount: 2,
+        child: StartTile(
+          titleColor: Colors.white,
+          tileTitle: S.of(context).login_tile_title,
+          icon: Icons.lock_outline,
+          isFullTileTap: true,
+          maxTitleLines: 1,
+          backgroundColor: AppColors.primaryOneColor,
+          child: TextTileContent(
+              textColor: Colors.white,
+              text: S.of(context).login_tile_text,
+              textAlignment: TextAlign.center,
+              buttonText: S.of(context).login_tile_button_text,
+              buttonTextColor: Colors.white),
+          onTap: () {
+            final navigator = Navigator.of(context);
+            navigator.pushNamed(
+              AppRouter.loginRoute,
+            );
+          },
+        ),
+      );
 
-    return newTiles.map((model) {
+  StaggeredGridTile _welcomeTile(bool isLogged, bool firstLogin) =>
+      StaggeredGridTile.count(
+        crossAxisCellCount: 4,
+        mainAxisCellCount: 1,
+        child: WelcomeTile(isLogged: isLogged, firstLogin: firstLogin),
+      );
+
+  List<StaggeredGridTile> _getTiles(List<BaseViewModel> tiles,
+      UserViewModel userModel, BuildContext context) {
+    //TODO: Refactor the tiles, to be able to know the info from the baseModel...
+    final filteredTiles = (userModel.isLogged)
+        ? tiles
+        : tiles.whereNot((model) =>
+            model is PaymentTileViewModel ||
+            model is BikeTileViewModel ||
+            model is ServiceDeskTileViewModel);
+
+    final tilesWidgets = filteredTiles.map((model) {
       final tileModel = model as BaseStartTileViewModel;
       final tileWidget = TileUtils.mapTile(
         tileModel,
-        locale,
+        userModel.locale,
         context,
       );
 
@@ -68,6 +114,17 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
               crossAxisCellCount: 4, mainAxisCellCount: 1, child: tileWidget);
       }
     }).toList();
+
+    final args = ModalRoute.of(context)!.settings.arguments as TokenEntity?;
+    final firstLogin = args?.ssoCookie != null;
+    if (userModel.isLogged) {
+      return [_welcomeTile(userModel.isLogged, firstLogin), ...tilesWidgets];
+    }
+    return [
+      _welcomeTile(userModel.isLogged, firstLogin),
+      _loginTile(),
+      ...tilesWidgets
+    ];
   }
 
   @override
@@ -77,7 +134,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
 
     final appViewModel = context.read<AppViewModel>();
-    final userViewModel = context.read<UserViewModel>();
+    //final userViewModel = context.read<UserViewModel>();
 
     Future.microtask(() async {
       if (mounted) {
@@ -99,15 +156,6 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
     WidgetsBinding.instance.removeObserver(this);
     timer?.cancel();
     super.dispose();
-  }
-
-  String _getWeatherIcon(WeatherData data) {
-    if (data.isRaining && data.value <= 0) {
-      return SvgIcons.weatherSnowy;
-    } else if (data.isRaining && data.value > 0) {
-      return SvgIcons.weatherRainy;
-    }
-    return SvgIcons.weatherSonny;
   }
 
   @override
@@ -175,19 +223,16 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
               child: Row(
                 children: [
                   SvgPicture.asset(
-                    _getWeatherIcon(model),
-                    height: 24,
-                    alignment: Alignment.center,
-                    colorFilter: const ColorFilter.mode(
-                        Color(0xFF3B3B3B), BlendMode.srcIn),
-                  ),
-                  const SizedBox(
-                    width: 2,
+                    SvgIcons.weather,
+                    width: 16,
+                    height: 32,
+                    colorFilter:
+                        ColorFilter.mode(Color(0xFF3B3B3B), BlendMode.srcIn),
                   ),
                   Text(
                     "${model.value.round()}°",
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 20,
                       color: Color(0xFF3B3B3B),
                       fontFamily: "DIN OT",
                       fontWeight: FontWeight.w700,
@@ -315,64 +360,66 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
                         physics: Platform.isIOS
                             ? const AlwaysScrollableScrollPhysics()
                             : const BouncingScrollPhysics(),
-                        child: StaggeredGrid.count(
-                          crossAxisCount: 4,
-                          axisDirection: AxisDirection.down,
-                          mainAxisSpacing: 16.0,
-                          crossAxisSpacing: 16.0,
-                          children: _getTiles(
-                              model.tiles!, userModel.locale, context),
+                        child: Column(
+                          children: [
+                            StaggeredGrid.count(
+                              crossAxisCount: 4,
+                              axisDirection: AxisDirection.down,
+                              mainAxisSpacing: 16.0,
+                              crossAxisSpacing: 16.0,
+                              children:
+                                  _getTiles(model.tiles!, userModel, context),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(
+                                  left: 12,
+                                  right: 12,
+                                  top: 12,
+                                  bottom: Platform.isAndroid ? 20 : 0),
+                              color: Colors.white..withValues(alpha: 0.85),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  InkWell(
+                                    onTap: () => Navigator.of(context)
+                                        .pushNamed(AppRouter.contactRoute),
+                                    child: Text(
+                                      S.of(context).contact_view_appmenu_title,
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      final url = context
+                                          .read<PrivacyViewModel>()
+                                          .privacyAgreementLink;
+                                      launchUrlString(url);
+                                    },
+                                    child: Text(
+                                      S.of(context).privacy_view_appmenu_title,
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      final url = context
+                                          .read<PrivacyViewModel>()
+                                          .termsOfUseLink;
+                                      launchUrlString(url);
+                                    },
+                                    child: Text(
+                                      S
+                                          .of(context)
+                                          .termsofuse_view_appmenu_title,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     );
                   }),
-                  Positioned(
-                    left: 0,
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      padding: EdgeInsets.only(
-                          left: 12,
-                          right: 12,
-                          top: 12,
-                          bottom: Platform.isAndroid ? 20 : 0),
-                      color: Colors.white.withOpacity(0.85),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            onTap: () => Navigator.of(context)
-                                .pushNamed(AppRouter.contactRoute),
-                            child: Text(
-                              S.of(context).contact_view_appmenu_title,
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              final url = context
-                                  .read<PrivacyViewModel>()
-                                  .privacyAgreementLink;
-                              launchUrlString(url);
-                            },
-                            child: Text(
-                              S.of(context).privacy_view_appmenu_title,
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              final url = context
-                                  .read<PrivacyViewModel>()
-                                  .termsOfUseLink;
-                              launchUrlString(url);
-                            },
-                            child: Text(
-                              S.of(context).termsofuse_view_appmenu_title,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),

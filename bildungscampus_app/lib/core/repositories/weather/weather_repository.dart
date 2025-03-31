@@ -1,5 +1,5 @@
-import 'package:bildungscampus_app/core/models/weather/weather_sensor.dart';
+import 'package:bildungscampus_app/core/models/weather/weather_apigee.dart';
 
 abstract class WeatherRepository {
-  Future<List<WeatherSensor?>> getLastestWeather();
+  Future<WeatherApigee> getLatestWeather();
 }

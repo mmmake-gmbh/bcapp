@@ -1,3 +1,4 @@
+import 'package:bildungscampus_app/core/l10n/generated/l10n.dart';
 import 'package:bildungscampus_app/core/models/mensa/mensa_forecast_data.dart';
 import 'package:bildungscampus_app/core/models/mensa/mensa_meal_plan.dart';
 import 'package:bildungscampus_app/core/utils/date_utils.dart';
@@ -38,47 +39,55 @@ class _MensaContentWidgetState extends State<MensaContentWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final mensaMenu = context.read<MensaViewModel>().mensaMenu;
     return Stack(
       children: [
         Column(
           children: [
-            Selector<MensaViewModel, List<DayPlan>?>(
-              selector: (_, viewModel) => viewModel.mensaMenu?.tagesplan,
-              builder: (context, dayPlans, _) => CalendarTimeline(
-                dayPlans: dayPlans ?? [],
-                controller: _scrollController,
-                onClick: (idx) => _pageController.jumpToPage(idx),
+            if (mensaMenu != null)
+              Selector<MensaViewModel, List<DayPlan>?>(
+                selector: (_, viewModel) => viewModel.mensaMenu?.tagesplan,
+                builder: (context, dayPlans, _) => CalendarTimeline(
+                  dayPlans: dayPlans ?? [],
+                  controller: _scrollController,
+                  onClick: (idx) => _pageController.jumpToPage(idx),
+                ),
               ),
-            ),
-            Expanded(
-              child: Container(
-                  color: const Color(0xFFFAFAFA),
-                  padding: const EdgeInsets.only(
-                      top: 16, left: 24, right: 24, bottom: 0),
-                  child: PageView(
-                    controller: _pageController,
-                    onPageChanged: (idx) {
-                      final viewModel = context.read<MensaViewModel>();
+            if (mensaMenu == null)
+              Expanded(
+                child: Center(
+                    child: Text(S.of(context).mensa_view_data_not_available)),
+              )
+            else
+              Expanded(
+                child: Container(
+                    color: const Color(0xFFFAFAFA),
+                    padding: const EdgeInsets.only(
+                        top: 16, left: 24, right: 24, bottom: 0),
+                    child: PageView(
+                      controller: _pageController,
+                      onPageChanged: (idx) {
+                        final viewModel = context.read<MensaViewModel>();
 
-                      _scrollController.scrollTo(
-                          index: idx,
-                          duration: const Duration(milliseconds: 200));
-                      viewModel
-                          .dayPlanSelected(viewModel.mensaMenu!.tagesplan[idx]);
-                    },
-                    children: context
-                            .read<MensaViewModel>()
-                            .mensaMenu
-                            ?.tagesplan
-                            .map(
-                              (plan) => MealsList(
-                                selectedDayPlan: plan,
-                              ),
-                            )
-                            .toList() ??
-                        [],
-                  )),
-            ),
+                        _scrollController.scrollTo(
+                            index: idx,
+                            duration: const Duration(milliseconds: 200));
+                        viewModel.dayPlanSelected(
+                            viewModel.mensaMenu!.tagesplan[idx]);
+                      },
+                      children: context
+                              .read<MensaViewModel>()
+                              .mensaMenu
+                              ?.tagesplan
+                              .map(
+                                (plan) => MealsList(
+                                  selectedDayPlan: plan,
+                                ),
+                              )
+                              .toList() ??
+                          [],
+                    )),
+              ),
           ],
         ),
         Selector<
@@ -97,7 +106,8 @@ class _MensaContentWidgetState extends State<MensaContentWidget> {
           ),
           builder: (context, data, _) {
             if (data.selectedDayPlanDate == null ||
-                !data.selectedDayPlanDate!.isSameDate(DateTime.now())) {
+                !data.selectedDayPlanDate!.isSameDate(DateTime.now()) ||
+                data.forecastData.isEmpty) {
               return const SizedBox.shrink();
             }
 

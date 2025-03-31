@@ -18,8 +18,13 @@ class MensaMealPlan {
 
   factory MensaMealPlan.fromJson(Map<String, dynamic> json) => MensaMealPlan(
         ort: json["ort"],
-        tagesplan: List<DayPlan>.from(
-            json["tagesplan"].map((x) => DayPlan.fromJson(x))),
+        tagesplan: List<DayPlan>.from(json["tagesplan"].map<DayPlan?>((x) {
+          try {
+            return DayPlan.fromJson(x);
+          } catch (e) {
+            return null;
+          }
+        }).whereType<DayPlan>()),
       );
 
   Map<String, dynamic> toJson() => {

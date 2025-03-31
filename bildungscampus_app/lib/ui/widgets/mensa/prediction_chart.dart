@@ -170,7 +170,7 @@ class _PredictionChartState extends State<PredictionChart> {
                       show: false,
                       border: Border.symmetric(
                         horizontal: BorderSide(
-                          color: Colors.black.withOpacity(0.2),
+                          color: Colors.black.withValues(alpha: 0.2),
                         ),
                       ),
                     ),
@@ -183,7 +183,7 @@ class _PredictionChartState extends State<PredictionChart> {
                       getDrawingHorizontalLine: (value) {
                         return FlLine(
                           dashArray: [1, 24],
-                          color: Colors.black.withOpacity(0.3),
+                          color: Colors.black.withValues(alpha: 0.3),
                           strokeWidth: 4,
                         );
                       },
@@ -296,7 +296,8 @@ class _PredictionChartState extends State<PredictionChart> {
     );
 
     return SideTitleWidget(
-      axisSide: meta.axisSide,
+      meta: meta,
+      //axisSide: meta.axisSide,
       space: 4, //margin top
       child: value % 3 == 0 ? text : const Text(""),
     );

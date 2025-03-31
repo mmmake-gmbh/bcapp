@@ -38,7 +38,7 @@ class _AuthenticateWidgetState extends State<AuthenticateWidget> {
           final userViewModel = context.read<UserViewModel>();
           final localization = S.of(context);
 
-          await userViewModel.renewSsoCookie();
+          //await userViewModel.renewSsoCookie();
 
           await userViewModel.initLoggedInData();
 

@@ -127,6 +127,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Lageplan"),
         "mensa_view_closed_text":
             MessageLookupByLibrary.simpleMessage("Heute geschlossen "),
+        "mensa_view_data_not_available":
+            MessageLookupByLibrary.simpleMessage("Daten nicht verfügbar"),
         "mensa_view_forecast_title":
             MessageLookupByLibrary.simpleMessage("Stoßzeiten"),
         "mensa_view_info_content_campuscard_label":
@@ -148,6 +150,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Vegan, Vegetarisch"),
         "mensa_view_info_content_vegan_value":
             MessageLookupByLibrary.simpleMessage("JA"),
+        "mensa_view_info_dialog_cannot_open_link":
+            MessageLookupByLibrary.simpleMessage(
+                "Fehler beim Öffnen des Links"),
         "mensa_view_info_dialog_details":
             MessageLookupByLibrary.simpleMessage("Details"),
         "mensa_view_info_dialog_title":
@@ -224,6 +229,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Nutzungsbedingungen"),
         "privacy_view_tile_appendix":
             MessageLookupByLibrary.simpleMessage("für"),
+        "service_desk_view_title_backup":
+            MessageLookupByLibrary.simpleMessage("Campus Servicedesk"),
         "setting_view_account_setting":
             MessageLookupByLibrary.simpleMessage("Benutzerkonto verwalten"),
         "setting_view_biometric_setting_text":

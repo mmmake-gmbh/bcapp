@@ -35,10 +35,9 @@ class SvgIcons {
   static const String ungroup = 'assets/icons/ungroup.svg';
   static const String vegan = 'assets/icons/vegan.svg';
   static const String vegetarian = 'assets/icons/vegetarian.svg';
-  static const String weatherSonny = 'assets/icons/weather_sonny.svg';
-  static const String weatherRainy = 'assets/icons/weather_rainy.svg';
-  static const String weatherSnowy = 'assets/icons/weather_snowy.svg';
+  static const String weather = 'assets/icons/weather.svg';
   static const String wheelchair = 'assets/icons/wheelchair.svg';
+  static const String wohnheim = 'assets/icons/wohnheim.svg';
 
   static const Map<String, String> flagList = {
     'de': 'assets/icons/flag_de.svg',

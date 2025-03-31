@@ -5,12 +5,15 @@ class FeatureInfo {
   final String version;
   final bool isActive;
   final DateTime date;
+  final List<LocalizedText> headline;
 
-  FeatureInfo(
-      {required this.slides,
-      required this.version,
-      required this.isActive,
-      required this.date});
+  FeatureInfo({
+    required this.slides,
+    required this.version,
+    required this.isActive,
+    required this.date,
+    required this.headline,
+  });
 
   factory FeatureInfo.fromJson(Map<String, dynamic> json) => FeatureInfo(
         slides: List<FeatureInfoSlide>.from(
@@ -18,13 +21,18 @@ class FeatureInfo {
         version: json["version"],
         isActive: json["isActive"],
         date: DateTime.parse(json["date"]),
+        headline: json["headline"] != null
+            ? List<LocalizedText>.from(
+                json["headline"].map((x) => LocalizedText.fromJson(x)))
+            : [],
       );
 
   Map<String, dynamic> toJson() => {
         "slides": List<dynamic>.from(slides.map((x) => x.toJson())),
         "version": version,
         "isActive": isActive,
-        "date": date.toIso8601String()
+        "date": date.toIso8601String(),
+        "headline": List<dynamic>.from(headline.map((x) => x.toJson())),
       };
 }
 

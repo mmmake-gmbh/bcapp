@@ -137,7 +137,7 @@ class CalendarTimeline extends StatelessWidget {
                   '${S.of(context).mensa_view_timeline_menu_label} – ${DateFormat(getDateFormat(locale, selectedDayPlan.datum)).format(selectedDayPlan.datum)}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.black.withOpacity(0.5400000214576721),
+                    color: Colors.black.withValues(alpha: 0.5400000214576721),
                     fontSize: 14,
                     fontFamily: 'DIN OT',
                     fontWeight: FontWeight.w300,

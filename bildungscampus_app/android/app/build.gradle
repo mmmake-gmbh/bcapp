@@ -30,7 +30,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.schwarz.bildungscampus.application"
-    compileSdkVersion 34
+    compileSdkVersion 35
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -54,7 +54,7 @@ android {
     defaultConfig {
         applicationId "com.schwarz.bildungscampus.application"
         minSdkVersion 23
-        targetSdkVersion 34
+        targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
@@ -97,4 +97,5 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+}

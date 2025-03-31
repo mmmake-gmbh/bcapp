@@ -55,11 +55,13 @@ class MensaViewModel extends BaseViewModel {
         [];
   }
 
-  int get maxforecast => max(
-      forecast
-          .map((d) => d.prediction)
-          .reduce((curr, next) => curr > next ? curr : next),
-      currentOccupancy);
+  int get maxforecast => forecast.isEmpty
+      ? 0
+      : max(
+          forecast
+              .map((d) => d.prediction)
+              .reduce((curr, next) => curr > next ? curr : next),
+          currentOccupancy);
 
   int get currentOccupancy => _mensa?.occupancy.currentOccupancy ?? 0;
 

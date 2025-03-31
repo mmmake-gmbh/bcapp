@@ -59,95 +59,70 @@ class _ParkingViewState extends State<ParkingView>
       title = S.of(context).parking_view_title_backup;
     }
 
-    return DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: ReusableAppBars.standardAppBar(context, title),
-          backgroundColor: Colors.white,
-          body: FeatureView(
+    return Scaffold(
+        appBar: ReusableAppBars.standardAppBar(context, title),
+        backgroundColor: Colors.white,
+        body: DefaultTabController(
+          length: 3,
+          child: FeatureView(
             featureType: FeatureType.parking,
             children: [
               Column(
                 children: [
-                  Stack(
-                    fit: StackFit.passthrough,
-                    alignment: Alignment.bottomCenter,
-                    children: [
-                      Container(
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                                color: AppColors.parkingViewBorderColor,
-                                width: 2.0),
-                          ),
-                        ),
+                  TabBar(
+                    controller: _tabController,
+                    labelPadding: const EdgeInsets.all(0),
+                    labelColor: const Color.fromRGBO(0, 0, 0, 0.87),
+                    labelStyle: const TextStyle(
+                      fontSize: 14.0,
+                      fontFamily: 'DINOT Medium',
+                    ),
+                    indicatorColor: AppColors.primaryTwoColor,
+                    unselectedLabelColor: const Color.fromRGBO(0, 0, 0, 0.54),
+                    tabs: [
+                      Tab(
+                        text: S
+                            .of(context)
+                            .parking_view_categories_students
+                            .toUpperCase(),
                       ),
-                      TabBar(
-                        controller: _tabController,
-                        labelPadding: const EdgeInsets.all(0),
-                        labelColor: const Color.fromRGBO(0, 0, 0, 0.87),
-                        labelStyle: const TextStyle(
-                          fontSize: 14.0,
-                          fontFamily: 'DINOT Medium',
-                        ),
-                        indicatorColor: AppColors.primaryTwoColor,
-                        unselectedLabelColor:
-                            const Color.fromRGBO(0, 0, 0, 0.54),
-                        tabs: [
-                          Tab(
-                            text: S
-                                .of(context)
-                                .parking_view_categories_students
-                                .toUpperCase(),
-                          ),
-                          Tab(
-                            text: S
-                                .of(context)
-                                .parking_view_categories_staff
-                                .toUpperCase(),
-                          ),
-                          Tab(
-                            text: S
-                                .of(context)
-                                .parking_view_categories_guests
-                                .toUpperCase(),
-                          ),
-                        ],
+                      Tab(
+                        text: S
+                            .of(context)
+                            .parking_view_categories_staff
+                            .toUpperCase(),
+                      ),
+                      Tab(
+                        text: S
+                            .of(context)
+                            .parking_view_categories_guests
+                            .toUpperCase(),
                       ),
                     ],
                   ),
                   Expanded(
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 6, horizontal: 12),
+                      padding: const EdgeInsets.all(6),
                       width: double.infinity,
                       color: AppColors.parkingViewBackgroundColor,
-                      child: Column(
-                        children: [
-                          Consumer<AppViewModel>(
-                            builder: (context, model, child) {
-                              if (model.isBusy) {
-                                return const Expanded(
-                                  child: Center(
-                                      child: CircularProgressIndicator()),
-                                );
-                              }
-                              return Expanded(
-                                child: TabBarView(
-                                  controller: _tabController,
-                                  children: [
-                                    createParkingTabListView(
-                                        model, ParkingLotCategory.students),
-                                    createParkingTabListView(
-                                        model, ParkingLotCategory.staff),
-                                    createParkingTabListView(
-                                        model, ParkingLotCategory.guests),
-                                  ],
-                                ),
-                              );
-                            },
-                          )
-                        ],
+                      child: Consumer<AppViewModel>(
+                        builder: (context, model, child) {
+                          if (model.isBusy) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+                          return TabBarView(
+                            controller: _tabController,
+                            children: [
+                              createParkingTabListView(
+                                  model, ParkingLotCategory.students),
+                              createParkingTabListView(
+                                  model, ParkingLotCategory.staff),
+                              createParkingTabListView(
+                                  model, ParkingLotCategory.guests),
+                            ],
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -164,15 +139,19 @@ class _ParkingViewState extends State<ParkingView>
   ) {
     return RefreshIndicator(
       onRefresh: () => context.read<AppViewModel>().updateSilently(context),
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          final currentModel = model.getParkingLotsByCategory(category)[index];
-          return ChangeNotifierProvider.value(
-            value: currentModel,
-            child: ParkingListViewItem(category: category),
-          );
-        },
-        itemCount: model.getParkingLotsByCategory(category).length,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 6),
+        child: ListView.builder(
+          itemBuilder: (context, index) {
+            final currentModel =
+                model.getParkingLotsByCategory(category)[index];
+            return ChangeNotifierProvider.value(
+              value: currentModel,
+              child: ParkingListViewItem(category: category),
+            );
+          },
+          itemCount: model.getParkingLotsByCategory(category).length,
+        ),
       ),
     );
   }

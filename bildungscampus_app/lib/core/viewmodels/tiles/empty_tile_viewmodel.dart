@@ -17,6 +17,7 @@ class EmptyTileViewModel extends BaseStartTileViewModel {
             date: DateTime.now(),
             slides: [],
             isActive: false,
+            headline: [],
           ),
         );
 }
